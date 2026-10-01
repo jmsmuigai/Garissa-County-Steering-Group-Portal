@@ -72,7 +72,7 @@ export default function Header() {
         </div>
       </div>
       <nav className={`border-t border-white/10 bg-night-2 ${open ? 'block' : 'hidden'} lg:block`}>
-        <ul className="scroll-thin mx-auto flex max-w-[1500px] flex-col gap-0.5 px-3 py-1 lg:flex-row lg:items-center lg:overflow-x-auto lg:whitespace-nowrap">
+        <ul className="no-scrollbar mx-auto flex max-w-[1500px] flex-col gap-0.5 px-3 py-1 lg:flex-row lg:items-center lg:overflow-x-auto lg:whitespace-nowrap">
           {NAV.map(({ to, key, icon: Icon }) => (
             <li key={to}>
               <NavLink to={to} end={to === '/'} onClick={() => setOpen(false)}
