@@ -1,0 +1,54 @@
+{
+ "county_area_km2": 44813,
+ "tana_length_km": 708,
+ "tana_reach_garissa_km": 395,
+ "schools": 267,
+ "schools_high_risk": 109,
+ "schools_medium_risk": 33,
+ "health_facilities": 87,
+ "boreholes": 190,
+ "water_pans": 322,
+ "nbs_sites": 76,
+ "laghas": 1100,
+ "structures_affected_2024": 3377,
+ "met_stations": 33,
+ "blindfolds": 12,
+ "buffers": {
+  "0.5": {
+   "schools": 1,
+   "health": 1,
+   "boreholes": 25,
+   "water_pans": 1
+  },
+  "1": {
+   "schools": 6,
+   "health": 8,
+   "boreholes": 31,
+   "water_pans": 1
+  },
+  "2": {
+   "schools": 28,
+   "health": 13,
+   "boreholes": 56,
+   "water_pans": 1
+  },
+  "5": {
+   "schools": 60,
+   "health": 26,
+   "boreholes": 62,
+   "water_pans": 3
+  },
+  "10": {
+   "schools": 76,
+   "health": 33,
+   "boreholes": 65,
+   "water_pans": 11
+  }
+ },
+ "flood_2023_viirs_ha": 243942,
+ "flood_2023_town_ha": 4570,
+ "flood_2023_dadaab_ha": 11063,
+ "flood_2024_tana_ha": 8704,
+ "pop_exposed_2023_town": 19001,
+ "pop_exposed_2023_dadaab": 27655
+}
