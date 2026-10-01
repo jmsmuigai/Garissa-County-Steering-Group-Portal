@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, LayersControl, GeoJSON, Tooltip, Marker, Popup, Circle } from 'react-leaflet';
+import { MapContainer, TileLayer, LayersControl, Circle, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Menu, Info, Map, AlertTriangle, Activity, Leaf, ShieldAlert } from 'lucide-react';
+import Chatbot from './Chatbot';
+import HealthAndWash from './HealthAndWash';
+import NatureBasedSolutions from './NatureBasedSolutions';
 
 const { BaseLayer, Overlay } = LayersControl;
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('map');
+  const [showChatbot, setShowChatbot] = useState(false);
 
   return (
     <div className="flex flex-col h-screen w-full bg-garissa-light overflow-hidden font-sans">
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 bg-white shadow-md z-20">
         <div className="flex items-center space-x-4">
-          {/* Placeholder for actual logo */}
           <div className="w-12 h-12 bg-garissa-red rounded-full flex items-center justify-center text-white font-bold text-xl shadow-inner">
             GC
           </div>
@@ -46,9 +49,12 @@ const App = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 relative flex">
-        {activeTab === 'map' && <MapDashboard />}
+        {activeTab === 'map' && <MapDashboard onOpenChatbot={() => setShowChatbot(true)} />}
         {activeTab === 'elnino' && <ElNinoWarning />}
-        {/* other tabs can go here */}
+        {activeTab === 'health' && <HealthAndWash />}
+        {activeTab === 'nbs' && <NatureBasedSolutions />}
+
+        {showChatbot && <Chatbot />}
       </main>
 
       {/* Footer */}
@@ -66,8 +72,7 @@ const App = () => {
 };
 
 /* --- Component: MapDashboard --- */
-const MapDashboard = () => {
-  // Center of Garissa
+const MapDashboard = ({ onOpenChatbot }: { onOpenChatbot: () => void }) => {
   const position: [number, number] = [-0.4532, 39.6401];
 
   return (
@@ -84,7 +89,6 @@ const MapDashboard = () => {
           <div>
             <h3 className="font-medium text-gray-700 mb-2">Active Layers</h3>
             <p className="text-xs text-gray-500 mb-2">Use the layer icon on the top right of the map to toggle datasets.</p>
-            {/* Mock legend */}
             <ul className="space-y-2 text-sm text-gray-600">
               <li className="flex items-center"><span className="w-3 h-3 rounded-full bg-blue-500 mr-2"></span> Boreholes</li>
               <li className="flex items-center"><span className="w-3 h-3 rounded-full bg-red-500 mr-2"></span> Schools</li>
@@ -95,7 +99,7 @@ const MapDashboard = () => {
         </div>
         
         <div className="mt-auto pt-4 border-t">
-          <button className="w-full btn-primary flex justify-center items-center">
+          <button onClick={onOpenChatbot} className="w-full btn-primary flex justify-center items-center">
             Ask AI Assistant
           </button>
         </div>
@@ -105,7 +109,6 @@ const MapDashboard = () => {
       <div className="flex-1 h-full w-full">
         <MapContainer center={position} zoom={8} className="w-full h-full" zoomControl={false}>
           <LayersControl position="topright">
-            {/* Base Maps */}
             <BaseLayer checked name="Google Hybrid">
               <TileLayer
                 url="http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}"
@@ -118,17 +121,11 @@ const MapDashboard = () => {
                 attribution="&copy; OpenStreetMap contributors"
               />
             </BaseLayer>
-
-            {/* Overlays */}
             <Overlay checked name="Tana River Buffer">
               <Circle center={position} pathOptions={{ fillColor: 'blue', color: 'blue' }} radius={10000}>
                 <Popup>Tana River Flood Risk Buffer (10km)</Popup>
               </Circle>
             </Overlay>
-            
-            {/* Add GeoJSON layers here when data is fetched */}
-            {/* <Overlay name="Schools"> <GeoJSON data={schoolsData} /> </Overlay> */}
-            
           </LayersControl>
         </MapContainer>
       </div>
@@ -141,7 +138,7 @@ const ElNinoWarning = () => {
   return (
     <div className="p-8 w-full h-full overflow-y-auto bg-gray-50">
       <div className="max-w-5xl mx-auto space-y-6">
-        <div className="glass-panel p-6 bg-red-50 border-red-200">
+        <div className="glass-panel p-6 bg-red-50 border-red-200 shadow-sm">
           <h2 className="text-2xl font-bold text-red-800 flex items-center">
             <AlertTriangle className="w-8 h-8 mr-3" />
             EXTREME WEATHER ALERT: El Niño Season
@@ -179,8 +176,10 @@ const ElNinoWarning = () => {
             </div>
           </div>
           
-          <div className="glass-panel p-6 flex items-center justify-center bg-gray-100">
-            <p className="text-gray-500 text-center">[Time Series Chart Placeholder]<br/>(Recharts will be implemented here to show historical vs forecasted rain)</p>
+          <div className="glass-panel p-6 flex flex-col items-center justify-center bg-white border border-gray-100 text-center">
+            <Activity className="w-12 h-12 text-gray-300 mb-3" />
+            <p className="text-gray-500 font-medium">Recharts Time Series Placeholder</p>
+            <p className="text-sm text-gray-400 mt-2">Historical vs Forecasted rainfall data integration pending.</p>
           </div>
         </div>
       </div>
