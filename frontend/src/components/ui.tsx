@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { Languages, Loader2 } from 'lucide-react'
 import { backendAvailable, postJSON } from '../lib/api'
+import { getGeminiKey, geminiTranslate } from '../lib/gemini'
 import { useApp } from '../lib/store'
 import { t } from '../lib/i18n'
 
@@ -55,9 +56,17 @@ export function TranslatePage({ targetId }: { targetId: string }) {
   const [msg, setMsg] = useState('')
   if (lang === 'en') return null
   const run = async () => {
-    if (!(await backendAvailable())) { setMsg('AI translation needs the CSG server running with a Gemini API key.'); return }
+    const server = await backendAvailable()
+    if (!server && !getGeminiKey()) { setMsg('AI translation needs a Gemini key: open the assistant (bottom right), tap the key icon and paste your key.'); return }
     setBusy(true)
     const nodes = Array.from(document.querySelectorAll(`#${targetId} [data-tr]`)) as HTMLElement[]
+    if (!server) {
+      for (const n of nodes) {
+        try { n.innerText = await geminiTranslate(n.innerText, lang) } catch (e: any) { setMsg(`Translation stopped: ${e?.message || e}`); break }
+      }
+      setBusy(false)
+      return
+    }
     for (const n of nodes) {
       try {
         const r = await postJSON('/api/translate', { text: n.innerText, target: lang })

@@ -30,15 +30,15 @@ export default function Home() {
     <>
       {/* alert ribbon */}
       <div className="text-white" style={{ background: `linear-gradient(90deg, ${LEVEL_COLORS[lvl] || '#f28c28'}, #7a2614)` }}>
-        <div className="mx-auto flex max-w-[1500px] flex-wrap items-center gap-x-5 gap-y-1 px-4 py-2.5 text-[15px]">
-          <span className="flex items-center gap-2 font-display text-lg font-bold"><Siren size={20} /> El Niño flood watch</span>
-          <span className="hidden md:inline">ECMWF & US-AI models: up to <b>350 mm</b> over the Upper Tana in 14 days · KMD: above-average OND rain, onset 1st–2nd week of October</span>
-          {worst && <span>River Tana scenario peak <b>{worst.peak_stage_m} m</b> ({worst.level})</span>}
-          <Link to="/elnino" className="ml-auto rounded-lg bg-white/20 px-3 py-1 font-semibold hover:bg-white/30">See the outlook</Link>
+        <div className="mx-auto flex max-w-[1500px] items-center gap-x-4 px-4 py-1 text-[13px]">
+          <span className="flex shrink-0 items-center gap-1.5 font-display text-[14px] font-bold"><Siren size={16} /> El Niño flood watch</span>
+          <span className="hidden min-w-0 truncate md:inline">ECMWF & US-AI models: up to <b>350 mm</b> over the Upper Tana in 14 days · KMD: above-average OND rain, onset 1st–2nd week of October</span>
+          {worst && <span className="shrink-0 max-lg:hidden">River Tana scenario peak <b>{worst.peak_stage_m} m</b> ({worst.level})</span>}
+          <Link to="/elnino" className="ml-auto shrink-0 rounded-md bg-white/20 px-2.5 py-0.5 text-[12.5px] font-semibold hover:bg-white/30">See the outlook</Link>
         </div>
       </div>
 
-      <SmartMap height="calc(100svh - 130px)" forecastPeak={worst ? { stage: worst.peak_stage_m, label: 'US-AI scenario peak' } : undefined} />
+      <SmartMap height="fill" forecastPeak={worst ? { stage: worst.peak_stage_m, label: 'US-AI scenario peak' } : undefined} />
 
       {/* today at a glance */}
       <Section>

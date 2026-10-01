@@ -7,16 +7,23 @@ Works on phones, tablets and laptops. Change language with **EN / SW / SO** at t
 
 ## 1. Risk map (home page)
 
-1. **Layers** (stack icon, left): tick layers on/off. Groups: Boundaries · River Tana & floods · Hazards ·
-   Assets · Upper Tana & dams · Nature-based solutions · Terrain, land & people.
-2. **Basemap** (top right button): Google Hybrid, Google Satellite, Google Roads, OpenStreetMap, Esri imagery, Topo, dark/light.
-3. **Hover or tap** any feature for its attributes. **Fit to Garissa** (crosshair icon) returns to the county; the arrows icon opens full screen.
-4. **Flood tools** (waves icon):
+The map fills the screen below the menu. Everything around it is a small **floating window**:
+
+* **Move** a window by dragging its title bar (the ⋮⋮ grip). Put it wherever it doesn't hide what you are looking at.
+* **Fold** it to just its title with the **–** button (or double-click the title bar); **+** opens it again. **×** closes it.
+* On phones the windows dock at the bottom of the screen instead of floating.
+
+Toolbar (left edge, top to bottom): **Am I at risk?** · **Map layers** · **Flood & buffer tools** · **Base map** · **Fit to Garissa** · **Full screen** · **My location**.
+
+1. **Map layers** window: tick layers on/off. Groups: Boundaries · River Tana & floods · Hazards · Assets & services · Upper Tana & dams · Nature-based solutions · Terrain, land & people.
+2. **Base map** window (map icon, or the small chip under the zoom buttons): Google Hybrid, Google Satellite, Google Maps (streets), Google Terrain, OpenStreetMap, OSM Humanitarian, OpenTopoMap, Esri imagery, Esri streets, Esri topo, Carto light and Carto dark.
+3. **Hover or tap** any feature for a compact label with its attributes.
+4. **Flood & buffer tools** window:
    * *Flood simulator* – slide the Garissa gauge from 3.0 to 7.5 m to see which areas go under water.
    * *Flood wave* – press Play to watch a Masinga spill travel down the Tana to Garissa and the Delta.
-   * *River Tana buffer* – choose 0.5, 1, 2 or 5 km and read how many schools, health facilities and boreholes fall inside.
+   * *River Tana buffer* – choose 0.5, 1, 2 or 5 km and read how many schools, health facilities, boreholes and water pans fall inside.
    * *Buffer a point* – click anywhere to count assets within a radius.
-5. **Legend** (bottom right) updates with the layers you turn on. The **staff gauge** shows the forecast peak against the CSG thresholds.
+5. **Legend** window updates with the layers you turn on. The **Tana gauge** window (bottom left) shows the forecast peak against the CSG thresholds.
 
 ## 2. "Am I at risk?"
 
@@ -78,11 +85,21 @@ Life-threatening: call **1199** (Kenya Red Cross) or **999 / 112** first.
 Ask in English, Kiswahili or Somali. Examples:
 * "Show schools within 2 km of the Tana in Balambala"
 * "Simulate a 6 m flood at Garissa"
-* "Switch to OpenStreetMap and show laghas"
+* "Switch to OpenStreetMap and show laghas" · "Google terrain"
 * "What does the El Niño outlook say?" · "Which diseases follow the floods?"
-* "Make me a map" (opens Community maps)
+* "Is Saka in a flood risk area?" · "Make me a map"
 
-With a Gemini key on the server the assistant reasons over the portal's tools; without it a built-in engine handles common requests.
+### Switch on Gemini (full AI)
+
+1. Get a free key at **https://aistudio.google.com/apikey** (sign in with Google → *Create API key* → copy it; it starts with `AIza`).
+2. On the portal, open the assistant (bottom right) and tap the **key icon** in its title bar.
+3. **Paste** the key, choose *Gemini 2.5 Flash* (fast) or *Gemini 2.5 Pro* (smartest) and press **Save & test**. "Connected" means it works; the key icon turns green.
+4. The key is kept only in that browser on that device. It is never written into the website or GitHub. Use **Remove** to delete it.
+   Each person or office computer adds its own key. The same key also powers **Translate page with AI**.
+
+When the portal runs on the county server (`start_portal.command`), put the key once in the `.env` file instead: `GEMINI_API_KEY=AIza…`, then restart. Everyone using that server gets Gemini without pasting a key.
+
+Without any key the assistant still works with its built-in engine for common requests.
 
 ## 11. For administrators
 

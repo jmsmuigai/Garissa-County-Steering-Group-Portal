@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Bot, Send, X, Sparkles, Loader2 } from 'lucide-react'
+import { Bot, Send, X, Sparkles, Loader2, KeyRound, Check } from 'lucide-react'
 import { mapBus, useApp, type MapAction } from '../lib/store'
-import { backendAvailable, geo, postJSON } from '../lib/api'
+import { backendAvailable, geo, postJSON, getJSON } from '../lib/api'
+import { getGeminiKey, setGeminiKey, getGeminiModel, setGeminiModel, geminiChat, testGemini } from '../lib/gemini'
 import { LAYERS } from '../lib/layers'
 import { t } from '../lib/i18n'
 import { assessLocation, searchPlaces } from '../lib/risk'
@@ -63,7 +64,7 @@ async function offline(q: string): Promise<{ reply: string; map_actions: MapActi
   const s = q.toLowerCase()
   const acts: MapAction[] = []
   const lines: string[] = []
-  const bm = [['hybrid', 'google_hybrid'], ['satellite', 'google_satellite'], ['openstreetmap', 'osm'], ['osm', 'osm'], ['terrain', 'topo'], ['topo', 'topo'], ['dark', 'carto_dark']].find(([w]) => s.includes(w))
+  const bm = [['hybrid', 'google_hybrid'], ['google satellite', 'google_satellite'], ['satellite', 'google_satellite'], ['google map', 'google_roads'], ['street', 'google_roads'], ['google terrain', 'google_terrain'], ['humanitarian', 'osm_hot'], ['openstreetmap', 'osm'], ['open street map', 'osm'], ['osm', 'osm'], ['esri', 'esri_imagery'], ['terrain', 'google_terrain'], ['topo', 'topo'], ['dark', 'carto_dark'], ['light', 'carto_light']].find(([w]) => s.includes(w))
   if (bm) { acts.push({ type: 'basemap', id: bm[1] }); lines.push(`Basemap: ${bm[1].replace('_', ' ')}.`) }
   const dm = s.match(/(\d+(?:\.\d+)?)\s*km/)
   const dist = dm ? +dm[1] : null
@@ -96,6 +97,25 @@ async function offline(q: string): Promise<{ reply: string; map_actions: MapActi
   return { reply: lines.join('\n'), map_actions: acts }
 }
 
+let ctxCache: Promise<string> | null = null
+function portalContext(): Promise<string> {
+  if (!ctxCache) ctxCache = (async () => {
+    const lines = KB.map(([, t]) => '- ' + t)
+    try {
+      const f: any = await getJSON('/api/forecast')
+      const tn = f?.tana || {}
+      Object.entries(tn).forEach(([k, v]: [string, any]) => { if (v?.peak_stage_m) lines.push(`- Tana scenario ${k}: peak ${v.peak_stage_m} m at Garissa (${v.level}), ${v.peak_discharge_m3s} m3/s, peak time ${v.peak_time}`) })
+      if (f?.ensemble?.exceedance_pct) lines.push('- 14-day Upper Tana rain: blend ' + f.ensemble.blend_total_mm + ' mm, median ' + f.ensemble.median_mm + ' mm, p90 ' + f.ensemble.p90_mm + ' mm; exceedance odds (%) ' + JSON.stringify(f.ensemble.exceedance_pct))
+    } catch { /* static data missing */ }
+    try {
+      const pl = await geo('places.geojson')
+      lines.push('- Places (name lat lon): ' + pl.features.map((x: any) => `${x.properties.name} ${x.geometry.coordinates[1].toFixed(3)} ${x.geometry.coordinates[0].toFixed(3)}`).join('; '))
+    } catch { /* noop */ }
+    return lines.join('\n')
+  })()
+  return ctxCache
+}
+
 export default function ChatBot() {
   const { lang } = useApp()
   const nav = useNavigate()
@@ -104,6 +124,11 @@ export default function ChatBot() {
   const [msgs, setMsgs] = useState<Msg[]>([])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
+  const [showKey, setShowKey] = useState(false)
+  const [keyIn, setKeyIn] = useState('')
+  const [model, setModel] = useState(getGeminiModel())
+  const [keyMsg, setKeyMsg] = useState('')
+  const [hasKey, setHasKey] = useState(!!getGeminiKey())
   const end = useRef<HTMLDivElement>(null)
   useEffect(() => { end.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs, busy])
 
@@ -117,7 +142,8 @@ export default function ChatBot() {
       if (local) res = { ...local, engine: 'portal GIS' }
       else if (/make (a|me a|my) map|download (a )?map|community map/.test(text.toLowerCase())) res = { reply: 'Opening Community maps – choose what to map, filter it, then download a colour PNG, CSV or GeoJSON.', map_actions: [{ type: 'navigate', page: 'community' }], engine: 'portal' }
       else if (await backendAvailable()) res = await postJSON('/api/chat', { messages: next.map(({ role, content }) => ({ role, content })), lang })
-      else res = { ...(await offline(text)), engine: 'browser' }
+      else if (getGeminiKey()) res = { ...(await geminiChat(next, lang, await portalContext())), engine: `Gemini (${getGeminiModel()}, your key)` }
+      else res = { ...(await offline(text)), engine: 'built-in (add a Gemini key for full AI)' }
     } catch {
       res = { ...(await offline(text)), engine: 'browser' }
     }
@@ -142,10 +168,32 @@ export default function ChatBot() {
         <section className="fixed bottom-4 right-4 z-[1200] flex h-[min(640px,85vh)] w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/10" aria-label="AI assistant">
           <header className="flex items-center gap-2 bg-night px-4 py-3 text-white">
             <Sparkles size={20} className="text-sand" />
-            <div className="flex-1"><div className="font-display font-bold">{t('chat.title', lang)}</div><div className="text-xs text-white/65">Gemini-powered · acts on the map · EN / SW / SO</div></div>
+            <div className="flex-1"><div className="font-display font-bold">{t('chat.title', lang)}</div><div className="text-xs text-white/65">{hasKey ? 'Gemini connected' : 'Add a Gemini key (key icon) for full AI'} · EN / SW / SO</div></div>
+            <button onClick={() => setShowKey(!showKey)} title="Gemini API key" aria-label="Gemini API key settings" className={`rounded-full p-1.5 hover:bg-white/10 ${hasKey ? 'text-[#7ee08a]' : 'text-sand'}`}><KeyRound size={16} /></button>
             <button onClick={() => setOpen(false)} aria-label="Close" className="rounded-full p-1 hover:bg-white/10"><X size={18} /></button>
           </header>
-          <div className="flex-1 space-y-3 overflow-y-auto bg-paper p-4 text-[15px]">
+          {showKey && (
+            <div className="space-y-2 border-b bg-sand-light p-3 text-[12.5px]">
+              <div className="font-semibold">Gemini API key {hasKey && <span className="ml-1 inline-flex items-center gap-0.5 text-acacia"><Check size={13} /> saved on this device</span>}</div>
+              <p className="m-0 text-muted">Get a free key at <a className="underline" href="https://aistudio.google.com/apikey" target="_blank" rel="noreferrer">aistudio.google.com/apikey</a>, paste it here and press Save. It stays only in this browser – it is not added to the website.</p>
+              <input id="gemini-key" type="password" autoComplete="off" value={keyIn} onChange={(e) => setKeyIn(e.target.value)} placeholder={hasKey ? '•••••••• (key saved)' : 'Paste key, e.g. AIza…'} className="w-full rounded-lg border border-black/15 bg-white px-2.5 py-1.5" />
+              <div className="flex flex-wrap items-center gap-2">
+                <select id="gemini-model" value={model} onChange={(e) => { setModel(e.target.value); setGeminiModel(e.target.value) }} className="rounded-lg border border-black/15 bg-white px-2 py-1">
+                  <option value="gemini-2.5-flash">Gemini 2.5 Flash (fast)</option>
+                  <option value="gemini-2.5-pro">Gemini 2.5 Pro (smartest)</option>
+                </select>
+                <button onClick={async () => {
+                  if (keyIn.trim()) setGeminiKey(keyIn)
+                  setKeyMsg('Testing…')
+                  try { await testGemini(); setHasKey(true); setKeyIn(''); setKeyMsg('Connected – the assistant now uses Gemini.') }
+                  catch (e: any) { setKeyMsg(e?.message === 'no-key' ? 'Paste a key first.' : `Gemini refused the key: ${e?.message || e}`); if (keyIn.trim()) { setGeminiKey(''); setHasKey(false) } }
+                }} className="rounded-lg bg-tana px-3 py-1 font-semibold text-white">Save & test</button>
+                {hasKey && <button onClick={() => { setGeminiKey(''); setHasKey(false); setKeyMsg('Key removed from this device.') }} className="rounded-lg bg-white px-3 py-1 font-semibold ring-1 ring-black/15">Remove</button>}
+              </div>
+              {keyMsg && <div className="text-muted">{keyMsg}</div>}
+            </div>
+          )}
+          <div className="flex-1 space-y-3 overflow-y-auto bg-paper p-3 text-[13.5px]">
             <div className="rounded-2xl rounded-tl-sm bg-white p-3 shadow-sm">{t('chat.hello', lang)}</div>
             {!msgs.length && <div className="flex flex-wrap gap-2">{SUGGEST.map((s) => <button key={s} onClick={() => send(s)} className="rounded-full border border-tana/40 bg-white px-3 py-1.5 text-left text-sm text-tana-deep hover:bg-tana-light">{s}</button>)}</div>}
             {msgs.map((m, i) => (
@@ -158,7 +206,7 @@ export default function ChatBot() {
             <div ref={end} />
           </div>
           <form onSubmit={(e) => { e.preventDefault(); send(input) }} className="flex gap-2 border-t p-3">
-            <input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t('chat.placeholder', lang)} className="flex-1 rounded-xl border border-black/15 px-3 py-2 text-[15px] focus:border-tana focus:outline-none" aria-label="Message" />
+            <input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t('chat.placeholder', lang)} className="flex-1 rounded-xl border border-black/15 px-3 py-2 text-[13.5px] focus:border-tana focus:outline-none" aria-label="Message" />
             <button type="submit" disabled={busy} className="rounded-xl bg-tana px-3 text-white hover:bg-tana-deep disabled:opacity-50" aria-label="Send"><Send size={18} /></button>
           </form>
         </section>

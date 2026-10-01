@@ -21,13 +21,13 @@ Policy, and two-way emergency reporting – with a Gemini-powered GeoAI assistan
 
 Requirements: Python 3.10+ and (only to rebuild the site) Node.js 20+.
 
-Enable the AI features by copying `.env.example` to `.env` and setting `GEMINI_API_KEY`.
+**Gemini AI:** on the live site, open the assistant → key icon → paste a key from https://aistudio.google.com/apikey → *Save & test* (kept only in that browser). On a county server, set `GEMINI_API_KEY` in `.env` (copy from `.env.example`) instead.
 
 ## What is inside
 
 | Page | What it does |
 |---|---|
-| **Risk map** (home) | Google Hybrid / Satellite / OSM / Esri / Topo / dark basemaps; 30+ toggleable layers (county boundary in bright red, sub-counties, River Tana, 0.5–5 km Tana buffers with asset counts, UNOSAT 2023–24 flood extents, flood simulator 3.0–7.5 m, laghas by flash-flood hazard, Tana "blind folds", schools, health facilities, boreholes, water pans, Dadaab camps, KMD stations, Seven Forks dams and catchment, flood-wave travel markers, NBS sites, SRTM elevation, LUC2010 & ESA WorldCover land use, WorldPop density, live NASA IMERG rain); compass, legend, scale, coordinates, hover/click attributes, flood-wave animation, River Tana staff gauge, buffer tool, fullscreen. |
+| **Risk map** (home) | Full-screen map with movable, foldable windows (layers, legend, tools, base maps, results, gauge); 12 basemaps (Google Hybrid / Satellite / Maps / Terrain, OSM, OSM Humanitarian, OpenTopoMap, Esri imagery / streets / topo, Carto light / dark); 30+ toggleable layers (county boundary in bright red, sub-counties, River Tana, 0.5–5 km Tana buffers with asset counts, UNOSAT 2023–24 flood extents, flood simulator 3.0–7.5 m, laghas by flash-flood hazard, Tana "blind folds", schools, health facilities, boreholes, water pans, Dadaab camps, KMD stations, Seven Forks dams and catchment, flood-wave travel markers, NBS sites, SRTM elevation, LUC2010 & ESA WorldCover land use, WorldPop density, live NASA IMERG rain); compass, legend, scale, coordinates, hover/click attributes, flood-wave animation, River Tana staff gauge, buffer tool, fullscreen. |
 | **Am I at risk?** | GPS, place search, coordinates or tap-the-map → HIGH/MEDIUM/LOW verdict from past flood extents, flood-simulation stage, distance to the Tana and laghas, land cover; nearest 5 schools and 5 health facilities with directions; sources cited. Also answerable from the chat assistant ("Is Saka at risk?"). |
 | **El Niño warning** | Model showdown (ECMWF, US-AI, GFS, AI-ECMWF, KMD) and the Director's 700 mm scenario; Python Monte-Carlo ensemble with exceedance odds; live Open-Meteo multi-model charts; Tana stage forecast with Masinga fill slider; OND outlook; sub-county impacts. |
 | **Tana & Seven Forks** | Dam cascade with fill/spill, flood-wave travel times Kiambere → Garissa (36–48 h) → Delta (96–120 h), gauge forecast against CSG thresholds (4.0 / 5.0 / 6.2 m). |

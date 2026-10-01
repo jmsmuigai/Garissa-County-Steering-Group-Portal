@@ -9,6 +9,7 @@ import { BASEMAPS, LAYERS, LAYER_BY_ID, colorFor, type LayerDef } from '../lib/l
 import { geo, DATA } from '../lib/api'
 import { mapBus, levelFor, LEVEL_COLORS, useApp, type MapAction } from '../lib/store'
 import { t } from '../lib/i18n'
+import FloatPanel from './FloatPanel'
 import StaffGauge from './StaffGauge'
 import RiskPanel from './RiskPanel'
 import type { RiskResult } from '../lib/risk'
@@ -47,7 +48,7 @@ function Engine(p: EngineProps) {
   // ---- basemap
   useEffect(() => {
     const b = BASEMAPS.find((x) => x.id === p.basemap) || BASEMAPS[0]
-    const tl = L.tileLayer(b.url, { subdomains: b.sub.length ? b.sub : 'abc', attribution: b.attr, maxZoom: 20, crossOrigin: true } as any)
+    const tl = L.tileLayer(b.url, { subdomains: b.sub.length ? b.sub : 'abc', attribution: b.attr, maxZoom: 21, maxNativeZoom: b.maxZoom ?? 19, crossOrigin: true } as any)
     tl.addTo(map)
     tl.bringToBack()
     const old = base.current
@@ -202,9 +203,9 @@ function buildLayer(def: LayerDef, g: any, stage: number, bufferKm: number): L.L
       return { color: def.kind === 'polygon' && def.fillOpacity && def.fillOpacity > 0.3 ? c : c, weight: def.weight ?? 2, fillColor: c, fillOpacity: def.fillOpacity ?? 0.2, dashArray: def.dash, opacity: 0.95 }
     },
     pointToLayer: (f: any, latlng) =>
-      L.circleMarker(latlng, { radius: def.radius ?? 6, color: '#142338', weight: 1.4, fillColor: colorFor(def, f.properties), fillOpacity: 0.95 }),
+      L.circleMarker(latlng, { radius: (def.radius ?? 6) * 0.8, color: '#142338', weight: 1, fillColor: colorFor(def, f.properties), fillOpacity: 0.95 }),
     onEachFeature: (f: any, lyr) => {
-      lyr.bindTooltip(def.tip(f.properties || {}) + `<div style="opacity:.65;font-size:11px;margin-top:4px">${def.label}</div>`, { className: 'csg-tip', sticky: def.kind !== 'point', direction: 'top', offset: [0, -6] })
+      lyr.bindTooltip(def.tip(f.properties || {}) + `<div style="opacity:.6;font-size:10px;margin-top:2px">${def.label}</div>`, { className: 'csg-tip', sticky: def.kind !== 'point', direction: 'top', offset: [0, -6] })
       if (def.kind !== 'point') {
         lyr.on('mouseover', (e: any) => e.target.setStyle?.({ weight: (def.weight ?? 2) + 2.5 }))
         lyr.on('mouseout', (e: any) => e.target.setStyle?.({ weight: def.weight ?? 2 }))
@@ -313,182 +314,195 @@ export default function SmartMap({ height = '78vh', initial, focus = 'garissa', 
     setTimeout(() => (window as any).__csgMap?.invalidateSize(), 300)
   }
 
+  // 'fill' = take all the screen space below the page header
+  const [fillH, setFillH] = useState<number | null>(null)
+  useEffect(() => {
+    if (height !== 'fill') return
+    const calc = () => { const top = (wrap.current?.getBoundingClientRect().top ?? 0) + window.scrollY; setFillH(Math.max(420, window.innerHeight - top)) }
+    calc()
+    window.addEventListener('resize', calc)
+    return () => window.removeEventListener('resize', calc)
+  }, [height])
+  useEffect(() => { setTimeout(() => (window as any).__csgMap?.invalidateSize(), 50) }, [fillH])
+  const h = full ? '100vh' : height === 'fill' ? (fillH ? `${fillH}px` : 'calc(100svh - 120px)') : height
+  const bm = BASEMAPS.find((b) => b.id === basemap)
+
   return (
-    <div ref={wrap} className="relative overflow-hidden bg-night" style={{ height: full ? '100vh' : height }}>
+    <div ref={wrap} className="relative overflow-hidden bg-night" style={{ height: h }}>
       <MapContainer center={[-0.45, 39.9]} zoom={7} zoomControl={false} className="h-full w-full" ref={(m) => { if (m) (window as any).__csgMap = m }} preferCanvas>
         <Engine visible={visible} basemap={basemap} stage={stage} bufferKm={bufferKm} waveHour={waveHour} highlight={highlight} circle={circle}
           bufferTool={bufferTool || pickMode} me={me} onCoord={setCoord} onMapClick={onMapClick} fitKey={fitKey} focus={focus} onZoom={setZoom} />
       </MapContainer>
 
-      {/* map title */}
-      <div className="pointer-events-none absolute left-1/2 top-3 z-[500] -translate-x-1/2 rounded-xl bg-night/85 px-5 py-2 text-center text-white shadow-lg backdrop-blur max-w-[70vw] max-sm:hidden">
-        <div className="font-display text-lg font-bold leading-tight">{t('home.mapTitle', lang)}</div>
-        <div className="text-xs text-white/70">WGS 84 · Garissa CSG GIS · data: UNOSAT, HydroSHEDS, KMD, NBSOS, County departments</div>
-      </div>
+      {/* map title - small, out of the way */}
+      {!compact && (
+        <div className="pointer-events-none absolute left-1/2 top-2 z-[500] -translate-x-1/2 rounded-lg bg-night/75 px-3 py-1 text-center text-white shadow backdrop-blur max-md:hidden">
+          <div className="font-display text-[13px] font-bold leading-tight">{t('home.mapTitle', lang)}</div>
+          <div className="text-[10px] text-white/65">WGS 84 · Garissa CSG GIS · UNOSAT, HydroSHEDS, KMD, NBSOS</div>
+        </div>
+      )}
 
       {/* left toolbar */}
-      <div className="absolute left-3 top-3 z-[600] flex flex-col gap-2">
+      <div className="absolute left-2 top-2 z-[600] flex flex-col gap-1.5">
         <button onClick={() => setPanel(panel === 'risk' ? null : 'risk')} aria-label="Am I at risk? Check my location"
-          className={`flex h-11 items-center gap-2 rounded-xl px-3 font-semibold shadow-lg ${panel === 'risk' ? 'bg-white text-night' : 'bg-sand text-night hover:brightness-95'}`}>
-          <ShieldAlert size={20} /><span className="max-sm:hidden">Am I at risk?</span></button>
-        <ToolBtn active={panel === 'layers'} onClick={() => setPanel(panel === 'layers' ? null : 'layers')} label={t('home.layers', lang)}><Layers size={20} /></ToolBtn>
-        <ToolBtn active={panel === 'analysis'} onClick={() => setPanel(panel === 'analysis' ? null : 'analysis')} label="Flood & buffer tools"><Waves size={20} /></ToolBtn>
-        <ToolBtn onClick={() => { setFitKey((k) => k + 1); setHighlight(null); setCircle(null) }} label={t('home.reset', lang)}><Crosshair size={20} /></ToolBtn>
-        <ToolBtn onClick={toggleFull} label="Full screen">{full ? <Minimize2 size={20} /> : <Maximize2 size={20} />}</ToolBtn>
-        <ToolBtn onClick={() => navigator.geolocation?.getCurrentPosition((pos) => (window as any).__csgMap?.flyTo([pos.coords.latitude, pos.coords.longitude], 13))} label="My location"><LocateFixed size={20} /></ToolBtn>
+          className={`flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-semibold shadow-lg ${panel === 'risk' ? 'bg-white text-night' : 'bg-sand text-night hover:brightness-95'}`}>
+          <ShieldAlert size={17} /><span className="max-sm:hidden">Am I at risk?</span></button>
+        <ToolBtn active={panel === 'layers'} onClick={() => setPanel(panel === 'layers' ? null : 'layers')} label={t('home.layers', lang)}><Layers size={17} /></ToolBtn>
+        <ToolBtn active={panel === 'analysis'} onClick={() => setPanel(panel === 'analysis' ? null : 'analysis')} label="Flood & buffer tools"><Waves size={17} /></ToolBtn>
+        <ToolBtn active={baseOpen} onClick={() => setBaseOpen(!baseOpen)} label={t('home.basemap', lang)}><MapIcon size={17} /></ToolBtn>
+        <ToolBtn onClick={() => { setFitKey((k) => k + 1); setHighlight(null); setCircle(null) }} label={t('home.reset', lang)}><Crosshair size={17} /></ToolBtn>
+        <ToolBtn onClick={toggleFull} label="Full screen">{full ? <Minimize2 size={17} /> : <Maximize2 size={17} />}</ToolBtn>
+        <ToolBtn onClick={() => navigator.geolocation?.getCurrentPosition((pos) => (window as any).__csgMap?.flyTo([pos.coords.latitude, pos.coords.longitude], 13))} label="My location"><LocateFixed size={17} /></ToolBtn>
       </div>
 
-      {/* side panel */}
+      {/* main tool window (layers / tools / risk) - draggable */}
       {panel && (
-        <div className="scroll-thin absolute left-16 top-[60px] bottom-12 z-[700] w-[350px] max-w-[calc(100vw-90px)] overflow-y-auto rounded-2xl bg-night/95 p-4 text-white shadow-2xl backdrop-blur max-sm:inset-x-2 max-sm:bottom-2 max-sm:top-auto max-sm:max-h-[62vh] max-sm:w-auto max-sm:max-w-none">
-          <div className="mb-3 flex items-center justify-between">
-            <h3 className="text-lg font-bold">{panel === 'layers' ? t('home.layers', lang) : panel === 'risk' ? 'Am I at risk?' : 'Flood & buffer tools'}</h3>
-            <button onClick={() => setPanel(null)} className="rounded-full p-1 hover:bg-white/10" aria-label="Close panel"><X size={18} /></button>
-          </div>
+        <FloatPanel key={panel} title={panel === 'layers' ? t('home.layers', lang) : panel === 'risk' ? 'Am I at risk?' : 'Flood & buffer tools'}
+          initial={{ left: 52, top: 50 }} width={panel === 'risk' ? 300 : 260} maxH="min(62vh, calc(100% - 110px))" onClose={() => setPanel(null)}>
           {panel === 'risk' && <RiskPanel request={assessReq} onResult={(r) => { setMe(r); if (r) setVisible((v) => new Set([...v, 'flood_2023_viirs', 'laghas'])) }} onPick={() => { setPickMode(true); if (window.innerWidth < 640) setPanel(null) }} picking={pickMode} />}
           {panel === 'layers' && groups.map((g) => (
-            <fieldset key={g} className="mb-3 border-0 p-0">
-              <legend className="mb-1 text-sm font-semibold text-sand">{g}</legend>
+            <fieldset key={g} className="mb-2 border-0 p-0">
+              <legend className="mb-0.5 text-[11px] font-semibold uppercase tracking-wide text-sand">{g}</legend>
               {LAYERS.filter((l) => l.group === g).map((l) => (
-                <label key={l.id} className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1.5 py-1 text-[15px] hover:bg-white/8">
-                  <input type="checkbox" className="h-[18px] w-[18px] accent-[#00b8d4]" checked={visible.has(l.id)} onChange={() => toggle(l.id)} />
-                  <span className="inline-block h-3.5 w-3.5 shrink-0 rounded-full border border-white/40" style={{ background: l.styleBy ? Object.values(l.styleBy.map)[0] : l.color }} />
-                  <span className="leading-tight">{l.label}{l.minZoom && zoom < l.minZoom && visible.has(l.id) ? <span className="text-xs text-white/60"> (zoom in)</span> : null}</span>
+                <label key={l.id} className="flex cursor-pointer items-center gap-2 rounded-md px-1 py-[3px] hover:bg-white/8">
+                  <input type="checkbox" className="h-3.5 w-3.5 accent-[#00b8d4]" checked={visible.has(l.id)} onChange={() => toggle(l.id)} />
+                  <span className="inline-block h-2.5 w-2.5 shrink-0 rounded-full border border-white/40" style={{ background: l.styleBy ? Object.values(l.styleBy.map)[0] : l.color }} />
+                  <span className="leading-tight">{l.label}{l.minZoom && zoom < l.minZoom && visible.has(l.id) ? <span className="text-[11px] text-white/55"> (zoom in)</span> : null}</span>
                 </label>
               ))}
             </fieldset>
           ))}
           {panel === 'analysis' && (
-            <div className="space-y-5 text-[15px]">
+            <div className="space-y-4">
               <section>
                 <div className="mb-1 flex items-center justify-between font-semibold"><span>{t('home.simulate', lang)}</span>
-                  <span className="rounded-md px-2 py-0.5 text-sm font-bold" style={{ background: LEVEL_COLORS[simLevel] }}>{stage.toFixed(1)} m · {simLevel}</span></div>
-                <p className="mb-2 text-sm text-white/70">Drag to raise the River Tana at the Garissa gauge (RGS 4G01) and see the floodplain fill, based on the 2023 & 2024 UNOSAT flood envelopes.</p>
+                  <span className="rounded px-1.5 py-0.5 text-[11px] font-bold" style={{ background: LEVEL_COLORS[simLevel] }}>{stage.toFixed(1)} m · {simLevel}</span></div>
+                <p className="mb-1.5 text-[12px] text-white/65">Raise the Tana at the Garissa gauge (RGS 4G01) to see the floodplain fill (2023 & 2024 UNOSAT envelopes).</p>
                 <input type="range" min={3} max={7.5} step={0.5} value={stage} onChange={(e) => { setStage(+e.target.value); setVisible((v) => new Set([...v, 'flood_sim'])) }} className="w-full accent-[#00b8d4]" aria-label="Gauge stage" />
-                <div className="flex justify-between text-xs text-white/60"><span>3.0</span><span>4.0 alert</span><span>5.0 alarm</span><span>6.2 emergency</span><span>7.5</span></div>
+                <div className="flex justify-between text-[10px] text-white/55"><span>3.0</span><span>4 alert</span><span>5 alarm</span><span>6.2 emerg.</span><span>7.5</span></div>
               </section>
               <section>
                 <div className="mb-1 font-semibold">{t('home.wave', lang)}</div>
-                <p className="mb-2 text-sm text-white/70">Watch a Kiambere Dam spill travel down the Tana: Garissa in 36–48 h, Tana Delta in 96–120 h.</p>
+                <p className="mb-1.5 text-[12px] text-white/65">Kiambere spill → Garissa in 36–48 h → Tana Delta in 96–120 h.</p>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => { if (waveHour === null || waveHour >= 108) setWaveHour(0); setPlaying(!playing); setVisible((v) => new Set([...v, 'travel', 'tana'])); setFitKey((k) => k); (window as any).__csgMap?.fitBounds([[-2.6, 37.5], [0.4, 40.6]]) }}
-                    className="flex items-center gap-1.5 rounded-lg bg-tana px-3 py-1.5 font-semibold hover:bg-tana-deep">{playing ? <Pause size={16} /> : <Play size={16} />}{playing ? t('btn.pause', lang) : t('btn.play', lang)}</button>
+                  <button onClick={() => { if (waveHour === null || waveHour >= 108) setWaveHour(0); setPlaying(!playing); setVisible((v) => new Set([...v, 'travel', 'tana'])); (window as any).__csgMap?.fitBounds([[-2.6, 37.5], [0.4, 40.6]]) }}
+                    className="flex items-center gap-1 rounded-md bg-tana px-2 py-1 font-semibold hover:bg-tana-deep">{playing ? <Pause size={14} /> : <Play size={14} />}{playing ? t('btn.pause', lang) : t('btn.play', lang)}</button>
                   <input type="range" min={0} max={108} step={2} value={waveHour ?? 0} onChange={(e) => { setPlaying(false); setWaveHour(+e.target.value) }} className="flex-1 accent-[#00e5ff]" aria-label="Hours after release" />
-                  <span className="w-14 text-right tabular text-sm">{waveHour ?? 0} h</span>
+                  <span className="w-10 text-right tabular text-[12px]">{waveHour ?? 0} h</span>
                 </div>
-                {waveHour !== null && <button onClick={() => { setWaveHour(null); setPlaying(false) }} className="mt-1 text-xs text-white/60 underline">Clear wave</button>}
+                {waveHour !== null && <button onClick={() => { setWaveHour(null); setPlaying(false) }} className="mt-1 text-[11px] text-white/60 underline">Clear wave</button>}
               </section>
               <section>
                 <div className="mb-1 font-semibold">{t('home.buffer', lang)}</div>
-                <div className="mb-2 flex gap-1.5">
+                <div className="mb-1.5 flex gap-1">
                   {[0.5, 1, 2, 5].map((k) => (
                     <button key={k} onClick={() => { setBufferKm(k); setVisible((v) => new Set([...v, 'tana_buffers'])) }}
-                      className={`flex-1 rounded-lg px-2 py-1.5 text-sm font-semibold ${bufferKm === k ? 'bg-sand text-night' : 'bg-white/10 hover:bg-white/20'}`}>{k} km</button>
+                      className={`flex-1 rounded-md px-1.5 py-1 text-[12px] font-semibold ${bufferKm === k ? 'bg-sand text-night' : 'bg-white/10 hover:bg-white/20'}`}>{k} km</button>
                   ))}
                 </div>
                 {bufCounts && (
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    {[['Schools', bufCounts.schools], ['Health facilities', bufCounts.health], ['Boreholes', bufCounts.boreholes], ['Water pans', bufCounts.water_pans]].map(([k, v]) => (
-                      <div key={k as string} className="rounded-lg bg-white/8 px-2.5 py-1.5"><div className="font-display text-xl font-bold tabular">{v}</div><div className="text-white/70">{k} within {bufferKm} km</div></div>
+                  <div className="grid grid-cols-2 gap-1.5 text-[12px]">
+                    {[['Schools', bufCounts.schools], ['Health', bufCounts.health], ['Boreholes', bufCounts.boreholes], ['Water pans', bufCounts.water_pans]].map(([k, v]) => (
+                      <div key={k as string} className="rounded-md bg-white/8 px-2 py-1"><span className="font-display text-base font-bold tabular">{v}</span> <span className="text-white/65">{k}</span></div>
                     ))}
                   </div>
                 )}
                 <button onClick={() => {
-                  const want = ASSET_IDS
                   const feats: any[] = []
-                  want.forEach((id) => (assets[id] || []).forEach((f) => { if (f.properties.dist_tana_km <= bufferKm && f.properties.in_county !== false) feats.push({ name: f.properties.name || f.properties.village || id, lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0], dist_tana_km: f.properties.dist_tana_km }) }))
+                  ASSET_IDS.forEach((id) => (assets[id] || []).forEach((f) => { if (f.properties.dist_tana_km <= bufferKm && f.properties.in_county !== false) feats.push({ name: f.properties.name || f.properties.village || id, lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0], dist_tana_km: f.properties.dist_tana_km }) }))
                   setHighlight({ title: `${feats.length} assets within ${bufferKm} km of the River Tana`, features: feats }); setCircle(null)
-                }} className="mt-2 w-full rounded-lg bg-white/10 py-1.5 text-sm font-semibold hover:bg-white/20">Highlight these assets on the map</button>
+                }} className="mt-1.5 w-full rounded-md bg-white/10 py-1 text-[12px] font-semibold hover:bg-white/20">Highlight these assets</button>
               </section>
               <section>
                 <div className="mb-1 font-semibold">{t('home.bufferTool', lang)}</div>
                 <div className="flex items-center gap-2">
                   <input type="range" min={1} max={25} value={radius} onChange={(e) => setRadius(+e.target.value)} className="flex-1 accent-[#ffea00]" aria-label="Radius km" />
-                  <span className="w-14 text-right tabular text-sm">{radius} km</span>
+                  <span className="w-10 text-right tabular text-[12px]">{radius} km</span>
                 </div>
-                <button onClick={() => setBufferTool(true)} className={`mt-2 flex w-full items-center justify-center gap-2 rounded-lg py-1.5 text-sm font-semibold ${bufferTool ? 'bg-sand text-night' : 'bg-white/10 hover:bg-white/20'}`}>
-                  <CircleDot size={16} />{bufferTool ? t('home.clickMap', lang) : 'Place buffer on map'}</button>
-                {bufferResult && <div className="mt-2 text-sm text-white/80">{bufferResult.length} assets inside the {radius} km circle. {Object.entries(bufferResult.reduce((a: any, x) => { a[x.type] = (a[x.type] || 0) + 1; return a }, {})).map(([k, v]) => `${LAYER_BY_ID[k].label}: ${v}`).join(' · ')}</div>}
+                <button onClick={() => setBufferTool(true)} className={`mt-1.5 flex w-full items-center justify-center gap-1.5 rounded-md py-1 text-[12px] font-semibold ${bufferTool ? 'bg-sand text-night' : 'bg-white/10 hover:bg-white/20'}`}>
+                  <CircleDot size={14} />{bufferTool ? t('home.clickMap', lang) : 'Place buffer on map'}</button>
+                {bufferResult && <div className="mt-1.5 text-[12px] text-white/75">{bufferResult.length} assets inside {radius} km. {Object.entries(bufferResult.reduce((a: any, x) => { a[x.type] = (a[x.type] || 0) + 1; return a }, {})).map(([k, v]) => `${LAYER_BY_ID[k].label}: ${v}`).join(' · ')}</div>}
               </section>
             </div>
           )}
-        </div>
+        </FloatPanel>
       )}
 
-      {/* basemap switcher + compass */}
-      <div className="absolute right-3 top-[100px] z-[600] flex flex-col items-end gap-2">
-        <div className="relative">
-          <button onClick={() => setBaseOpen(!baseOpen)} className="flex items-center gap-2 rounded-xl bg-night/90 px-3 py-2 text-sm font-semibold text-white shadow-lg hover:bg-night" aria-expanded={baseOpen}>
-            <MapIcon size={18} /> {BASEMAPS.find((b) => b.id === basemap)?.label}
-          </button>
-          {baseOpen && (
-            <div className="absolute right-0 mt-1 w-56 overflow-hidden rounded-xl bg-white shadow-2xl">
-              {BASEMAPS.map((b) => (
-                <button key={b.id} onClick={() => { setBasemap(b.id); setBaseOpen(false) }} className={`block w-full px-3 py-2 text-left text-[15px] hover:bg-tana-light ${b.id === basemap ? 'bg-tana text-white hover:bg-tana' : 'text-ink'}`}>{b.label}</button>
-              ))}
+      {/* basemap chooser - draggable */}
+      {baseOpen && (
+        <FloatPanel title={<span className="flex items-center gap-1.5"><MapIcon size={13} /> {t('home.basemap', lang)}</span>} initial={{ right: 52, top: 8 }} width={250} onClose={() => setBaseOpen(false)} z={720}>
+          {Array.from(new Set(BASEMAPS.map((b) => b.group))).map((g) => (
+            <div key={g} className="mb-2">
+              <div className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-sand">{g}</div>
+              <div className="grid grid-cols-2 gap-1">
+                {BASEMAPS.filter((b) => b.group === g).map((b) => (
+                  <button key={b.id} onClick={() => setBasemap(b.id)}
+                    className={`flex items-center gap-1.5 rounded-md px-1.5 py-1 text-left text-[12px] leading-tight ${b.id === basemap ? 'bg-sand font-semibold text-night' : 'bg-white/8 hover:bg-white/15'}`}>
+                    <span className="h-4 w-4 shrink-0 rounded-sm ring-1 ring-white/30" style={{ background: b.swatch }} />{b.short}
+                  </button>
+                ))}
+              </div>
             </div>
-          )}
-        </div>
+          ))}
+        </FloatPanel>
+      )}
+
+      {/* current basemap chip + compass (top right, under zoom buttons) */}
+      <div className="pointer-events-none absolute right-2 top-[84px] z-[600] flex flex-col items-end gap-1.5">
+        <button onClick={() => setBaseOpen(!baseOpen)} className="pointer-events-auto flex items-center gap-1.5 rounded-lg bg-night/85 px-2 py-1 text-[12px] font-semibold text-white shadow hover:bg-night" aria-expanded={baseOpen}>
+          <span className="h-3 w-3 rounded-sm ring-1 ring-white/40" style={{ background: bm?.swatch }} />{bm?.short}
+        </button>
         <Compass />
       </div>
 
-      {/* legend */}
-      <div className="absolute bottom-10 right-3 z-[600] w-[250px] max-w-[60vw] rounded-2xl bg-white/95 text-ink shadow-xl backdrop-blur max-sm:bottom-9 max-sm:w-[190px]">
-        <button onClick={() => setLegendOpen(!legendOpen)} className="flex w-full items-center justify-between px-4 py-2.5 font-display font-bold">
-          {t('home.legend', lang)} {legendOpen ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
-        </button>
-        {legendOpen && (
-          <ul className="scroll-thin max-h-[34vh] overflow-y-auto px-4 pb-3 text-[13.5px]">
-            {legendItems.map((it) => (
-              <li key={it.key} className="flex items-center gap-2 py-0.5">
-                {it.shape === 'line' ? <span className="inline-block h-1 w-6 rounded" style={{ background: it.color, outline: it.color === '#ffffff' ? '1px solid #999' : '' }} />
-                  : it.shape === 'area' ? <span className="inline-block h-3.5 w-6 rounded" style={{ background: it.color, opacity: 0.75 }} />
-                  : <span className="inline-block h-3.5 w-3.5 rounded-full border border-night/60" style={{ background: it.color }} />}
-                <span>{it.label}</span>
-              </li>
-            ))}
-            {LAYERS.filter((l) => visible.has(l.id) && l.gradient).map((l) => (
-              <li key={l.id + 'g'} className="py-1">
-                <div className="font-medium">{l.gradient!.title}</div>
-                <div className="h-2.5 rounded" style={{ background: `linear-gradient(90deg,${l.gradient!.colors.join(',')})` }} />
-                <div className="flex justify-between text-xs text-muted">{l.gradient!.labels.map((x) => <span key={x}>{x}</span>)}</div>
-              </li>
-            ))}
-            {!legendItems.length && !LAYERS.some((l) => visible.has(l.id) && l.gradient) && <li className="text-muted">Switch on a layer to see its legend.</li>}
-          </ul>
-        )}
-      </div>
+      {/* legend - draggable */}
+      <FloatPanel title={t('home.legend', lang)} initial={{ right: 8, top: 178 }} width={210} dark={false} maxH="32vh" z={600} collapsedByDefault={!legendOpen} mobileDock="corner">
+        <ul className="m-0 list-none p-0 text-[12px]">
+          {legendItems.map((it) => (
+            <li key={it.key} className="flex items-center gap-1.5 py-[1px]">
+              {it.shape === 'line' ? <span className="inline-block h-[3px] w-5 shrink-0 rounded" style={{ background: it.color, outline: it.color === '#ffffff' ? '1px solid #999' : '' }} />
+                : it.shape === 'area' ? <span className="inline-block h-3 w-5 shrink-0 rounded-sm" style={{ background: it.color, opacity: 0.75 }} />
+                : <span className="inline-block h-2.5 w-2.5 shrink-0 rounded-full border border-night/60" style={{ background: it.color }} />}
+              <span className="leading-tight">{it.label}</span>
+            </li>
+          ))}
+          {LAYERS.filter((l) => visible.has(l.id) && l.gradient).map((l) => (
+            <li key={l.id + 'g'} className="py-1">
+              <div className="font-medium">{l.gradient!.title}</div>
+              <div className="h-2 rounded" style={{ background: `linear-gradient(90deg,${l.gradient!.colors.join(',')})` }} />
+              <div className="flex justify-between text-[10px] text-muted">{l.gradient!.labels.map((x) => <span key={x}>{x}</span>)}</div>
+            </li>
+          ))}
+          {!legendItems.length && !LAYERS.some((l) => visible.has(l.id) && l.gradient) && <li className="text-muted">Switch on a layer to see its legend.</li>}
+        </ul>
+      </FloatPanel>
 
       {/* coordinates */}
-      <div className="absolute bottom-2 left-1/2 z-[600] -translate-x-1/2 rounded-lg bg-night/85 px-3 py-1 text-xs text-white tabular">
-        Lat {coord[0].toFixed(4)}°, Lon {coord[1].toFixed(4)}° · zoom {zoom}
+      <div className="absolute bottom-1.5 left-1/2 z-[600] -translate-x-1/2 rounded-md bg-night/80 px-2 py-0.5 text-[11px] text-white tabular max-sm:hidden">
+        {coord[0].toFixed(4)}°, {coord[1].toFixed(4)}° · z{zoom} · {bm?.label}
       </div>
 
-      {/* staff gauge (signature) */}
+      {/* staff gauge (signature) - draggable, folded on small screens */}
       {showGauge && (
-        <div className="absolute bottom-10 left-16 z-[550] max-md:hidden">
-          <StaffGauge stage={visible.has('flood_sim') ? stage : null} forecast={forecastPeak} />
-        </div>
+        <FloatPanel title="Tana gauge · Garissa" initial={{ left: 52, bottom: 30 }} width={215} z={550} collapsedByDefault={typeof window !== 'undefined' && window.innerWidth < 1100} className="max-sm:hidden">
+          <div className="-mx-1 flex justify-center"><StaffGauge stage={visible.has('flood_sim') ? stage : null} forecast={forecastPeak} height={200} /></div>
+        </FloatPanel>
       )}
 
-      {/* highlight results */}
+      {/* results list - draggable */}
       {(highlight || (circle && bufferResult)) && (
-        <div className="absolute right-3 top-[190px] z-[650] w-[300px] max-w-[70vw] rounded-2xl bg-night/95 p-3 text-white shadow-2xl max-sm:top-auto max-sm:bottom-40">
-          <div className="flex items-start justify-between gap-2">
-            <div className="font-semibold leading-snug">{highlight ? highlight.title : `${bufferResult!.length} assets within ${circle!.r} km`}</div>
-            <button onClick={() => { setHighlight(null); setCircle(null) }} aria-label="Clear results" className="rounded-full p-1 hover:bg-white/10"><X size={16} /></button>
-          </div>
-          <ul className="scroll-thin mt-2 max-h-56 overflow-y-auto text-sm">
-            {(highlight ? highlight.features : bufferResult!).slice(0, 80).map((f: any, i: number) => (
+        <FloatPanel title={highlight ? highlight.title : `${bufferResult!.length} assets within ${circle!.r} km`} initial={{ right: 228, top: 8 }} width={260} maxH="40vh" z={650} onClose={() => { setHighlight(null); setCircle(null) }}>
+          <ul className="m-0 list-none p-0">
+            {(highlight ? highlight.features : bufferResult!).slice(0, 120).map((f: any, i: number) => (
               <li key={i}><button className="w-full rounded px-1 py-0.5 text-left hover:bg-white/10" onClick={() => (window as any).__csgMap?.flyTo([f.lat, f.lon], 14)}>
-                {f.name}<span className="text-white/60">{f.dist_tana_km !== undefined && f.dist_tana_km !== null ? ` · ${f.dist_tana_km} km to Tana` : f.dist_km !== undefined ? ` · ${f.dist_km} km` : ''}</span></button></li>
+                {f.name}<span className="text-white/55">{f.dist_tana_km !== undefined && f.dist_tana_km !== null ? ` · ${f.dist_tana_km} km to Tana` : f.dist_km !== undefined ? ` · ${f.dist_km} km` : ''}</span></button></li>
             ))}
           </ul>
-        </div>
+        </FloatPanel>
       )}
 
-      {pickMode && <div className="absolute left-1/2 top-20 z-[700] -translate-x-1/2 rounded-full bg-sand px-4 py-2 font-semibold text-night shadow-lg">Tap the map at your location</div>}
-      {bufferTool && <div className="absolute left-1/2 top-20 z-[700] -translate-x-1/2 rounded-full bg-sand px-4 py-2 font-semibold text-night shadow-lg"><Info size={16} className="mr-1 inline" />{t('home.clickMap', lang)}</div>}
+      {pickMode && <div className="absolute left-1/2 top-12 z-[700] -translate-x-1/2 rounded-full bg-sand px-3 py-1.5 text-[13px] font-semibold text-night shadow-lg">Tap the map at your location</div>}
+      {bufferTool && <div className="absolute left-1/2 top-12 z-[700] -translate-x-1/2 rounded-full bg-sand px-3 py-1.5 text-[13px] font-semibold text-night shadow-lg"><Info size={14} className="mr-1 inline" />{t('home.clickMap', lang)}</div>}
     </div>
   )
 }
@@ -496,7 +510,7 @@ export default function SmartMap({ height = '78vh', initial, focus = 'garissa', 
 function ToolBtn({ children, onClick, label, active }: { children: React.ReactNode; onClick: () => void; label: string; active?: boolean }) {
   return (
     <button onClick={onClick} title={label} aria-label={label}
-      className={`flex h-11 w-11 items-center justify-center rounded-xl shadow-lg transition ${active ? 'bg-sand text-night' : 'bg-night/90 text-white hover:bg-tana'}`}>
+      className={`flex h-9 w-9 items-center justify-center rounded-lg shadow-lg transition ${active ? 'bg-sand text-night' : 'bg-night/90 text-white hover:bg-tana'}`}>
       {children}
     </button>
   )
@@ -504,8 +518,8 @@ function ToolBtn({ children, onClick, label, active }: { children: React.ReactNo
 
 function Compass() {
   return (
-    <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-night/85 shadow-lg" title="North arrow – map is north-up">
-      <svg viewBox="0 0 100 100" width="66" height="66" aria-label="Compass rose, north up">
+    <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-night/80 shadow-lg" title="North arrow – map is north-up">
+      <svg viewBox="0 0 100 100" width="46" height="46" aria-label="Compass rose, north up">
         <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.35)" strokeWidth="2" />
         {[0, 90, 180, 270].map((a) => <line key={a} x1="50" y1="8" x2="50" y2="16" stroke="#fff" strokeWidth="2" transform={`rotate(${a} 50 50)`} />)}
         <polygon points="50,14 58,50 50,46 42,50" fill="#ff1744" />

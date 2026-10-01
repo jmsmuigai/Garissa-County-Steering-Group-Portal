@@ -38,7 +38,7 @@ LAYERS = {
     "nbs_sites": "NbS candidate sites", "nbs_storage": "NbS storage areas", "town_catchments": "Garissa Town catchments",
     "places": "Towns & villages",
 }
-BASEMAPS = ["google_hybrid", "google_satellite", "google_roads", "osm", "esri_imagery", "topo", "carto_dark", "carto_light"]
+BASEMAPS = ["google_hybrid", "google_satellite", "google_roads", "google_terrain", "osm", "osm_hot", "topo", "esri_imagery", "esri_streets", "esri_topo", "carto_light", "carto_dark"]
 PAGES = ["home", "about", "policy", "elnino", "tana", "health", "nbs", "gallery", "report"]
 ASSET_FILES = {"schools": "schools.geojson", "health": "health_facilities.geojson", "boreholes": "boreholes.geojson",
                "water_pans": "water_pans.geojson", "nbs_sites": "nbs_sites.geojson", "met_stations": "met_stations.geojson",

@@ -30,15 +30,15 @@ const PARTNERS = [
 function PartnerMark({ p }: { p: (typeof PARTNERS)[number] }) {
   const [img, setImg] = useState(true)
   return (
-    <div className="flex shrink-0 items-center gap-2 rounded-xl bg-white/8 py-1 pl-1 pr-3" title={p.name}>
+    <div className="flex shrink-0 items-center gap-2 rounded-full bg-white/8 p-1 2xl:rounded-xl 2xl:pr-3" title={`${p.name} – ${p.sub}`}>
       {img ? (
-        <img src={`./logos/${p.id}.png`} alt="" className="h-9 w-9 rounded-full bg-white object-contain p-0.5" onError={() => setImg(false)} />
+        <img src={`./logos/${p.id}.png`} alt="" className="h-7 w-7 rounded-full bg-white object-contain p-0.5" onError={() => setImg(false)} />
       ) : (
-        <span className="flex h-9 w-9 items-center justify-center rounded-full text-[11px] font-bold text-white" style={{ background: p.color }}>
+        <span className="flex h-7 w-7 items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ background: p.color }}>
           {p.name.split(' ').map((w) => w[0]).join('').slice(0, 3)}
         </span>
       )}
-      <span className="leading-tight"><span className="block text-[13px] font-semibold">{p.name}</span><span className="block text-[11px] text-white/65">{p.sub}</span></span>
+      <span className="hidden leading-tight 2xl:inline"><span className="block text-[12px] font-semibold">{p.name}</span><span className="block text-[10px] text-white/65">{p.sub}</span></span>
     </div>
   )
 }
@@ -48,16 +48,16 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   return (
     <header className="sticky top-0 z-[1000] bg-night text-white shadow-lg">
-      <div className="mx-auto flex max-w-[1500px] items-center gap-2 px-3 py-2 sm:gap-4 sm:px-4 sm:py-2.5">
+      <div className="mx-auto flex max-w-[1500px] items-center gap-2 px-3 py-1.5 sm:gap-4 sm:px-4">
         <NavLink to="/" className="flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Home">
-          <img src="./img/garissa_logo.png" alt="County Government of Garissa coat of arms" className="h-11 w-11 shrink-0 drop-shadow sm:h-[62px] sm:w-[62px]" />
+          <img src="./img/garissa_logo.png" alt="County Government of Garissa coat of arms" className="h-10 w-10 shrink-0 drop-shadow sm:h-12 sm:w-12" />
           <div className="leading-tight">
-            <div className="hidden text-[13px] text-sand sm:block">County Government of Garissa</div>
-            <div className="font-display text-[1.15rem] font-bold sm:text-[1.35rem]"><span className="sm:hidden">Garissa CSG</span><span className="hidden sm:inline">{t('site.title', lang)}</span></div>
-            <div className="hidden text-[13px] text-white/70 sm:block">{t('site.subtitle', lang)}</div>
+            <div className="hidden text-[11px] text-sand sm:block">County Government of Garissa</div>
+            <div className="font-display text-[1.05rem] font-bold sm:text-[1.15rem]"><span className="sm:hidden">Garissa CSG</span><span className="hidden sm:inline">{t('site.title', lang)}</span></div>
+            <div className="hidden text-[11px] text-white/70 2xl:block">{t('site.subtitle', lang)}</div>
           </div>
         </NavLink>
-        <div className="ml-auto hidden items-center gap-2 overflow-x-auto xl:flex" aria-label={t('site.partners', lang)}>
+        <div className="ml-auto hidden items-center gap-1.5 overflow-x-auto xl:flex" aria-label={t('site.partners', lang)}>
           {PARTNERS.map((p) => <PartnerMark key={p.id} p={p} />)}
         </div>
         <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2 xl:ml-3">
@@ -72,17 +72,17 @@ export default function Header() {
         </div>
       </div>
       <nav className={`border-t border-white/10 bg-night-2 ${open ? 'block' : 'hidden'} lg:block`}>
-        <ul className="mx-auto flex max-w-[1500px] flex-col gap-1 px-3 py-1.5 lg:flex-row lg:flex-wrap lg:items-center">
+        <ul className="scroll-thin mx-auto flex max-w-[1500px] flex-col gap-0.5 px-3 py-1 lg:flex-row lg:items-center lg:overflow-x-auto lg:whitespace-nowrap">
           {NAV.map(({ to, key, icon: Icon }) => (
             <li key={to}>
               <NavLink to={to} end={to === '/'} onClick={() => setOpen(false)}
-                className={({ isActive }) => `flex items-center gap-2 rounded-lg px-3 py-2 text-[15px] font-medium transition ${
+                className={({ isActive }) => `flex items-center gap-1.5 rounded-md px-2 py-1 text-[13px] font-medium transition ${
                   to === '/report' ? 'bg-emergency text-white hover:brightness-110' : isActive ? 'bg-tana text-white' : 'text-white/85 hover:bg-white/10'}`}>
-                <Icon size={18} /> {t(key, lang)}
+                <Icon size={15} /> {t(key, lang)}
               </NavLink>
             </li>
           ))}
-          <li className="lg:ml-auto"><a href="tel:1199" className="flex items-center gap-2 px-3 py-2 text-[15px] font-semibold text-sand"><Phone size={17} /> Red Cross 1199</a></li>
+          <li className="lg:ml-auto lg:max-2xl:hidden"><a href="tel:1199" className="flex items-center gap-1.5 px-2.5 py-1.5 text-[13.5px] font-semibold text-sand"><Phone size={15} /> Red Cross 1199</a></li>
         </ul>
       </nav>
     </header>

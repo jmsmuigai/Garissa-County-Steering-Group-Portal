@@ -27,7 +27,7 @@ export type LayerDef = {
 
 const n = (v: any, d = 1) => (v === null || v === undefined || v === '' ? 'n/a' : typeof v === 'number' ? v.toLocaleString(undefined, { maximumFractionDigits: d }) : v)
 const row = (k: string, v: any) => `${k}: <b>${n(v)}</b>`
-const tip = (title: string, rows: string[]) => `<div style="font-weight:600;font-size:15px;margin-bottom:4px">${title}</div>${rows.join('<br/>')}`
+const tip = (title: string, rows: string[]) => `<div style="font-weight:600;font-size:12.5px;margin-bottom:2px">${title}</div>${rows.filter(Boolean).join('<br/>')}`
 
 const RISK4 = { 'Very High': '#c81d25', High: '#f28c28', Moderate: '#f2c230', Low: '#2e9e4f', Medium: '#f2c230' }
 
@@ -235,15 +235,19 @@ export const LAYERS: LayerDef[] = [
 
 export const LAYER_BY_ID = Object.fromEntries(LAYERS.map((l) => [l.id, l]))
 
-export const BASEMAPS = [
-  { id: 'google_hybrid', label: 'Google Hybrid', url: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', sub: ['0', '1', '2', '3'], attr: 'Imagery © Google' },
-  { id: 'google_satellite', label: 'Google Satellite', url: 'https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', sub: ['0', '1', '2', '3'], attr: 'Imagery © Google' },
-  { id: 'google_roads', label: 'Google Streets', url: 'https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', sub: ['0', '1', '2', '3'], attr: 'Map © Google' },
-  { id: 'osm', label: 'OpenStreetMap', url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', sub: [], attr: '© OpenStreetMap contributors' },
-  { id: 'esri_imagery', label: 'Esri World Imagery', url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', sub: [], attr: 'Imagery © Esri, Maxar, Earthstar' },
-  { id: 'topo', label: 'OpenTopoMap terrain', url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', sub: ['a', 'b', 'c'], attr: '© OpenTopoMap (CC-BY-SA), SRTM' },
-  { id: 'carto_dark', label: 'Carto dark', url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', sub: ['a', 'b', 'c', 'd'], attr: '© OpenStreetMap © CARTO' },
-  { id: 'carto_light', label: 'Carto light', url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', sub: ['a', 'b', 'c', 'd'], attr: '© OpenStreetMap © CARTO' },
+export const BASEMAPS: { id: string; label: string; short: string; group: string; swatch: string; url: string; sub: string[]; attr: string; maxZoom?: number }[] = [
+  { id: 'google_hybrid', label: 'Google Hybrid', short: 'Hybrid', group: 'Google', swatch: 'linear-gradient(135deg,#3b5323,#7a6a3a 60%,#fff 61%,#fff 66%,#3b5323 67%)', url: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', sub: ['0', '1', '2', '3'], attr: 'Imagery © Google', maxZoom: 21 },
+  { id: 'google_satellite', label: 'Google Satellite', short: 'Satellite', group: 'Google', swatch: 'linear-gradient(135deg,#2f4a1f,#8a7a4a)', url: 'https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', sub: ['0', '1', '2', '3'], attr: 'Imagery © Google', maxZoom: 21 },
+  { id: 'google_roads', label: 'Google Maps (streets)', short: 'Maps', group: 'Google', swatch: 'linear-gradient(135deg,#f1efe8,#f1efe8 45%,#fbd36b 46%,#fbd36b 54%,#cde6c4 55%)', url: 'https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', sub: ['0', '1', '2', '3'], attr: 'Map © Google', maxZoom: 21 },
+  { id: 'google_terrain', label: 'Google Terrain', short: 'Terrain', group: 'Google', swatch: 'linear-gradient(135deg,#e7e3d4,#c9d9b5 50%,#b9a98a)', url: 'https://mt{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', sub: ['0', '1', '2', '3'], attr: 'Map © Google', maxZoom: 20 },
+  { id: 'osm', label: 'OpenStreetMap', short: 'OSM standard', group: 'OpenStreetMap', swatch: 'linear-gradient(135deg,#f2efe9,#f2efe9 45%,#e892a2 46%,#e892a2 52%,#aad3df 53%)', url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', sub: [], attr: '© OpenStreetMap contributors', maxZoom: 19 },
+  { id: 'osm_hot', label: 'OSM Humanitarian', short: 'Humanitarian', group: 'OpenStreetMap', swatch: 'linear-gradient(135deg,#f4ecdf,#e8c9a8 50%,#c86b5a)', url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', sub: ['a', 'b', 'c'], attr: '© OpenStreetMap contributors, HOT', maxZoom: 19 },
+  { id: 'topo', label: 'OpenTopoMap terrain', short: 'OpenTopo', group: 'OpenStreetMap', swatch: 'linear-gradient(135deg,#d9e8c4,#efe4b0 50%,#c9a77a)', url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', sub: ['a', 'b', 'c'], attr: '© OpenTopoMap (CC-BY-SA), SRTM', maxZoom: 17 },
+  { id: 'esri_imagery', label: 'Esri World Imagery', short: 'Esri imagery', group: 'Esri & Carto', swatch: 'linear-gradient(135deg,#36502a,#6f6440)', url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', sub: [], attr: 'Imagery © Esri, Maxar, Earthstar', maxZoom: 19 },
+  { id: 'esri_streets', label: 'Esri World Street Map', short: 'Esri streets', group: 'Esri & Carto', swatch: 'linear-gradient(135deg,#f5f3ee,#f5f3ee 45%,#f6b26b 46%,#f6b26b 52%,#d7e6c8 53%)', url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', sub: [], attr: '© Esri', maxZoom: 19 },
+  { id: 'esri_topo', label: 'Esri World Topographic', short: 'Esri topo', group: 'Esri & Carto', swatch: 'linear-gradient(135deg,#eef0e2,#cfdcb8 50%,#b7a98a)', url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', sub: [], attr: '© Esri', maxZoom: 19 },
+  { id: 'carto_light', label: 'Carto light', short: 'Light', group: 'Esri & Carto', swatch: 'linear-gradient(135deg,#fafafa,#e6e6e6)', url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', sub: ['a', 'b', 'c', 'd'], attr: '© OpenStreetMap © CARTO', maxZoom: 20 },
+  { id: 'carto_dark', label: 'Carto dark', short: 'Dark', group: 'Esri & Carto', swatch: 'linear-gradient(135deg,#2b2b2b,#111)', url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', sub: ['a', 'b', 'c', 'd'], attr: '© OpenStreetMap © CARTO', maxZoom: 20 },
 ]
 
 export function colorFor(def: LayerDef, props: any) {
