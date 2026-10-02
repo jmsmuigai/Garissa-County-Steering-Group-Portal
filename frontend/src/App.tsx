@@ -2,11 +2,12 @@ import { useEffect, useState, lazy, Suspense } from 'react'
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import ChatBot from './components/ChatBot'
 import { AppContext } from './lib/store'
 import type { Lang } from './lib/i18n'
 import Home from './pages/Home'
 
+// the assistant downloads after the map is on screen
+const ChatBot = lazy(() => import('./components/ChatBot'))
 const About = lazy(() => import('./pages/About'))
 const Policy = lazy(() => import('./pages/Policy'))
 const ElNino = lazy(() => import('./pages/ElNino'))
@@ -53,7 +54,7 @@ export default function App() {
           </Suspense>
         </main>
         <Footer />
-        <ChatBot />
+        <Suspense fallback={null}><ChatBot /></Suspense>
       </HashRouter>
     </AppContext.Provider>
   )

@@ -21,7 +21,15 @@ Policy, and two-way emergency reporting – with a Gemini-powered GeoAI assistan
 
 Requirements: Python 3.10+ and (only to rebuild the site) Node.js 20+.
 
-**Gemini AI:** on the live site, open the assistant → key icon → paste a key from https://aistudio.google.com/apikey → *Save & test* (kept only in that browser). On a county server, set `GEMINI_API_KEY` in `.env` (copy from `.env.example`) instead.
+**Gemini AI (placeholder – off until a key is added).** The whole portal works without it; the assistant uses its built-in engine. To switch Gemini on later, use one of:
+
+| Where the portal runs | Where to paste the key |
+|---|---|
+| GitHub Pages, for **everyone** | `docs/portal-config.json` (and `frontend/public/portal-config.json` so rebuilds keep it) → `"geminiApiKey": "AIza…"` → commit & push. The file is public: first restrict the key in Google Cloud (website `https://jmsmuigai.github.io/*`, API = Generative Language API). |
+| GitHub Pages, **one device only** | Assistant → key icon → paste → *Save & test* (kept only in that browser). |
+| County server (`start_portal.command`) | `.env` → `GEMINI_API_KEY=AIza…` → restart. Stays private on the server. |
+
+Get a key at https://aistudio.google.com/apikey (or Google Cloud → APIs & Services → Credentials).
 
 ## What is inside
 

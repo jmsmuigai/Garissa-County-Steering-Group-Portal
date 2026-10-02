@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { Languages, Loader2 } from 'lucide-react'
 import { backendAvailable, postJSON } from '../lib/api'
-import { getGeminiKey, geminiTranslate } from '../lib/gemini'
+import { getGeminiKey, geminiTranslate, siteConfigReady } from '../lib/gemini'
 import { useApp } from '../lib/store'
 import { t } from '../lib/i18n'
 
@@ -57,7 +57,8 @@ export function TranslatePage({ targetId }: { targetId: string }) {
   if (lang === 'en') return null
   const run = async () => {
     const server = await backendAvailable()
-    if (!server && !getGeminiKey()) { setMsg('AI translation needs a Gemini key: open the assistant (bottom right), tap the key icon and paste your key.'); return }
+    await siteConfigReady
+    if (!server && !getGeminiKey()) { setMsg('AI translation will switch on once the county adds its Gemini key. Menus and safety tips are already in your language.'); return }
     setBusy(true)
     const nodes = Array.from(document.querySelectorAll(`#${targetId} [data-tr]`)) as HTMLElement[]
     if (!server) {

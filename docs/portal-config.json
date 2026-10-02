@@ -1,0 +1,5 @@
+{
+  "_readme": "Site-wide settings for the static portal (GitHub Pages). To switch on Gemini for every visitor, paste your key between the quotes of geminiApiKey, save, and push. WARNING: this file is public, so restrict the key in Google Cloud (APIs & Services > Credentials > the key > Website restrictions: https://jmsmuigai.github.io/*, API restrictions: Generative Language API). Leave it empty to keep AI off; visitors can still paste their own key in the assistant.",
+  "geminiApiKey": "",
+  "geminiModel": "gemini-2.5-flash"
+}

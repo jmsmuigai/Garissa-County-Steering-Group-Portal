@@ -32,7 +32,7 @@ export default function About() {
             <div className="prose-csg text-lg">
               <p data-tr>The County Steering Group is Garissa's apex forum for disaster risk management, early warning and humanitarian coordination. It was set up under the National Drought Management Authority's coordination framework and is co-chaired by H.E. the Governor of Garissa County and the County Commissioner, who represents the National Government.</p>
               <p data-tr>NDMA's Garissa office is the secretariat, working with the County Directorate of Special Programmes and Disaster Management and the Directorate of ICT & GIS. The CSG meets monthly and convenes immediately when floods or drought escalate, supported by Sub-County Steering Groups closer to communities.</p>
-              <p data-tr>Until now the CSG communicated through PDFs, WhatsApp images of weather tables and paper attendance sheets – often 24 to 72 hours behind a dam spill or KMD alert. This portal replaces that with live maps, model-based forecasts, a trilingual AI assistant and two-way reporting, so riverine farms and the Dadaab camps get the warning while there is still time to move.</p>
+              <p data-tr>This portal gives the CSG live maps, model-based forecasts, a trilingual assistant and two-way reporting, so riverine farms and the Dadaab camps get the warning while there is still time to move.</p>
             </div>
             <div className="grid grid-cols-2 gap-4 self-start">
               <Stat value="44,800 km²" label="County area" color="#0e7c86" note="Arid & semi-arid (zones V–VI)" />

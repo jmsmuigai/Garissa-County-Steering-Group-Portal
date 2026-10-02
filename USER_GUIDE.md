@@ -91,6 +91,8 @@ Ask in English, Kiswahili or Somali. Examples:
 
 ### Switch on Gemini (full AI)
 
+Gemini is a **placeholder for now**: the portal, maps, forecasts and the built-in assistant all work without it. When the county has a key it can switch AI on for everyone at once (administrators: see *Gemini AI* in the README – the key goes in `portal-config.json`). Until then, anyone can try Gemini on their own device:
+
 1. Get a free key at **https://aistudio.google.com/apikey** (sign in with Google → *Create API key* → copy it; it starts with `AIza`).
 2. On the portal, open the assistant (bottom right) and tap the **key icon** in its title bar.
 3. **Paste** the key, choose *Gemini 2.5 Flash* (fast) or *Gemini 2.5 Pro* (smartest) and press **Save & test**. "Connected" means it works; the key icon turns green.

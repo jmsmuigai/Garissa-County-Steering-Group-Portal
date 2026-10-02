@@ -7,14 +7,28 @@ import { LAYERS, BASEMAPS } from './layers'
 const KEY = 'csg_gemini_key'
 const MODEL = 'csg_gemini_model'
 
+// Optional site-wide key from public/portal-config.json (placeholder: empty until the county adds one).
+let site = { key: '', model: '' }
+export const siteConfigReady: Promise<void> = fetch('./portal-config.json', { cache: 'no-cache' })
+  .then((r) => (r.ok ? r.json() : {}))
+  .then((c: any) => { site = { key: String(c?.geminiApiKey || '').trim(), model: String(c?.geminiModel || '') } })
+  .catch(() => { /* no config file: AI stays off until a key is pasted */ })
+
+/** Key pasted on this device wins; otherwise the site-wide key (if the county has added one). */
 export function getGeminiKey(): string {
-  try { return localStorage.getItem(KEY) || '' } catch { return '' }
+  let local = ''
+  try { local = localStorage.getItem(KEY) || '' } catch { /* storage blocked */ }
+  return local || site.key
 }
+export function hasDeviceKey(): boolean {
+  try { return !!localStorage.getItem(KEY) } catch { return false }
+}
+export function hasSiteKey(): boolean { return !!site.key }
 export function setGeminiKey(k: string) {
   try { k ? localStorage.setItem(KEY, k.trim()) : localStorage.removeItem(KEY) } catch { /* storage blocked */ }
 }
 export function getGeminiModel(): string {
-  try { return localStorage.getItem(MODEL) || 'gemini-2.5-flash' } catch { return 'gemini-2.5-flash' }
+  try { return localStorage.getItem(MODEL) || site.model || 'gemini-2.5-flash' } catch { return site.model || 'gemini-2.5-flash' }
 }
 export function setGeminiModel(m: string) {
   try { localStorage.setItem(MODEL, m) } catch { /* storage blocked */ }

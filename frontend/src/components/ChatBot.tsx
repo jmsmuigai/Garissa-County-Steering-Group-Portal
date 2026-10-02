@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Bot, Send, X, Sparkles, Loader2, KeyRound, Check } from 'lucide-react'
 import { mapBus, useApp, type MapAction } from '../lib/store'
 import { backendAvailable, geo, postJSON, getJSON } from '../lib/api'
-import { getGeminiKey, setGeminiKey, getGeminiModel, setGeminiModel, geminiChat, testGemini } from '../lib/gemini'
+import { getGeminiKey, setGeminiKey, getGeminiModel, setGeminiModel, geminiChat, testGemini, siteConfigReady, hasDeviceKey, hasSiteKey } from '../lib/gemini'
 import { LAYERS } from '../lib/layers'
 import { t } from '../lib/i18n'
 import { assessLocation, searchPlaces } from '../lib/risk'
@@ -129,6 +129,8 @@ export default function ChatBot() {
   const [model, setModel] = useState(getGeminiModel())
   const [keyMsg, setKeyMsg] = useState('')
   const [hasKey, setHasKey] = useState(!!getGeminiKey())
+  const [deviceKey, setDeviceKey] = useState(hasDeviceKey())
+  useEffect(() => { siteConfigReady.then(() => { setHasKey(!!getGeminiKey()); setModel(getGeminiModel()) }) }, [])
   const end = useRef<HTMLDivElement>(null)
   useEffect(() => { end.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs, busy])
 
@@ -142,8 +144,8 @@ export default function ChatBot() {
       if (local) res = { ...local, engine: 'portal GIS' }
       else if (/make (a|me a|my) map|download (a )?map|community map/.test(text.toLowerCase())) res = { reply: 'Opening Community maps – choose what to map, filter it, then download a colour PNG, CSV or GeoJSON.', map_actions: [{ type: 'navigate', page: 'community' }], engine: 'portal' }
       else if (await backendAvailable()) res = await postJSON('/api/chat', { messages: next.map(({ role, content }) => ({ role, content })), lang })
-      else if (getGeminiKey()) res = { ...(await geminiChat(next, lang, await portalContext())), engine: `Gemini (${getGeminiModel()}, your key)` }
-      else res = { ...(await offline(text)), engine: 'built-in (add a Gemini key for full AI)' }
+      else if (getGeminiKey()) res = { ...(await geminiChat(next, lang, await portalContext())), engine: `Gemini (${getGeminiModel()}${hasDeviceKey() ? ', key on this device' : ', county key'})` }
+      else res = { ...(await offline(text)), engine: 'built-in assistant · Gemini AI not activated yet' }
     } catch {
       res = { ...(await offline(text)), engine: 'browser' }
     }
@@ -168,15 +170,15 @@ export default function ChatBot() {
         <section className="fixed bottom-4 right-4 z-[1200] flex h-[min(640px,85vh)] w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/10" aria-label="AI assistant">
           <header className="flex items-center gap-2 bg-night px-4 py-3 text-white">
             <Sparkles size={20} className="text-sand" />
-            <div className="flex-1"><div className="font-display font-bold">{t('chat.title', lang)}</div><div className="text-xs text-white/65">{hasKey ? 'Gemini connected' : 'Add a Gemini key (key icon) for full AI'} · EN / SW / SO</div></div>
+            <div className="flex-1"><div className="font-display font-bold">{t('chat.title', lang)}</div><div className="text-xs text-white/65">{hasKey ? 'Gemini AI on' : 'Built-in assistant · Gemini AI coming soon'} · EN / SW / SO</div></div>
             <button onClick={() => setShowKey(!showKey)} title="Gemini API key" aria-label="Gemini API key settings" className={`rounded-full p-1.5 hover:bg-white/10 ${hasKey ? 'text-[#7ee08a]' : 'text-sand'}`}><KeyRound size={16} /></button>
             <button onClick={() => setOpen(false)} aria-label="Close" className="rounded-full p-1 hover:bg-white/10"><X size={18} /></button>
           </header>
           {showKey && (
             <div className="space-y-2 border-b bg-sand-light p-3 text-[12.5px]">
-              <div className="font-semibold">Gemini API key {hasKey && <span className="ml-1 inline-flex items-center gap-0.5 text-acacia"><Check size={13} /> saved on this device</span>}</div>
-              <p className="m-0 text-muted">Get a free key at <a className="underline" href="https://aistudio.google.com/apikey" target="_blank" rel="noreferrer">aistudio.google.com/apikey</a>, paste it here and press Save. It stays only in this browser – it is not added to the website.</p>
-              <input id="gemini-key" type="password" autoComplete="off" value={keyIn} onChange={(e) => setKeyIn(e.target.value)} placeholder={hasKey ? '•••••••• (key saved)' : 'Paste key, e.g. AIza…'} className="w-full rounded-lg border border-black/15 bg-white px-2.5 py-1.5" />
+              <div className="font-semibold">Gemini AI {deviceKey ? <span className="ml-1 inline-flex items-center gap-0.5 text-acacia"><Check size={13} /> key saved on this device</span> : hasSiteKey() ? <span className="ml-1 inline-flex items-center gap-0.5 text-acacia"><Check size={13} /> county key active</span> : <span className="ml-1 rounded bg-white px-1.5 py-0.5 text-[11px] text-muted ring-1 ring-black/10">not activated yet</span>}</div>
+              <p className="m-0 text-muted">{hasSiteKey() || deviceKey ? 'Gemini answers questions and drives the map.' : 'The county will add its Gemini key soon. Until then the built-in assistant answers common questions and controls the map.'} To use your own key now, get one at <a className="underline" href="https://aistudio.google.com/apikey" target="_blank" rel="noreferrer">aistudio.google.com/apikey</a> and paste it below; it stays only in this browser.</p>
+              <input id="gemini-key" type="password" autoComplete="off" value={keyIn} onChange={(e) => setKeyIn(e.target.value)} placeholder={deviceKey ? '•••••••• (key saved on this device)' : 'Paste Gemini API key (AIza…) – optional'} className="w-full rounded-lg border border-black/15 bg-white px-2.5 py-1.5" />
               <div className="flex flex-wrap items-center gap-2">
                 <select id="gemini-model" value={model} onChange={(e) => { setModel(e.target.value); setGeminiModel(e.target.value) }} className="rounded-lg border border-black/15 bg-white px-2 py-1">
                   <option value="gemini-2.5-flash">Gemini 2.5 Flash (fast)</option>
@@ -185,10 +187,10 @@ export default function ChatBot() {
                 <button onClick={async () => {
                   if (keyIn.trim()) setGeminiKey(keyIn)
                   setKeyMsg('Testing…')
-                  try { await testGemini(); setHasKey(true); setKeyIn(''); setKeyMsg('Connected – the assistant now uses Gemini.') }
-                  catch (e: any) { setKeyMsg(e?.message === 'no-key' ? 'Paste a key first.' : `Gemini refused the key: ${e?.message || e}`); if (keyIn.trim()) { setGeminiKey(''); setHasKey(false) } }
+                  try { await testGemini(); setHasKey(true); setDeviceKey(hasDeviceKey()); setKeyIn(''); setKeyMsg('Connected – the assistant now uses Gemini.') }
+                  catch (e: any) { setKeyMsg(e?.message === 'no-key' ? 'Paste a key first.' : `Gemini refused the key: ${e?.message || e}`); if (keyIn.trim()) { setGeminiKey(''); setDeviceKey(false); setHasKey(!!getGeminiKey()) } }
                 }} className="rounded-lg bg-tana px-3 py-1 font-semibold text-white">Save & test</button>
-                {hasKey && <button onClick={() => { setGeminiKey(''); setHasKey(false); setKeyMsg('Key removed from this device.') }} className="rounded-lg bg-white px-3 py-1 font-semibold ring-1 ring-black/15">Remove</button>}
+                {deviceKey && <button onClick={() => { setGeminiKey(''); setDeviceKey(false); setHasKey(!!getGeminiKey()); setKeyMsg('Key removed from this device.') }} className="rounded-lg bg-white px-3 py-1 font-semibold ring-1 ring-black/15">Remove</button>}
               </div>
               {keyMsg && <div className="text-muted">{keyMsg}</div>}
             </div>

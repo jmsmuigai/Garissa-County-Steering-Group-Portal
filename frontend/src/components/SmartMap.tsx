@@ -245,7 +245,10 @@ export default function SmartMap({ height = '78vh', initial, focus = 'garissa', 
 
   useEffect(() => { fetch(DATA('stats.json')).then((r) => r.json()).then(setStats) }, [])
   useEffect(() => {
-    ASSET_IDS.forEach((id) => geo(LAYER_BY_ID[id].file).then((g) => setAssets((a) => ({ ...a, [id]: g.features }))))
+    // asset lists for the buffer tools load after the map has drawn, so they never delay the first view
+    const go = () => ASSET_IDS.forEach((id) => geo(LAYER_BY_ID[id].file).then((g) => setAssets((a) => ({ ...a, [id]: g.features }))))
+    const timer = setTimeout(go, 2500)
+    return () => clearTimeout(timer)
   }, [])
 
   // chatbot -> map
