@@ -10,7 +10,7 @@ import Home from './pages/Home'
 const ChatBot = lazy(() => import('./components/ChatBot'))
 const About = lazy(() => import('./pages/About'))
 const Policy = lazy(() => import('./pages/Policy'))
-const ElNino = lazy(() => import('./pages/ElNino'))
+const ElNino = lazy(() => import('./pages/Watch'))
 const Tana = lazy(() => import('./pages/Tana'))
 const Health = lazy(() => import('./pages/Health'))
 const NBS = lazy(() => import('./pages/NBS'))
@@ -43,6 +43,7 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/policy" element={<Policy />} />
               <Route path="/elnino" element={<ElNino />} />
+              <Route path="/watch" element={<ElNino />} />
               <Route path="/tana" element={<Tana />} />
               <Route path="/health" element={<Health />} />
               <Route path="/nbs" element={<NBS />} />

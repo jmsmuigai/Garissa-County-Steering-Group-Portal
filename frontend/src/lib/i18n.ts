@@ -8,7 +8,7 @@ const D: Record<string, [string, string, string]> = {
   'nav.home': ['Risk map', 'Ramani ya hatari', 'Khariidadda khatarta'],
   'nav.about': ['About CSG', 'Kuhusu CSG', 'Ku saabsan CSG'],
   'nav.policy': ['Partnerships policy', 'Sera ya ushirikiano', 'Siyaasadda iskaashiga'],
-  'nav.elnino': ['El Niño warning', 'Tahadhari ya El Niño', 'Digniinta El Niño'],
+  'nav.elnino': ['El Niño Watch', 'Uangalizi wa El Niño', 'Ilaalinta El Niño'],
   'nav.tana': ['Tana & Seven Forks', 'Tana na Seven Forks', 'Tana iyo Seven Forks'],
   'nav.health': ['Health & WASH', 'Afya na WASH', 'Caafimaadka & WASH'],
   'nav.nbs': ['Nature-based solutions', 'Suluhisho za kimaumbile', 'Xalalka dabiiciga ah'],

@@ -8,10 +8,10 @@ const KEY = 'csg_gemini_key'
 const MODEL = 'csg_gemini_model'
 
 // Optional site-wide key from public/portal-config.json (placeholder: empty until the county adds one).
-let site = { key: '', model: '' }
+let site = { key: '', model: '', owm: '' }
 export const siteConfigReady: Promise<void> = fetch('./portal-config.json', { cache: 'no-cache' })
   .then((r) => (r.ok ? r.json() : {}))
-  .then((c: any) => { site = { key: String(c?.geminiApiKey || '').trim(), model: String(c?.geminiModel || '') } })
+  .then((c: any) => { site = { key: String(c?.geminiApiKey || '').trim(), model: String(c?.geminiModel || ''), owm: String(c?.openWeatherApiKey || '').trim() } })
   .catch(() => { /* no config file: AI stays off until a key is pasted */ })
 
 /** Key pasted on this device wins; otherwise the site-wide key (if the county has added one). */
@@ -24,6 +24,16 @@ export function hasDeviceKey(): boolean {
   try { return !!localStorage.getItem(KEY) } catch { return false }
 }
 export function hasSiteKey(): boolean { return !!site.key }
+
+/** OpenWeather key: pasted on this device (localStorage csg_owm_key) or set in portal-config.json. */
+export function getOwmKey(): string {
+  let local = ''
+  try { local = localStorage.getItem('csg_owm_key') || '' } catch { /* storage blocked */ }
+  return local || site.owm
+}
+export function setOwmKey(k: string) {
+  try { k ? localStorage.setItem('csg_owm_key', k.trim()) : localStorage.removeItem('csg_owm_key') } catch { /* storage blocked */ }
+}
 export function setGeminiKey(k: string) {
   try { k ? localStorage.setItem(KEY, k.trim()) : localStorage.removeItem(KEY) } catch { /* storage blocked */ }
 }

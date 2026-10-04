@@ -10,6 +10,7 @@ import { geo, DATA } from '../lib/api'
 import { mapBus, levelFor, LEVEL_COLORS, useApp, type MapAction } from '../lib/store'
 import { t } from '../lib/i18n'
 import FloatPanel from './FloatPanel'
+import { getOwmKey } from '../lib/gemini'
 import StaffGauge from './StaffGauge'
 import RiskPanel from './RiskPanel'
 import type { RiskResult } from '../lib/risk'
@@ -193,8 +194,14 @@ const OVERLAY_BOUNDS: L.LatLngBoundsExpression = [[-2.0656, 38.6288], [1.0259, 4
 function buildLayer(def: LayerDef, g: any, stage: number, bufferKm: number): L.Layer {
   if (def.kind === 'image') return L.imageOverlay(def.url!, OVERLAY_BOUNDS, { opacity: def.opacity ?? 0.75, pane: 'rasters', interactive: false })
   if (def.kind === 'wms') return L.tileLayer.wms(def.url!, { layers: def.wmsLayer!, format: 'image/png', transparent: true, opacity: def.opacity ?? 0.75, pane: 'rasters', attribution: def.source } as any)
+  if (def.kind === 'tile' && def.needsKey) {
+    const key = getOwmKey()
+    if (!key) return L.layerGroup()
+    return L.tileLayer(def.url!.replace('{key}', key), { opacity: def.opacity ?? 0.7, pane: 'rasters', maxZoom: 20, maxNativeZoom: 12, attribution: def.source } as any)
+  }
   if (def.kind === 'tile') return L.tileLayer(def.url!, { opacity: def.opacity ?? 0.6, pane: 'rasters', maxNativeZoom: def.id === 'imerg' ? 6 : 13, maxZoom: 20, attribution: def.source } as any)
   let data = g
+  if (def.filter) data = { ...g, features: g.features.filter((f: any) => def.filter!(f.properties || {})) }
   if (def.id === 'flood_sim') data = { ...g, features: g.features.filter((f: any) => Math.abs(f.properties.stage_m - stage) < 0.01) }
   if (def.id === 'tana_buffers') data = { ...g, features: g.features.filter((f: any) => f.properties.buffer_km <= bufferKm) }
   return L.geoJSON(data, {

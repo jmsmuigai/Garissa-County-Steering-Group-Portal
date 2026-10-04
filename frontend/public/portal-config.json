@@ -1,5 +1,6 @@
 {
-  "_readme": "Site-wide settings for the static portal (GitHub Pages). To switch on Gemini for every visitor, paste your key between the quotes of geminiApiKey, save, and push. WARNING: this file is public, so restrict the key in Google Cloud (APIs & Services > Credentials > the key > Website restrictions: https://jmsmuigai.github.io/*, API restrictions: Generative Language API). Leave it empty to keep AI off; visitors can still paste their own key in the assistant.",
+  "_readme": "Site-wide settings for the static portal (GitHub Pages). Paste keys between the quotes, save and push (or edit on GitHub). geminiApiKey switches on the AI assistant; openWeatherApiKey switches on live OpenWeather rain/cloud map layers and current conditions. WARNING: this file is public - restrict each key to https://jmsmuigai.github.io/* in the provider's console. Leave empty to keep the feature off.",
   "geminiApiKey": "",
-  "geminiModel": "gemini-2.5-flash"
+  "geminiModel": "gemini-2.5-flash",
+  "openWeatherApiKey": ""
 }

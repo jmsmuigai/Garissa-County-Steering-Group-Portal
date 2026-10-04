@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
-from app import forecast, health_model, agent  # noqa: E402
+from app import forecast, health_model, agent, watch  # noqa: E402
 
 OUT = ROOT / "frontend" / "public" / "data" / "api"
 OUT.mkdir(parents=True, exist_ok=True)
@@ -20,6 +20,8 @@ def w(name, obj):
 
 print("Exporting static API snapshots ->", OUT)
 w("forecast.json", forecast.full_report())
+for fill in (80, 90, 95):
+    w(f"watch_{fill}.json", watch.watch(float(fill)))
 for s in ("elnino", "above", "normal"):
     w(f"health_{s}.json", health_model.disease_risk(s))
 for fill in range(70, 101, 5):

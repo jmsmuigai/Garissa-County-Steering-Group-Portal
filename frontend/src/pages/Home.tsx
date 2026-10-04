@@ -31,8 +31,8 @@ export default function Home() {
       {/* alert ribbon */}
       <div className="text-white" style={{ background: `linear-gradient(90deg, ${LEVEL_COLORS[lvl] || '#f28c28'}, #7a2614)` }}>
         <div className="mx-auto flex max-w-[1500px] items-center gap-x-4 px-4 py-1 text-[13px]">
-          <span className="flex shrink-0 items-center gap-1.5 font-display text-[14px] font-bold"><Siren size={16} /> El Niño flood watch</span>
-          <span className="hidden min-w-0 truncate md:inline">ECMWF & US-AI models: up to <b>350 mm</b> over the Upper Tana in 14 days · KMD: above-average OND rain, onset 1st–2nd week of October</span>
+          <span className="flex shrink-0 items-center gap-1.5 font-display text-[14px] font-bold"><Siren size={16} /> El Niño Watch</span>
+          <span className="hidden min-w-0 truncate md:inline">Rains start on Mt Kenya this week · main El Niño burst <b>12–18 Oct</b> · ECMWF: <b>200–300 mm</b> on the Seven Forks catchment, 60–80 mm at Garissa</span>
           {worst && <span className="shrink-0 max-lg:hidden">River Tana scenario peak <b>{worst.peak_stage_m} m</b> ({worst.level})</span>}
           <Link to="/elnino" className="ml-auto shrink-0 rounded-md bg-white/20 px-2.5 py-0.5 text-[12.5px] font-semibold hover:bg-white/30">See the outlook</Link>
         </div>
@@ -144,7 +144,7 @@ export default function Home() {
       <Section title="Explore the portal">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            ['/elnino', 'El Niño early warning', 'Model showdown, Python forecasts and the 3-month outlook.', './img/elnino_global_2026.jpg'],
+            ['/elnino', 'El Niño Watch', 'Live maps, the 16-day flood calendar, when the first rains and floods come, and what it means for farms.', './img/elnino_global_2026.jpg'],
             ['/tana', 'River Tana & Seven Forks', 'How the dams fill and spill, and how long the water takes to reach Garissa.', './img/masinga_spillway.jpg'],
             ['/health', 'Health & WASH', 'Cholera, malaria, Rift Valley fever and dengue risk after floods.', './img/rvf_vaccination.jpg'],
             ['/community', 'Community maps', 'Query the data and download colourful maps for your ward.', './img/map_lagha_hazard.jpg'],

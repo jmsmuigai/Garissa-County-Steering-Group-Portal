@@ -131,18 +131,19 @@ def _scs_runoff_mm(p_mm, cn):
     return 0.0 if p_mm <= ia else (p_mm - ia) ** 2 / (p_mm - ia + s)
 
 
-def hydrology(rain_daily_mm, masinga_fill_pct=DEFAULT_MASINGA_FILL, local_rain_mm=None, hours=24 * 21):
+def hydrology(rain_daily_mm, masinga_fill_pct=DEFAULT_MASINGA_FILL, local_rain_mm=None, hours=24 * 21,
+              cn_base=62.0, cn_slope=0.08, local_coef=4.5):
     """Route catchment rainfall through Masinga and down the Tana to Garissa (hourly)."""
     days = len(rain_daily_mm)
     storage = MASINGA_CAP_MCM * masinga_fill_pct / 100.0
-    cum_p, cn_base = 0.0, 62.0
+    cum_p = 0.0
     inflow_h = np.zeros(hours)
     spill_h = np.zeros(hours)
     fill = []
     for d in range(days):
         p = float(rain_daily_mm[d])
         cum_p += p
-        cn = min(88.0, cn_base + 0.08 * cum_p)          # soils wet up as the season progresses
+        cn = min(90.0, cn_base + cn_slope * cum_p)          # soils wet up as the season progresses
         q_mm = _scs_runoff_mm(p, cn) + 0.04 * p          # quick + slow (interflow) response
         vol_mcm = q_mm / 1000.0 * CATCHMENT_KM2          # mm over km2 -> MCM
         # turbine release ~ 0.35 MCM/h equivalent of 100 m3/s through the cascade
@@ -163,7 +164,7 @@ def hydrology(rain_daily_mm, masinga_fill_pct=DEFAULT_MASINGA_FILL, local_rain_m
     local = np.zeros(hours)
     lr = rain_daily_mm if local_rain_mm is None else local_rain_mm
     for d in range(min(days, hours // 24)):
-        local[d * 24:(d + 1) * 24] = 4.5 * lr[d]          # m3/s per mm/day (indicative)
+        local[d * 24:(d + 1) * 24] = local_coef * lr[d]          # m3/s per mm/day (indicative)
     upstream = inflow_h + spill_h + local
     lag = int(LAG_H)
     lagged = np.concatenate([np.full(lag, upstream[0]), upstream[:-lag]])

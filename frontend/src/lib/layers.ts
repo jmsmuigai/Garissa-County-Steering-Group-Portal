@@ -2,7 +2,7 @@
 export type LayerDef = {
   id: string
   label: string
-  group: 'Boundaries' | 'River Tana & floods' | 'Hazards' | 'Assets & services' | 'Upper Tana' | 'Nature-based solutions' | 'Terrain, land & people'
+  group: 'El Niño Watch' | 'Boundaries' | 'River Tana & floods' | 'Hazards' | 'Assets & services' | 'Upper Tana' | 'Nature-based solutions' | 'Terrain, land & people'
   file: string
   kind: 'polygon' | 'line' | 'point' | 'image' | 'wms' | 'tile'
   url?: string
@@ -23,6 +23,10 @@ export type LayerDef = {
   // raster layers have no vector tooltip
   source: string
   minZoom?: number
+  // keep only some features of the file (e.g. major laghas)
+  filter?: (p: any) => boolean
+  // tile url needs an API key from portal-config.json
+  needsKey?: 'openweather'
 }
 
 const n = (v: any, d = 1) => (v === null || v === undefined || v === '' ? 'n/a' : typeof v === 'number' ? v.toLocaleString(undefined, { maximumFractionDigits: d }) : v)
@@ -32,6 +36,37 @@ const tip = (title: string, rows: string[]) => `<div style="font-weight:600;font
 const RISK4 = { 'Very High': '#c81d25', High: '#f28c28', Moderate: '#f2c230', Low: '#2e9e4f', Medium: '#f2c230' }
 
 export const LAYERS: LayerDef[] = [
+  // ------------------------------------------------------------- El Niño Watch (catchment, laghas, border, live rain)
+  {
+    id: 'major_laghas', label: 'Major laghas (class I–II)', group: 'El Niño Watch', file: 'laghas.geojson', kind: 'line', on: false,
+    color: '#ff6d00', weight: 3, source: 'NBSOS lagha classification', filter: (p) => /^(I|II) –/.test(p.lagha_class || ''),
+    styleBy: { field: 'ff_hazard', map: { 'Very High': '#d50000', High: '#ff6d00', Moderate: '#ffab00', Low: '#64dd17' } },
+    tip: (p) => tip(`Major lagha ${p.id}`, [p.lagha_class, row('System', p.system), row('Flash-flood hazard', p.ff_hazard), row('Upstream area km²', p.upstream_km2), row('Nearest town', p.near_town)]),
+    legend: [{ label: 'Major lagha – very high hazard', color: '#d50000', shape: 'line' }, { label: 'Major lagha – high', color: '#ff6d00', shape: 'line' }],
+  },
+  {
+    id: 'ewaso', label: "Ewaso Ng'iro → Lagh Dera (Mt Kenya to Somalia)", group: 'El Niño Watch', file: 'ewaso_corridor.geojson', kind: 'line', on: false,
+    color: '#00b0ff', weight: 4, dash: '10 6', source: 'Indicative trace (HydroSHEDS / county laghas)',
+    tip: (p) => tip(p.name, [p.note]),
+    legend: [{ label: "Ewaso Ng'iro → Lagh Dera flow path", color: '#00b0ff', shape: 'line' }],
+  },
+  {
+    id: 'border_zone', label: 'Somalia-border flash-flood watch zone', group: 'El Niño Watch', file: 'border_watch_zone.geojson', kind: 'polygon', on: false,
+    color: '#ff1744', fillOpacity: 0.12, weight: 2, dash: '6 4', source: 'CSG analysis of 3–4 Oct 2026 model charts',
+    tip: (p) => tip(p.name, [p.note]),
+    legend: [{ label: 'Border flash-flood watch zone', color: '#ff1744', shape: 'area' }],
+  },
+  {
+    id: 'owm_precip', label: 'OpenWeather precipitation (live, needs key)', group: 'El Niño Watch', file: '', kind: 'tile', needsKey: 'openweather',
+    url: 'https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid={key}', opacity: 0.85,
+    color: '#7c4dff', source: 'OpenWeather Maps 1.0', tip: () => '',
+    gradient: { title: 'Precipitation now (mm/h)', colors: ['#c9c9ff', '#7c7cff', '#3d3dff', '#ff00ff'], labels: ['0.5', '5', '>50'] },
+  },
+  {
+    id: 'owm_clouds', label: 'OpenWeather clouds (live, needs key)', group: 'El Niño Watch', file: '', kind: 'tile', needsKey: 'openweather',
+    url: 'https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid={key}', opacity: 0.7,
+    color: '#b0bec5', source: 'OpenWeather Maps 1.0', tip: () => '',
+  },
   {
     id: 'county', label: 'Garissa County boundary', group: 'Boundaries', file: 'county.geojson', kind: 'polygon', on: true,
     color: '#ff1744', weight: 4, fillOpacity: 0, source: 'geoBoundaries (CC-BY 4.0)',

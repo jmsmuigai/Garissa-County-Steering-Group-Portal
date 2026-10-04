@@ -8,7 +8,7 @@ import StaffGauge from '../components/StaffGauge'
 
 const RISK_C: Record<string, string> = { 'Very High': '#c81d25', High: '#f28c28', Moderate: '#f2c230', Low: '#2e9e4f' }
 
-export default function ElNino() {
+export default function ElNino({ embedded = false }: { embedded?: boolean }) {
   const [fc, setFc] = useState<any>(null)
   const [live, setLive] = useState<any>(null)
   const [liveG, setLiveG] = useState<any>(null)
@@ -47,7 +47,7 @@ export default function ElNino() {
 
   return (
     <>
-      <PageHero img="./img/elnino_global_2026.jpg" title="El Niño early warning" lead="The Pacific is warm and the Indian Ocean dipole is positive – the same mix that flooded Garissa in 1997 and 2023. Here is what every major model says, run through Python models of the Upper Tana and the River Tana at Garissa." tone="crest" />
+      {!embedded && <PageHero img="./img/elnino_global_2026.jpg" title="El Niño early warning" lead="The Pacific is warm and the Indian Ocean dipole is positive – the same mix that flooded Garissa in 1997 and 2023. Here is what every major model says, run through Python models of the Upper Tana and the River Tana at Garissa." tone="crest" />}
       <TranslatePage targetId="en-body" />
       <div id="en-body">
         <Section title="What is El Niño, and why does it flood Garissa?">

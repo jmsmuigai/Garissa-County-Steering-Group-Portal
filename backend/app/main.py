@@ -29,7 +29,7 @@ try:
 except Exception:
     pass
 
-from . import agent, forecast, health_model, knowledge, weather  # noqa: E402
+from . import agent, forecast, health_model, knowledge, watch, weather  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 log = logging.getLogger("csg")
@@ -90,6 +90,11 @@ def health():
 @app.get("/api/forecast")
 def api_forecast(masinga_fill_pct: float = forecast.DEFAULT_MASINGA_FILL):
     return forecast.full_report(max(20.0, min(100.0, masinga_fill_pct)))
+
+
+@app.get("/api/watch")
+def api_watch(masinga_fill_pct: float = forecast.DEFAULT_MASINGA_FILL):
+    return watch.watch(max(20.0, min(100.0, masinga_fill_pct)))
 
 
 @app.get("/api/forecast/tana")
