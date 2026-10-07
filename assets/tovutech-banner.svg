@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="Garissa CSG Portal - Map-first flood early warning and coordination for Garissa County">
+  <title>Garissa CSG Portal</title>
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22D3EE"/>
+      <stop offset="0.5" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#22C55E"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.85" cy="0.2" r="0.6">
+      <stop offset="0" stop-color="#8B5CF6" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#0A0F2C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.1" cy="1" r="0.55">
+      <stop offset="0" stop-color="#22D3EE" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#0A0F2C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="320" fill="#0A0F2C"/>
+  <rect width="1280" height="320" fill="url(#glow1)"/>
+  <rect width="1280" height="320" fill="url(#glow2)"/>
+  <g stroke="url(#accent)" stroke-width="1.4" opacity="0.45">
+    <line x1="991" y1="268" x2="991" y2="290"/>
+    <line x1="991" y1="268" x2="1064" y2="232"/>
+    <line x1="991" y1="290" x2="1064" y2="232"/>
+    <line x1="1197" y1="127" x2="1185" y2="62"/>
+    <line x1="1197" y1="127" x2="1082" y2="125"/>
+    <line x1="854" y1="273" x2="808" y2="258"/>
+    <line x1="854" y1="273" x2="857" y2="153"/>
+    <line x1="1082" y1="125" x2="1079" y2="37"/>
+    <line x1="1082" y1="125" x2="991" y2="110"/>
+    <line x1="808" y1="258" x2="857" y2="153"/>
+    <line x1="915" y1="102" x2="991" y2="110"/>
+    <line x1="915" y1="102" x2="857" y2="153"/>
+    <line x1="806" y1="51" x2="790" y2="48"/>
+    <line x1="806" y1="51" x2="857" y2="153"/>
+    <line x1="1079" y1="37" x2="1185" y2="62"/>
+    <line x1="790" y1="48" x2="857" y2="153"/>
+  </g>
+  <g>
+    <circle cx="991" cy="268" r="8" fill="#22D3EE" opacity="0.15"/>
+    <circle cx="991" cy="268" r="3" fill="#22D3EE" opacity="0.9"/>
+    <circle cx="991" cy="290" r="11" fill="#8B5CF6" opacity="0.15"/>
+    <circle cx="991" cy="290" r="6" fill="#8B5CF6" opacity="0.9"/>
+    <circle cx="1197" cy="127" r="10" fill="#22C55E" opacity="0.15"/>
+    <circle cx="1197" cy="127" r="5" fill="#22C55E" opacity="0.9"/>
+    <circle cx="854" cy="273" r="11" fill="#22D3EE" opacity="0.15"/>
+    <circle cx="854" cy="273" r="6" fill="#22D3EE" opacity="0.9"/>
+    <circle cx="1082" cy="125" r="9" fill="#8B5CF6" opacity="0.15"/>
+    <circle cx="1082" cy="125" r="4" fill="#8B5CF6" opacity="0.9"/>
+    <circle cx="808" cy="258" r="9" fill="#22C55E" opacity="0.15"/>
+    <circle cx="808" cy="258" r="4" fill="#22C55E" opacity="0.9"/>
+    <circle cx="915" cy="102" r="10" fill="#22D3EE" opacity="0.15"/>
+    <circle cx="915" cy="102" r="5" fill="#22D3EE" opacity="0.9"/>
+    <circle cx="806" cy="51" r="11" fill="#8B5CF6" opacity="0.15"/>
+    <circle cx="806" cy="51" r="6" fill="#8B5CF6" opacity="0.9"/>
+    <circle cx="1064" cy="232" r="8" fill="#22C55E" opacity="0.15"/>
+    <circle cx="1064" cy="232" r="3" fill="#22C55E" opacity="0.9"/>
+    <circle cx="991" cy="110" r="8" fill="#22D3EE" opacity="0.15"/>
+    <circle cx="991" cy="110" r="3" fill="#22D3EE" opacity="0.9"/>
+    <circle cx="1079" cy="37" r="11" fill="#8B5CF6" opacity="0.15"/>
+    <circle cx="1079" cy="37" r="6" fill="#8B5CF6" opacity="0.9"/>
+    <circle cx="1185" cy="62" r="10" fill="#22C55E" opacity="0.15"/>
+    <circle cx="1185" cy="62" r="5" fill="#22C55E" opacity="0.9"/>
+    <circle cx="790" cy="48" r="11" fill="#22D3EE" opacity="0.15"/>
+    <circle cx="790" cy="48" r="6" fill="#22D3EE" opacity="0.9"/>
+    <circle cx="857" cy="153" r="8" fill="#8B5CF6" opacity="0.15"/>
+    <circle cx="857" cy="153" r="3" fill="#8B5CF6" opacity="0.9"/>
+  </g>
+  <rect x="64" y="70" width="8" height="150" rx="4" fill="url(#accent)"/>
+  <text x="96" y="132" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="#FFFFFF">Garissa CSG Portal</text>
+  <text x="98" y="182" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" fill="#CBD5E1">Map-first flood early warning and coordination for Garissa County</text>
+  <rect x="98" y="206" width="300" height="4" rx="2" fill="url(#accent)"/>
+  <text x="98" y="272" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#22D3EE">TovuTech · tovutech.com</text>
+  <rect x="0" y="314" width="1280" height="6" fill="url(#accent)"/>
+</svg>
