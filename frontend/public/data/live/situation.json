@@ -1,5 +1,5 @@
 {
- "issued": "2026-11-15T06:21+03:00",
+ "issued": "2026-11-15T07:30+03:00",
  "level": "ALERT",
  "headline": {
   "en": "ALERT: The rains reached Garissa on the night of Thursday 12 November. 42 mm fell on Garissa in the last 3 days (30 mm on 13 Nov). The River Tana is rising – flow is 2.8× its dry early-October level. Indicative Garissa gauge ~3.48 m now, ~4.29 m by 28 Nov (wettest run 5.75 m).",
@@ -1654,10 +1654,9 @@
  ],
  "gauge_readings": [],
  "health": {
-  "checked": "2026-11-15T06:21+03:00",
+  "checked": "2026-11-15T07:30+03:00",
   "open_meteo_rain": "ok",
   "glofas_river": "ok",
   "nasa_gibs_modis_flood": "ok"
- },
- "onset_observed": "2026-11-12"
+ }
 }
