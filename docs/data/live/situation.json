@@ -1,8 +1,8 @@
 {
- "issued": "2026-11-15T06:00+03:00",
+ "issued": "2026-11-15T06:21+03:00",
  "level": "ALERT",
  "headline": {
-  "en": "ALERT: 42 mm fell on Garissa in the last 3 days (30 mm on 2026-11-13). The River Tana is rising – flow is 3.1× early October. Indicative Garissa gauge ~3.48 m now, ~4.29 m by 2026-11-28 (wettest run 5.75 m).",
+  "en": "ALERT: 42 mm fell on Garissa in the last 3 days (30 mm on 2026-11-13). The River Tana is rising – flow is 2.8× early October. Indicative Garissa gauge ~3.48 m now, ~4.29 m by 2026-11-28 (wettest run 5.75 m).",
   "sw": "ALERT: Mvua ya mm 42 imenyesha Garissa siku 3 zilizopita. Mto Tana unazidi kupanda – kiwango cha kipimo cha Garissa kinakadiriwa mita 3.48 sasa na mita 4.29 kufikia 2026-11-28.",
   "so": "ALERT: 42 mm roob ah ayaa ka da'ay Garissa 3dii maalmood ee la soo dhaafay. Webiga Tana wuu sii kacayaa – cabbirka Garissa qiyaastii 3.48 m hadda, 4.29 m ilaa 2026-11-28."
  },
@@ -596,13 +596,13 @@
  },
  "river": {
   "cell": [
-   -0.475,
-   39.575
+   -0.47499847,
+   39.575012
   ],
   "q_now": 122.6,
   "q_7days_ago": 93.0,
-  "q_baseline_early_oct": 39.1,
-  "ratio_to_baseline": 3.1,
+  "q_baseline_early_oct": 43.0,
+  "ratio_to_baseline": 2.8,
   "trend": "rising",
   "pct_change_7d": 32,
   "indicative_stage_now": 3.48,
@@ -624,12 +624,147 @@
   "official_latest": null,
   "series": [
    {
+    "date": "2026-09-16",
+    "q": 30.77,
+    "p75": 30.77,
+    "max": 30.84,
+    "stage": 1.73,
+    "stage_wet": 1.73,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-17",
+    "q": 33.36,
+    "p75": 33.36,
+    "max": 33.43,
+    "stage": 1.8,
+    "stage_wet": 1.8,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-18",
+    "q": 38.36,
+    "p75": 38.36,
+    "max": 38.54,
+    "stage": 1.93,
+    "stage_wet": 1.93,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-19",
+    "q": 43.36,
+    "p75": 43.46,
+    "max": 43.67,
+    "stage": 2.05,
+    "stage_wet": 2.06,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-20",
+    "q": 45.67,
+    "p75": 45.67,
+    "max": 45.77,
+    "stage": 2.11,
+    "stage_wet": 2.11,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-21",
+    "q": 46.1,
+    "p75": 46.32,
+    "max": 47.87,
+    "stage": 2.12,
+    "stage_wet": 2.16,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-22",
+    "q": 47.64,
+    "p75": 47.75,
+    "max": 51.6,
+    "stage": 2.15,
+    "stage_wet": 2.24,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-23",
+    "q": 48.32,
+    "p75": 48.43,
+    "max": 48.55,
+    "stage": 2.17,
+    "stage_wet": 2.17,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-24",
+    "q": 48.2,
+    "p75": 48.32,
+    "max": 48.43,
+    "stage": 2.17,
+    "stage_wet": 2.17,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-25",
+    "q": 48.55,
+    "p75": 48.6,
+    "max": 48.66,
+    "stage": 2.17,
+    "stage_wet": 2.18,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-26",
+    "q": 49.12,
+    "p75": 49.12,
+    "max": 49.23,
+    "stage": 2.19,
+    "stage_wet": 2.19,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-27",
+    "q": 49.0,
+    "p75": 49.0,
+    "max": 49.12,
+    "stage": 2.18,
+    "stage_wet": 2.19,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-28",
+    "q": 48.09,
+    "p75": 48.09,
+    "max": 48.09,
+    "stage": 2.16,
+    "stage_wet": 2.16,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-29",
+    "q": 46.53,
+    "p75": 46.53,
+    "max": 46.97,
+    "stage": 2.13,
+    "stage_wet": 2.14,
+    "forecast": false
+   },
+   {
+    "date": "2026-09-30",
+    "q": 43.87,
+    "p75": 43.98,
+    "max": 44.08,
+    "stage": 2.07,
+    "stage_wet": 2.07,
+    "forecast": false
+   },
+   {
     "date": "2026-10-01",
     "q": 41.36,
     "p75": 41.36,
-    "max": 41.36,
+    "max": 41.46,
     "stage": 2.0,
-    "stage_wet": 2.0,
+    "stage_wet": 2.01,
     "forecast": false
    },
    {
@@ -645,7 +780,7 @@
     "date": "2026-10-03",
     "q": 38.63,
     "p75": 38.63,
-    "max": 38.63,
+    "max": 38.72,
     "stage": 1.94,
     "stage_wet": 1.94,
     "forecast": false
@@ -654,7 +789,7 @@
     "date": "2026-10-04",
     "q": 38.36,
     "p75": 38.36,
-    "max": 38.36,
+    "max": 38.45,
     "stage": 1.93,
     "stage_wet": 1.93,
     "forecast": false
@@ -662,8 +797,8 @@
    {
     "date": "2026-10-05",
     "q": 37.9,
-    "p75": 37.9,
-    "max": 37.9,
+    "p75": 37.99,
+    "max": 38.08,
     "stage": 1.92,
     "stage_wet": 1.92,
     "forecast": false
@@ -671,17 +806,17 @@
    {
     "date": "2026-10-06",
     "q": 37.11,
-    "p75": 37.11,
-    "max": 37.11,
+    "p75": 37.19,
+    "max": 37.99,
     "stage": 1.9,
-    "stage_wet": 1.9,
+    "stage_wet": 1.92,
     "forecast": false
    },
    {
     "date": "2026-10-07",
     "q": 35.98,
-    "p75": 35.98,
-    "max": 35.98,
+    "p75": 36.07,
+    "max": 36.24,
     "stage": 1.87,
     "stage_wet": 1.87,
     "forecast": false
@@ -690,79 +825,79 @@
     "date": "2026-10-08",
     "q": 34.89,
     "p75": 34.89,
-    "max": 34.89,
+    "max": 35.31,
     "stage": 1.84,
-    "stage_wet": 1.84,
+    "stage_wet": 1.85,
     "forecast": false
    },
    {
     "date": "2026-10-09",
     "q": 33.99,
-    "p75": 33.99,
-    "max": 33.99,
+    "p75": 34.08,
+    "max": 34.16,
     "stage": 1.81,
-    "stage_wet": 1.81,
+    "stage_wet": 1.82,
     "forecast": false
    },
    {
     "date": "2026-10-10",
     "q": 35.31,
-    "p75": 35.31,
-    "max": 35.31,
+    "p75": 35.39,
+    "max": 36.5,
     "stage": 1.85,
-    "stage_wet": 1.85,
+    "stage_wet": 1.88,
     "forecast": false
    },
    {
     "date": "2026-10-11",
     "q": 39.18,
-    "p75": 39.18,
-    "max": 39.18,
+    "p75": 39.27,
+    "max": 40.69,
     "stage": 1.95,
-    "stage_wet": 1.95,
+    "stage_wet": 1.99,
     "forecast": false
    },
    {
     "date": "2026-10-12",
     "q": 44.08,
     "p75": 44.08,
-    "max": 44.08,
+    "max": 44.5,
     "stage": 2.07,
-    "stage_wet": 2.07,
+    "stage_wet": 2.08,
     "forecast": false
    },
    {
     "date": "2026-10-13",
     "q": 50.76,
     "p75": 50.76,
-    "max": 50.76,
+    "max": 51.0,
     "stage": 2.22,
-    "stage_wet": 2.22,
+    "stage_wet": 2.23,
     "forecast": false
    },
    {
     "date": "2026-10-14",
     "q": 59.67,
     "p75": 59.67,
-    "max": 59.67,
+    "max": 59.81,
     "stage": 2.41,
-    "stage_wet": 2.41,
+    "stage_wet": 2.42,
     "forecast": false
    },
    {
     "date": "2026-10-15",
     "q": 67.23,
-    "p75": 67.23,
-    "max": 67.23,
+    "p75": 67.08,
+    "max": 67.55,
     "stage": 2.56,
-    "stage_wet": 2.56,
+    "stage_wet": 2.57,
     "forecast": false
    },
    {
     "date": "2026-10-16",
     "q": 69.96,
     "p75": 69.96,
-    "max": 69.96,
+    "max": 70.12,
     "stage": 2.62,
     "stage_wet": 2.62,
     "forecast": false
@@ -771,7 +906,7 @@
     "date": "2026-10-17",
     "q": 65.37,
     "p75": 65.37,
-    "max": 65.37,
+    "max": 65.53,
     "stage": 2.53,
     "stage_wet": 2.53,
     "forecast": false
@@ -779,28 +914,28 @@
    {
     "date": "2026-10-18",
     "q": 61.09,
-    "p75": 61.09,
-    "max": 61.09,
+    "p75": 61.37,
+    "max": 61.52,
     "stage": 2.44,
-    "stage_wet": 2.44,
+    "stage_wet": 2.45,
     "forecast": false
    },
    {
     "date": "2026-10-19",
     "q": 58.57,
-    "p75": 58.57,
-    "max": 58.57,
+    "p75": 58.7,
+    "max": 58.84,
     "stage": 2.39,
-    "stage_wet": 2.39,
+    "stage_wet": 2.4,
     "forecast": false
    },
    {
     "date": "2026-10-20",
     "q": 59.39,
-    "p75": 59.39,
-    "max": 59.39,
+    "p75": 59.53,
+    "max": 59.81,
     "stage": 2.41,
-    "stage_wet": 2.41,
+    "stage_wet": 2.42,
     "forecast": false
    },
    {
@@ -825,7 +960,7 @@
     "date": "2026-10-23",
     "q": 74.86,
     "p75": 74.86,
-    "max": 74.86,
+    "max": 75.03,
     "stage": 2.71,
     "stage_wet": 2.71,
     "forecast": false
@@ -843,7 +978,7 @@
     "date": "2026-10-25",
     "q": 71.78,
     "p75": 71.78,
-    "max": 71.78,
+    "max": 71.95,
     "stage": 2.65,
     "stage_wet": 2.65,
     "forecast": false
@@ -852,7 +987,7 @@
     "date": "2026-10-26",
     "q": 68.82,
     "p75": 68.82,
-    "max": 68.82,
+    "max": 69.15,
     "stage": 2.6,
     "stage_wet": 2.6,
     "forecast": false
@@ -860,71 +995,71 @@
    {
     "date": "2026-10-27",
     "q": 64.92,
-    "p75": 64.92,
-    "max": 64.92,
+    "p75": 65.07,
+    "max": 67.08,
     "stage": 2.52,
-    "stage_wet": 2.52,
+    "stage_wet": 2.56,
     "forecast": false
    },
    {
     "date": "2026-10-28",
     "q": 61.95,
-    "p75": 61.95,
-    "max": 61.95,
+    "p75": 62.1,
+    "max": 62.97,
     "stage": 2.46,
-    "stage_wet": 2.46,
+    "stage_wet": 2.48,
     "forecast": false
    },
    {
     "date": "2026-10-29",
     "q": 61.66,
     "p75": 61.66,
-    "max": 61.66,
+    "max": 62.24,
     "stage": 2.45,
-    "stage_wet": 2.45,
+    "stage_wet": 2.47,
     "forecast": false
    },
    {
     "date": "2026-10-30",
     "q": 59.39,
-    "p75": 59.39,
-    "max": 59.39,
+    "p75": 59.53,
+    "max": 60.8,
     "stage": 2.41,
-    "stage_wet": 2.41,
+    "stage_wet": 2.44,
     "forecast": false
    },
    {
     "date": "2026-10-31",
     "q": 62.24,
-    "p75": 62.24,
-    "max": 62.24,
+    "p75": 62.39,
+    "max": 63.57,
     "stage": 2.47,
-    "stage_wet": 2.47,
+    "stage_wet": 2.49,
     "forecast": false
    },
    {
     "date": "2026-11-01",
     "q": 69.47,
-    "p75": 69.47,
-    "max": 69.47,
+    "p75": 69.63,
+    "max": 69.96,
     "stage": 2.61,
-    "stage_wet": 2.61,
+    "stage_wet": 2.62,
     "forecast": false
    },
    {
     "date": "2026-11-02",
     "q": 80.66,
     "p75": 80.66,
-    "max": 80.66,
+    "max": 80.85,
     "stage": 2.81,
-    "stage_wet": 2.81,
+    "stage_wet": 2.82,
     "forecast": false
    },
    {
     "date": "2026-11-03",
     "q": 91.47,
-    "p75": 91.47,
-    "max": 91.47,
+    "p75": 91.68,
+    "max": 91.68,
     "stage": 3.0,
     "stage_wet": 3.0,
     "forecast": false
@@ -932,16 +1067,16 @@
    {
     "date": "2026-11-04",
     "q": 99.23,
-    "p75": 99.23,
-    "max": 99.23,
+    "p75": 99.46,
+    "max": 99.46,
     "stage": 3.12,
-    "stage_wet": 3.12,
+    "stage_wet": 3.13,
     "forecast": false
    },
    {
     "date": "2026-11-05",
     "q": 99.93,
-    "p75": 99.93,
+    "p75": 99.69,
     "max": 99.93,
     "stage": 3.14,
     "stage_wet": 3.14,
@@ -951,45 +1086,45 @@
     "date": "2026-11-06",
     "q": 96.05,
     "p75": 96.05,
-    "max": 96.05,
+    "max": 96.27,
     "stage": 3.07,
-    "stage_wet": 3.07,
+    "stage_wet": 3.08,
     "forecast": false
    },
    {
     "date": "2026-11-07",
     "q": 92.33,
     "p75": 92.33,
-    "max": 92.33,
+    "max": 93.19,
     "stage": 3.01,
-    "stage_wet": 3.01,
+    "stage_wet": 3.03,
     "forecast": false
    },
    {
     "date": "2026-11-08",
     "q": 92.97,
     "p75": 92.97,
-    "max": 92.97,
+    "max": 93.19,
     "stage": 3.02,
-    "stage_wet": 3.02,
+    "stage_wet": 3.03,
     "forecast": false
    },
    {
     "date": "2026-11-09",
     "q": 86.9,
-    "p75": 86.9,
-    "max": 86.9,
+    "p75": 87.1,
+    "max": 87.72,
     "stage": 2.92,
-    "stage_wet": 2.92,
+    "stage_wet": 2.93,
     "forecast": false
    },
    {
     "date": "2026-11-10",
     "q": 91.47,
     "p75": 91.47,
-    "max": 91.47,
+    "max": 92.11,
     "stage": 3.0,
-    "stage_wet": 3.0,
+    "stage_wet": 3.01,
     "forecast": false
    },
    {
@@ -1304,40 +1439,13 @@
   "product": "NASA LANCE MODIS Combined Flood (3-day) via GIBS",
   "days": [
    {
-    "date": "2026-10-05",
-    "available": true,
-    "water_km2": 0,
-    "recurring_km2": 0,
-    "flood_km2": 0,
-    "cloud_pct": 76,
-    "county_km2": 45324
-   },
-   {
-    "date": "2026-10-15",
-    "available": true,
-    "water_km2": 0,
-    "recurring_km2": 0,
-    "flood_km2": 0,
-    "cloud_pct": 63,
-    "county_km2": 45324
-   },
-   {
-    "date": "2026-10-25",
-    "available": true,
-    "water_km2": 0,
-    "recurring_km2": 0,
-    "flood_km2": 0,
-    "cloud_pct": 27,
-    "county_km2": 45324
-   },
-   {
     "date": "2026-11-01",
     "available": true,
     "water_km2": 0,
     "recurring_km2": 0,
     "flood_km2": 0,
-    "cloud_pct": 61,
-    "county_km2": 45324
+    "cloud_pct": 60,
+    "county_km2": 45468
    },
    {
     "date": "2026-11-05",
@@ -1346,7 +1454,7 @@
     "recurring_km2": 0,
     "flood_km2": 0,
     "cloud_pct": 51,
-    "county_km2": 45324
+    "county_km2": 45468
    },
    {
     "date": "2026-11-08",
@@ -1355,7 +1463,7 @@
     "recurring_km2": 0,
     "flood_km2": 0,
     "cloud_pct": 85,
-    "county_km2": 45324
+    "county_km2": 45468
    },
    {
     "date": "2026-11-10",
@@ -1364,16 +1472,7 @@
     "recurring_km2": 0,
     "flood_km2": 0,
     "cloud_pct": 68,
-    "county_km2": 45324
-   },
-   {
-    "date": "2026-11-11",
-    "available": true,
-    "water_km2": 0,
-    "recurring_km2": 0,
-    "flood_km2": 0,
-    "cloud_pct": 87,
-    "county_km2": 45324
+    "county_km2": 45468
    },
    {
     "date": "2026-11-12",
@@ -1382,7 +1481,7 @@
     "recurring_km2": 0,
     "flood_km2": 0,
     "cloud_pct": 81,
-    "county_km2": 45324
+    "county_km2": 45468
    },
    {
     "date": "2026-11-13",
@@ -1391,7 +1490,7 @@
     "recurring_km2": 0,
     "flood_km2": 0,
     "cloud_pct": 98,
-    "county_km2": 45324
+    "county_km2": 45468
    },
    {
     "date": "2026-11-14",
@@ -1400,7 +1499,7 @@
     "recurring_km2": 0,
     "flood_km2": 0,
     "cloud_pct": 83,
-    "county_km2": 45324
+    "county_km2": 45468
    }
   ],
   "latest": {
@@ -1410,7 +1509,7 @@
    "recurring_km2": 0,
    "flood_km2": 0,
    "cloud_pct": 83,
-   "county_km2": 45324
+   "county_km2": 45468
   },
   "note": "Clouds hide most of the county – optical satellites cannot see the floods; use radar (Sentinel-1) via Copernicus EMS / UNOSAT for flood extents."
  },
@@ -1554,5 +1653,10 @@
   }
  ],
  "gauge_readings": [],
- "snapshot_note": "Seed snapshot built from data fetched on 15 Nov 2026 06:00 EAT; refreshed automatically by the GitHub Action every 3 hours."
+ "health": {
+  "checked": "2026-11-15T06:21+03:00",
+  "open_meteo_rain": "ok",
+  "glofas_river": "ok",
+  "nasa_gibs_modis_flood": "ok"
+ }
 }
