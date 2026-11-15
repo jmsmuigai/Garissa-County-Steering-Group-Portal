@@ -78,7 +78,7 @@ export default function Watch() {
       try {
         if (await backendAvailable()) { const r = await fetch(`./api/watch?masinga_fill_pct=${fill}`); if (r.ok) { setW(await r.json()); return } }
       } catch { /* static fallback */ }
-      const r = await fetch(DATA(`api/watch_${fill}.json`)); if (r.ok) setW(await r.json())
+      const r = await fetch(DATA(`api/watch_${fill}.json`), { cache: 'no-cache' }); if (r.ok) setW(await r.json())
     })()
   }, [fill])
 
