@@ -6,6 +6,7 @@ export type Lang = 'en' | 'sw' | 'so'
 const D: Record<string, [string, string, string]> = {
   // navigation
   'nav.home': ['Risk map', 'Ramani ya hatari', 'Khariidadda khatarta'],
+  'nav.situation': ['Flood Situation Room', 'Hali ya Mafuriko', 'Xaaladda Fatahaadda'],
   'nav.about': ['About CSG', 'Kuhusu CSG', 'Ku saabsan CSG'],
   'nav.policy': ['Partnerships policy', 'Sera ya ushirikiano', 'Siyaasadda iskaashiga'],
   'nav.elnino': ['El Niño Watch', 'Uangalizi wa El Niño', 'Ilaalinta El Niño'],

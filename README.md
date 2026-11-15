@@ -9,6 +9,20 @@
   <a href="https://jmsmuigai.github.io/Garissa-County-Steering-Group-Portal/"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-GitHub%20Pages-0A0F2C?style=for-the-badge&logo=github"></a>
 </p>
 
+## Live flood monitoring (November 2026)
+
+* **Flood Situation Room** (`#/situation`) – live alert level, River Tana monitor (Copernicus GloFAS flow at
+  Garissa, 30-day ensemble forecast, indicative gauge vs ALERT/ALARM/EMERGENCY, official WRA readings),
+  observed and forecast rain for 11 places, NASA MODIS/VIIRS satellite viewer (before/after), MODIS flood product
+  measured inside the county with cloud cover, forecast scorecard, event log (Kenya Met, NDOC, Kenya Red Cross,
+  NDMA, FEWS NET, field reports), WhatsApp alert, feed-health panel.
+* **Automation** – `.github/workflows/live-update.yml` runs `scripts/update_live.py` every 3 hours and republishes
+  `docs/data/live/situation.json`; failed feeds keep the last good data (self-healing). The county server refreshes
+  `/api/live/situation` every 30 minutes; the browser re-checks the open sources every 10 minutes.
+* **MCP server** – `mcp_server/csg_mcp_server.py` exposes the live situation to Claude, Gemini and other MCP
+  clients and lets the secretariat log events and gauge readings. See `mcp_server/README.md`.
+* Core logic: `backend/app/live.py` (shared by the API, the MCP server and the GitHub Action).
+
 ## What it is
 
 A trilingual (English · Kiswahili · Af-Soomaali), map-first web portal built for the **Garissa County Steering Group (CSG)**. It brings together El Niño 2026 flood early-warning scenarios, River Tana / Seven Forks forecasting, an "Am I at risk?" location check, health and WASH risk, nature-based solutions, community map-making and the County Partnerships & Coordination Policy in one place.

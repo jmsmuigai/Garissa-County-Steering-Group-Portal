@@ -29,7 +29,7 @@ try:
 except Exception:
     pass
 
-from . import agent, forecast, health_model, knowledge, watch, weather  # noqa: E402
+from . import agent, forecast, health_model, knowledge, live, watch, weather  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 log = logging.getLogger("csg")
@@ -90,6 +90,56 @@ def health():
 @app.get("/api/forecast")
 def api_forecast(masinga_fill_pct: float = forecast.DEFAULT_MASINGA_FILL):
     return forecast.full_report(max(20.0, min(100.0, masinga_fill_pct)))
+
+
+# ------------------------------------------------------------------------------------------ live situation
+_LIVE = {"data": None, "t": 0.0}
+
+
+def _live_refresh():
+    try:
+        s = live.build_situation()
+        s["health"] = {"checked": live.now_eat().isoformat(timespec="minutes"), "server": "ok"}
+        live.write_json("situation.json", s)
+        _LIVE.update(data=s, t=time.time())
+        log.info("live situation refreshed: %s", s["level"])
+    except Exception as e:  # keep serving the last good snapshot
+        log.warning("live refresh failed: %s", e)
+
+
+def _live_loop():
+    while True:
+        _live_refresh()
+        time.sleep(1800)
+
+
+threading.Thread(target=_live_loop, daemon=True).start()
+
+
+@app.get("/api/live/situation")
+def api_live_situation():
+    return _LIVE["data"] or live.read_json("situation.json", {})
+
+
+@app.get("/api/live/events")
+def api_live_events():
+    return live.events()
+
+
+class GaugeIn(BaseModel):
+    stage_m: float = Field(ge=0, le=12)
+    observer: str
+    time: str | None = None
+    note: str = ""
+
+
+@app.post("/api/live/gauge")
+def api_live_gauge(g: GaugeIn, request: Request):
+    if request.headers.get("x-admin-token") != os.getenv("ADMIN_TOKEN", "change-me"):
+        raise HTTPException(401, "admin token required")
+    item = live.log_gauge(g.stage_m, g.time, g.observer, g.note)
+    threading.Thread(target=_live_refresh, daemon=True).start()
+    return item
 
 
 @app.get("/api/watch")

@@ -9,6 +9,7 @@ import Home from './pages/Home'
 // the assistant downloads after the map is on screen
 const ChatBot = lazy(() => import('./components/ChatBot'))
 const About = lazy(() => import('./pages/About'))
+const Situation = lazy(() => import('./pages/Situation'))
 const Policy = lazy(() => import('./pages/Policy'))
 const ElNino = lazy(() => import('./pages/Watch'))
 const Tana = lazy(() => import('./pages/Tana'))
@@ -44,6 +45,7 @@ export default function App() {
               <Route path="/policy" element={<Policy />} />
               <Route path="/elnino" element={<ElNino />} />
               <Route path="/watch" element={<ElNino />} />
+              <Route path="/situation" element={<Situation />} />
               <Route path="/tana" element={<Tana />} />
               <Route path="/health" element={<Health />} />
               <Route path="/nbs" element={<NBS />} />

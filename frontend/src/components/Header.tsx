@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Map, MapPinned, Info, Handshake, CloudRain, Waves, HeartPulse, Trees, Images, Siren, Menu, X, Languages, Phone } from 'lucide-react'
+import { Map, MapPinned, Info, Handshake, CloudRain, Waves, HeartPulse, Trees, Images, Siren, Menu, X, Languages, Phone, Radio } from 'lucide-react'
 import { useApp } from '../lib/store'
 import { LANGS, t } from '../lib/i18n'
 
 export const NAV = [
   { to: '/', key: 'nav.home', icon: Map },
+  { to: '/situation', key: 'nav.situation', icon: Radio },
   { to: '/about', key: 'nav.about', icon: Info },
   { to: '/elnino', key: 'nav.elnino', icon: CloudRain },
   { to: '/tana', key: 'nav.tana', icon: Waves },
@@ -77,7 +78,7 @@ export default function Header() {
             <li key={to}>
               <NavLink to={to} end={to === '/'} onClick={() => setOpen(false)}
                 className={({ isActive }) => `flex items-center gap-1.5 rounded-md px-2 py-1 text-[13px] font-medium transition ${
-                  to === '/report' ? 'bg-emergency text-white hover:brightness-110' : isActive ? 'bg-tana text-white' : 'text-white/85 hover:bg-white/10'}`}>
+                  to === '/report' ? 'bg-emergency text-white hover:brightness-110' : to === '/situation' && !isActive ? 'bg-[#f28c28] text-white hover:brightness-110' : isActive ? 'bg-tana text-white' : 'text-white/85 hover:bg-white/10'}`}>
                 <Icon size={15} /> {t(key, lang)}
               </NavLink>
             </li>

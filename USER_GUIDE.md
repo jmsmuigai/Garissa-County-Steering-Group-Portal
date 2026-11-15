@@ -5,6 +5,21 @@ Works on phones, tablets and laptops. Change language with **EN / SW / SO** at t
 
 ---
 
+## 0. Flood Situation Room (start here during floods)
+
+Open **Flood Situation Room** in the menu (orange button).
+
+* **Banner** – today's CSG level (WATCH / ALERT / ALARM / EMERGENCY) and a one-paragraph summary in your language. *Copy WhatsApp alert* puts a ready message on your clipboard for chiefs, ward administrators and groups.
+* **Four numbers** – rain on Garissa in the last 3 days, rain on the Seven Forks catchment, how many times higher the River Tana flow is than in early October, and the date the river is expected to reach ALERT (4.0 m).
+* **River Tana monitor** – the river at Garissa for the last 45 days and the next 30 (red line = most likely, shaded = wettest forecast). Switch between *Gauge level* and *Flow*. Black dots are official WRA gauge readings; they always override the model.
+* **Rainfall** – what fell and what is coming for 11 places from Garissa to Mt Kenya; colours: yellow 10+, orange 25+, red 50+, purple 100+ mm.
+* **Satellite watch** – pick a date and a view; the map on the right shows that day, the left shows 1 October. Red/cyan dots are NASA flood detections. When clouds hide the county, use the Sentinel-1 radar link.
+* **How did the El Niño Watch do?** – an honest scorecard of the October forecast.
+* **Event log** – agency warnings and field reports with links to the source.
+* **Feed status** – green ticks show which live feeds are working. The page refreshes itself every 10 minutes.
+
+**Secretariat:** add a field report or an official gauge reading by asking an assistant connected to the CSG MCP server (see `mcp_server/README.md`), e.g. *"Log today's WRA reading at Garissa, 3.9 m, observer Hassan."*
+
 ## 1. Risk map (home page)
 
 The map fills the screen below the menu. Everything around it is a small **floating window**:

@@ -85,3 +85,28 @@ Playwright and fix console errors before reporting.
 3. County Aid Information System (policy objective): partner 3W (who/what/where) registry on the map.
 4. Offline-first PWA with SMS/USSD alert subscription per ward.
 5. Somali/Kiswahili voice notes for alerts (Gemini TTS) reviewed by county translators.
+
+
+## 6. Live monitoring and the CSG MCP server (Nov 2026)
+
+* `backend/app/live.py` – single source for live rain (Open-Meteo), River Tana flow (GloFAS via Open-Meteo Flood API),
+  NASA MODIS flood product statistics, events and official gauge readings.
+* `mcp_server/csg_mcp_server.py` – MCP tools for assistants (see `mcp_server/README.md`). Use it from Claude Desktop,
+  Claude Code or Gemini CLI.
+* `.github/workflows/live-update.yml` – refresh every 3 h; keeps last good data when a feed fails.
+
+### Prompt – daily situation report (any MCP assistant)
+```
+Use the garissa-csg MCP tools. Call get_situation(refresh=true) and get_tana_flow(days=14).
+Write a 150-word CSG situation report: alert level, rain last 24 h / 3 days at Garissa, Dadaab and the
+Seven Forks catchment, River Tana trend and the date it is expected to reach 4.0 m, what changed since
+yesterday (list_events), and 3 actions. Then give community_message in en, sw and so.
+Flag clearly that gauge levels are indicative unless an official WRA reading exists.
+```
+
+### Prompt – log field information
+```
+Log this with the garissa-csg tools: <paste report>. Use log_event with today's date, a short title,
+the details, the source (who reported it) and kind=report or response. If it contains a WRA gauge
+reading, also call log_gauge_reading. Confirm what was saved.
+```

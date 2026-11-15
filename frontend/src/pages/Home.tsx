@@ -5,11 +5,13 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 
 import SmartMap from '../components/SmartMap'
 import RiskPanel from '../components/RiskPanel'
 import { getJSON, weatherFor, DATA, WMO } from '../lib/api'
+import { loadSituation } from '../lib/live'
 import { useApp, LEVEL_COLORS, mapBus } from '../lib/store'
 import { t } from '../lib/i18n'
 import { Section } from '../components/ui'
 
 export default function Home() {
+  const [sit, setSit] = useState<any>(null)
   const { lang } = useApp()
   const [fc, setFc] = useState<any>(null)
   const [wx, setWx] = useState<any>(null)
@@ -20,6 +22,7 @@ export default function Home() {
     getJSON('/api/bulletin?lang=en').then(setBulletin).catch(() => {})
     fetch(DATA('stats.json')).then((r) => r.json()).then(setStats)
     weatherFor(-0.4532, 39.6461, 'garissa').then(setWx).catch(() => setWx({ error: true }))
+    loadSituation().then((r) => setSit(r.s)).catch(() => {})
   }, [])
 
   const blend = fc?.tana?.blend, ec = fc?.tana?.ecmwf, ai = fc?.tana?.usai
@@ -28,17 +31,16 @@ export default function Home() {
 
   return (
     <>
-      {/* alert ribbon */}
-      <div className="text-white" style={{ background: `linear-gradient(90deg, ${LEVEL_COLORS[lvl] || '#f28c28'}, #7a2614)` }}>
+      {/* live alert ribbon (from the Flood Situation Room) */}
+      <div className="text-white" style={{ background: `linear-gradient(90deg, ${LEVEL_COLORS[sit?.level || lvl] || '#f28c28'}, #7a2614)` }}>
         <div className="mx-auto flex max-w-[1500px] items-center gap-x-4 px-4 py-1 text-[13px]">
-          <span className="flex shrink-0 items-center gap-1.5 font-display text-[14px] font-bold"><Siren size={16} /> El Niño Watch</span>
-          <span className="hidden min-w-0 truncate md:inline">Rains start on Mt Kenya this week · main El Niño burst <b>12–18 Oct</b> · ECMWF: <b>200–300 mm</b> on the Seven Forks catchment, 60–80 mm at Garissa</span>
-          {worst && <span className="shrink-0 max-lg:hidden">River Tana scenario peak <b>{worst.peak_stage_m} m</b> ({worst.level})</span>}
-          <Link to="/elnino" className="ml-auto shrink-0 rounded-md bg-white/20 px-2.5 py-0.5 text-[12.5px] font-semibold hover:bg-white/30">See the outlook</Link>
+          <span className="flex shrink-0 items-center gap-1.5 font-display text-[14px] font-bold"><Siren size={16} className="animate-pulse" /> {sit ? `${sit.level} · Garissa floods` : 'El Niño Watch'}</span>
+          <span className="hidden min-w-0 truncate md:inline">{sit ? sit.headline?.en?.replace(/^[A-Z]+: /, '') : 'Loading the live situation…'}</span>
+          <Link to="/situation" className="ml-auto shrink-0 rounded-md bg-white/20 px-2.5 py-0.5 text-[12.5px] font-semibold hover:bg-white/30">Flood Situation Room</Link>
         </div>
       </div>
 
-      <SmartMap height="fill" forecastPeak={worst ? { stage: worst.peak_stage_m, label: 'US-AI scenario peak' } : undefined} />
+      <SmartMap height="fill" forecastPeak={sit?.river?.peak_median ? { stage: sit.river.peak_median.stage, label: 'Forecast peak (GloFAS, indicative)', time: sit.river.peak_median.date } : worst ? { stage: worst.peak_stage_m, label: 'US-AI scenario peak' } : undefined} />
 
       {/* today at a glance */}
       <Section>

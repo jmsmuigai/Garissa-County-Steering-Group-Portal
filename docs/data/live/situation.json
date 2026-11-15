@@ -1,0 +1,1558 @@
+{
+ "issued": "2026-11-15T06:00+03:00",
+ "level": "ALERT",
+ "headline": {
+  "en": "ALERT: 42 mm fell on Garissa in the last 3 days (30 mm on 2026-11-13). The River Tana is rising – flow is 3.1× early October. Indicative Garissa gauge ~3.48 m now, ~4.29 m by 2026-11-28 (wettest run 5.75 m).",
+  "sw": "ALERT: Mvua ya mm 42 imenyesha Garissa siku 3 zilizopita. Mto Tana unazidi kupanda – kiwango cha kipimo cha Garissa kinakadiriwa mita 3.48 sasa na mita 4.29 kufikia 2026-11-28.",
+  "so": "ALERT: 42 mm roob ah ayaa ka da'ay Garissa 3dii maalmood ee la soo dhaafay. Webiga Tana wuu sii kacayaa – cabbirka Garissa qiyaastii 3.48 m hadda, 4.29 m ilaa 2026-11-28."
+ },
+ "actions": [
+  "Riverine farmers: move pumps, generators and livestock off the floodplain now – do not wait for the river to reach 4 m.",
+  "Do not walk or drive through flowing laghas or flooded roads.",
+  "Boil or treat drinking water; clear stagnant water around homes (malaria, cholera).",
+  "Report flooding, trapped people or damaged roads: Kenya Red Cross 1199 or emergency@garissa.go.ke."
+ ],
+ "rain": {
+  "dates": [
+   "2026-10-25",
+   "2026-10-26",
+   "2026-10-27",
+   "2026-10-28",
+   "2026-10-29",
+   "2026-10-30",
+   "2026-10-31",
+   "2026-11-01",
+   "2026-11-02",
+   "2026-11-03",
+   "2026-11-04",
+   "2026-11-05",
+   "2026-11-06",
+   "2026-11-07",
+   "2026-11-08",
+   "2026-11-09",
+   "2026-11-10",
+   "2026-11-11",
+   "2026-11-12",
+   "2026-11-13",
+   "2026-11-14",
+   "2026-11-15",
+   "2026-11-16",
+   "2026-11-17",
+   "2026-11-18",
+   "2026-11-19",
+   "2026-11-20",
+   "2026-11-21",
+   "2026-11-22",
+   "2026-11-23",
+   "2026-11-24"
+  ],
+  "today_index": 21,
+  "series": {
+   "garissa": [
+    0.5,
+    6.5,
+    4.7,
+    1.6,
+    0.7,
+    1.4,
+    10.2,
+    0.2,
+    0.3,
+    1.6,
+    0.2,
+    0.5,
+    0.4,
+    0.3,
+    0.2,
+    5.8,
+    7.6,
+    5.2,
+    6.3,
+    29.7,
+    6.4,
+    1.9,
+    4.8,
+    0.8,
+    0.4,
+    0.6,
+    0.3,
+    1.4,
+    1.6,
+    1.2,
+    3.0
+   ],
+   "dadaab": [
+    2.0,
+    19.2,
+    7.1,
+    2.6,
+    2.3,
+    2.8,
+    14.6,
+    0.3,
+    0.3,
+    1.2,
+    0.7,
+    0.6,
+    1.5,
+    0.4,
+    0.4,
+    1.3,
+    0.5,
+    10.4,
+    8.9,
+    29.4,
+    1.9,
+    7.8,
+    5.3,
+    0.5,
+    0.3,
+    0.3,
+    1.5,
+    1.2,
+    1.8,
+    0.6,
+    0.6
+   ],
+   "hulugho": [
+    1.3,
+    17.8,
+    9.8,
+    15.4,
+    9.0,
+    1.7,
+    2.9,
+    0.0,
+    1.3,
+    7.5,
+    2.5,
+    5.3,
+    4.2,
+    5.7,
+    2.0,
+    3.8,
+    7.8,
+    1.8,
+    7.3,
+    8.5,
+    8.1,
+    19.8,
+    6.3,
+    3.7,
+    0.0,
+    0.0,
+    1.5,
+    3.0,
+    3.0,
+    3.6,
+    2.4
+   ],
+   "masalani": [
+    2.5,
+    4.2,
+    20.7,
+    3.9,
+    3.0,
+    2.8,
+    3.4,
+    0.1,
+    0.1,
+    5.4,
+    0.0,
+    1.2,
+    3.6,
+    6.4,
+    0.6,
+    4.2,
+    4.0,
+    0.6,
+    0.7,
+    9.3,
+    11.7,
+    4.0,
+    4.5,
+    1.4,
+    0.9,
+    0.9,
+    4.2,
+    3.0,
+    2.4,
+    1.2,
+    1.2
+   ],
+   "bura": [
+    0.7,
+    3.5,
+    6.5,
+    4.6,
+    3.4,
+    2.4,
+    6.1,
+    0.7,
+    0.1,
+    0.8,
+    0.2,
+    1.1,
+    5.1,
+    3.3,
+    0.1,
+    7.2,
+    7.8,
+    14.7,
+    2.0,
+    23.4,
+    3.8,
+    3.2,
+    5.0,
+    2.0,
+    0.4,
+    0.0,
+    1.2,
+    1.2,
+    1.2,
+    1.8,
+    2.4
+   ],
+   "modogashe": [
+    0.8,
+    5.9,
+    7.3,
+    2.3,
+    0.5,
+    0.7,
+    2.7,
+    0.7,
+    0.2,
+    0.5,
+    0.0,
+    0.7,
+    0.4,
+    0.5,
+    0.6,
+    7.1,
+    4.3,
+    2.1,
+    5.0,
+    5.3,
+    0.2,
+    8.7,
+    6.1,
+    0.8,
+    0.4,
+    0.6,
+    0.3,
+    0.8,
+    1.0,
+    1.2,
+    1.8
+   ],
+   "embu": [
+    2.0,
+    7.5,
+    1.7,
+    5.1,
+    3.7,
+    4.5,
+    3.7,
+    2.7,
+    2.1,
+    2.0,
+    0.7,
+    3.3,
+    9.5,
+    3.4,
+    0.6,
+    5.8,
+    3.4,
+    12.5,
+    5.2,
+    14.2,
+    3.4,
+    2.5,
+    2.2,
+    0.9,
+    0.6,
+    0.6,
+    1.1,
+    6.0,
+    19.8,
+    6.6,
+    9.6
+   ],
+   "meru": [
+    5.5,
+    1.0,
+    0.9,
+    10.0,
+    8.9,
+    4.3,
+    6.5,
+    8.0,
+    8.3,
+    3.6,
+    2.2,
+    7.3,
+    8.1,
+    5.2,
+    3.5,
+    4.4,
+    2.1,
+    2.1,
+    3.2,
+    18.1,
+    9.7,
+    11.6,
+    9.8,
+    6.4,
+    2.4,
+    0.7,
+    2.9,
+    4.2,
+    2.8,
+    1.2,
+    3.0
+   ],
+   "nyeri": [
+    1.2,
+    2.9,
+    0.9,
+    14.1,
+    12.5,
+    7.0,
+    6.1,
+    8.4,
+    6.1,
+    3.2,
+    0.9,
+    2.0,
+    10.3,
+    4.7,
+    3.8,
+    1.4,
+    2.8,
+    14.1,
+    2.4,
+    4.9,
+    10.2,
+    11.7,
+    14.2,
+    18.5,
+    7.2,
+    2.7,
+    3.9,
+    5.6,
+    22.0,
+    4.8,
+    4.2
+   ],
+   "masinga": [
+    1.6,
+    7.6,
+    2.8,
+    11.8,
+    2.4,
+    0.8,
+    11.0,
+    1.5,
+    7.8,
+    2.8,
+    4.6,
+    15.8,
+    8.3,
+    6.7,
+    3.7,
+    5.5,
+    14.0,
+    15.1,
+    7.1,
+    15.0,
+    0.1,
+    2.1,
+    6.8,
+    5.2,
+    7.9,
+    0.5,
+    1.2,
+    6.2,
+    21.2,
+    8.0,
+    4.0
+   ],
+   "nanyuki": [
+    0.7,
+    0.5,
+    0.3,
+    1.6,
+    3.2,
+    0.9,
+    3.5,
+    2.1,
+    0.7,
+    0.1,
+    0.2,
+    3.3,
+    2.7,
+    1.5,
+    5.4,
+    5.2,
+    8.6,
+    3.4,
+    2.0,
+    7.4,
+    1.3,
+    2.2,
+    3.7,
+    1.2,
+    2.3,
+    0.3,
+    1.8,
+    1.8,
+    1.2,
+    3.0,
+    7.2
+   ]
+  },
+  "places": {
+   "garissa": {
+    "name": "Garissa Town",
+    "zone": "Garissa",
+    "lat": -0.4532,
+    "lon": 39.6461,
+    "last24": 6.4,
+    "last72": 42.4,
+    "last7d": 61.2,
+    "last21d": 90.3,
+    "next3d": 7.5,
+    "next10d": 16.0,
+    "max_day": [
+     29.7,
+     "2026-11-13"
+    ]
+   },
+   "dadaab": {
+    "name": "Dadaab",
+    "zone": "Somalia border",
+    "lat": 0.0573,
+    "lon": 40.3092,
+    "last24": 1.9,
+    "last72": 40.2,
+    "last7d": 52.8,
+    "last21d": 108.4,
+    "next3d": 13.6,
+    "next10d": 19.9,
+    "max_day": [
+     29.4,
+     "2026-11-13"
+    ]
+   },
+   "hulugho": {
+    "name": "Hulugho",
+    "zone": "Somalia border",
+    "lat": -1.0833,
+    "lon": 41.0167,
+    "last24": 8.1,
+    "last72": 23.9,
+    "last7d": 39.3,
+    "last21d": 123.7,
+    "next3d": 29.8,
+    "next10d": 43.3,
+    "max_day": [
+     17.8,
+     "2026-10-26"
+    ]
+   },
+   "masalani": {
+    "name": "Masalani (Ijara)",
+    "zone": "Lower Tana",
+    "lat": -1.6963,
+    "lon": 40.1653,
+    "last24": 11.7,
+    "last72": 21.7,
+    "last7d": 31.1,
+    "last21d": 88.4,
+    "next3d": 9.9,
+    "next10d": 23.7,
+    "max_day": [
+     20.7,
+     "2026-10-27"
+    ]
+   },
+   "bura": {
+    "name": "Bura",
+    "zone": "Lower Tana",
+    "lat": -1.1,
+    "lon": 39.95,
+    "last24": 3.8,
+    "last72": 29.2,
+    "last7d": 59.0,
+    "last21d": 97.5,
+    "next3d": 10.2,
+    "next10d": 18.4,
+    "max_day": [
+     23.4,
+     "2026-11-13"
+    ]
+   },
+   "modogashe": {
+    "name": "Modogashe",
+    "zone": "Lagh Dera",
+    "lat": 0.744,
+    "lon": 39.1844,
+    "last24": 0.2,
+    "last72": 10.5,
+    "last7d": 24.6,
+    "last21d": 47.8,
+    "next3d": 15.6,
+    "next10d": 21.7,
+    "max_day": [
+     7.3,
+     "2026-10-27"
+    ]
+   },
+   "embu": {
+    "name": "Embu",
+    "zone": "Seven Forks catchment",
+    "lat": -0.5388,
+    "lon": 37.4596,
+    "last24": 3.4,
+    "last72": 22.8,
+    "last7d": 45.1,
+    "last21d": 97.0,
+    "next3d": 5.6,
+    "next10d": 49.9,
+    "max_day": [
+     14.2,
+     "2026-11-13"
+    ]
+   },
+   "meru": {
+    "name": "Meru",
+    "zone": "Seven Forks catchment",
+    "lat": 0.0463,
+    "lon": 37.6559,
+    "last24": 9.7,
+    "last72": 31.0,
+    "last7d": 43.1,
+    "last21d": 122.9,
+    "next3d": 27.8,
+    "next10d": 45.0,
+    "max_day": [
+     18.1,
+     "2026-11-13"
+    ]
+   },
+   "nyeri": {
+    "name": "Nyeri",
+    "zone": "Seven Forks catchment",
+    "lat": -0.4201,
+    "lon": 36.9476,
+    "last24": 10.2,
+    "last72": 17.5,
+    "last7d": 39.6,
+    "last21d": 119.9,
+    "next3d": 44.4,
+    "next10d": 94.8,
+    "max_day": [
+     14.1,
+     "2026-11-11"
+    ]
+   },
+   "masinga": {
+    "name": "Masinga Dam",
+    "zone": "Seven Forks catchment",
+    "lat": -0.8869,
+    "lon": 37.5977,
+    "last24": 0.1,
+    "last72": 22.2,
+    "last7d": 60.5,
+    "last21d": 146.0,
+    "next3d": 14.1,
+    "next10d": 63.1,
+    "max_day": [
+     15.8,
+     "2026-11-05"
+    ]
+   },
+   "nanyuki": {
+    "name": "Nanyuki",
+    "zone": "Ewaso Ng'iro",
+    "lat": 0.0167,
+    "lon": 37.0667,
+    "last24": 1.3,
+    "last72": 10.7,
+    "last7d": 33.3,
+    "last21d": 54.6,
+    "next3d": 7.1,
+    "next10d": 24.7,
+    "max_day": [
+     8.6,
+     "2026-11-10"
+    ]
+   }
+  },
+  "catchment_last7d": 47.1,
+  "catchment_next10d": 63.2,
+  "garissa_state": "LAGHAS FLOWING"
+ },
+ "river": {
+  "cell": [
+   -0.475,
+   39.575
+  ],
+  "q_now": 122.6,
+  "q_7days_ago": 93.0,
+  "q_baseline_early_oct": 39.1,
+  "ratio_to_baseline": 3.1,
+  "trend": "rising",
+  "pct_change_7d": 32,
+  "indicative_stage_now": 3.48,
+  "indicative_level_now": "WATCH",
+  "peak_median": {
+   "date": "2026-11-28",
+   "q": 185.2,
+   "stage": 4.29,
+   "level": "ALERT"
+  },
+  "peak_wettest": {
+   "date": "2026-11-30",
+   "q": 417.8,
+   "stage": 5.75,
+   "level": "ALARM"
+  },
+  "first_alert_median": "2026-11-19",
+  "first_alert_wettest": "2026-11-18",
+  "official_latest": null,
+  "series": [
+   {
+    "date": "2026-10-01",
+    "q": 41.36,
+    "p75": 41.36,
+    "max": 41.36,
+    "stage": 2.0,
+    "stage_wet": 2.0,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-02",
+    "q": 39.46,
+    "p75": 39.46,
+    "max": 39.46,
+    "stage": 1.96,
+    "stage_wet": 1.96,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-03",
+    "q": 38.63,
+    "p75": 38.63,
+    "max": 38.63,
+    "stage": 1.94,
+    "stage_wet": 1.94,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-04",
+    "q": 38.36,
+    "p75": 38.36,
+    "max": 38.36,
+    "stage": 1.93,
+    "stage_wet": 1.93,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-05",
+    "q": 37.9,
+    "p75": 37.9,
+    "max": 37.9,
+    "stage": 1.92,
+    "stage_wet": 1.92,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-06",
+    "q": 37.11,
+    "p75": 37.11,
+    "max": 37.11,
+    "stage": 1.9,
+    "stage_wet": 1.9,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-07",
+    "q": 35.98,
+    "p75": 35.98,
+    "max": 35.98,
+    "stage": 1.87,
+    "stage_wet": 1.87,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-08",
+    "q": 34.89,
+    "p75": 34.89,
+    "max": 34.89,
+    "stage": 1.84,
+    "stage_wet": 1.84,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-09",
+    "q": 33.99,
+    "p75": 33.99,
+    "max": 33.99,
+    "stage": 1.81,
+    "stage_wet": 1.81,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-10",
+    "q": 35.31,
+    "p75": 35.31,
+    "max": 35.31,
+    "stage": 1.85,
+    "stage_wet": 1.85,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-11",
+    "q": 39.18,
+    "p75": 39.18,
+    "max": 39.18,
+    "stage": 1.95,
+    "stage_wet": 1.95,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-12",
+    "q": 44.08,
+    "p75": 44.08,
+    "max": 44.08,
+    "stage": 2.07,
+    "stage_wet": 2.07,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-13",
+    "q": 50.76,
+    "p75": 50.76,
+    "max": 50.76,
+    "stage": 2.22,
+    "stage_wet": 2.22,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-14",
+    "q": 59.67,
+    "p75": 59.67,
+    "max": 59.67,
+    "stage": 2.41,
+    "stage_wet": 2.41,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-15",
+    "q": 67.23,
+    "p75": 67.23,
+    "max": 67.23,
+    "stage": 2.56,
+    "stage_wet": 2.56,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-16",
+    "q": 69.96,
+    "p75": 69.96,
+    "max": 69.96,
+    "stage": 2.62,
+    "stage_wet": 2.62,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-17",
+    "q": 65.37,
+    "p75": 65.37,
+    "max": 65.37,
+    "stage": 2.53,
+    "stage_wet": 2.53,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-18",
+    "q": 61.09,
+    "p75": 61.09,
+    "max": 61.09,
+    "stage": 2.44,
+    "stage_wet": 2.44,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-19",
+    "q": 58.57,
+    "p75": 58.57,
+    "max": 58.57,
+    "stage": 2.39,
+    "stage_wet": 2.39,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-20",
+    "q": 59.39,
+    "p75": 59.39,
+    "max": 59.39,
+    "stage": 2.41,
+    "stage_wet": 2.41,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-21",
+    "q": 65.83,
+    "p75": 65.83,
+    "max": 65.83,
+    "stage": 2.54,
+    "stage_wet": 2.54,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-22",
+    "q": 72.79,
+    "p75": 72.79,
+    "max": 72.79,
+    "stage": 2.67,
+    "stage_wet": 2.67,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-23",
+    "q": 74.86,
+    "p75": 74.86,
+    "max": 74.86,
+    "stage": 2.71,
+    "stage_wet": 2.71,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-24",
+    "q": 73.99,
+    "p75": 73.99,
+    "max": 73.99,
+    "stage": 2.69,
+    "stage_wet": 2.69,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-25",
+    "q": 71.78,
+    "p75": 71.78,
+    "max": 71.78,
+    "stage": 2.65,
+    "stage_wet": 2.65,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-26",
+    "q": 68.82,
+    "p75": 68.82,
+    "max": 68.82,
+    "stage": 2.6,
+    "stage_wet": 2.6,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-27",
+    "q": 64.92,
+    "p75": 64.92,
+    "max": 64.92,
+    "stage": 2.52,
+    "stage_wet": 2.52,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-28",
+    "q": 61.95,
+    "p75": 61.95,
+    "max": 61.95,
+    "stage": 2.46,
+    "stage_wet": 2.46,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-29",
+    "q": 61.66,
+    "p75": 61.66,
+    "max": 61.66,
+    "stage": 2.45,
+    "stage_wet": 2.45,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-30",
+    "q": 59.39,
+    "p75": 59.39,
+    "max": 59.39,
+    "stage": 2.41,
+    "stage_wet": 2.41,
+    "forecast": false
+   },
+   {
+    "date": "2026-10-31",
+    "q": 62.24,
+    "p75": 62.24,
+    "max": 62.24,
+    "stage": 2.47,
+    "stage_wet": 2.47,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-01",
+    "q": 69.47,
+    "p75": 69.47,
+    "max": 69.47,
+    "stage": 2.61,
+    "stage_wet": 2.61,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-02",
+    "q": 80.66,
+    "p75": 80.66,
+    "max": 80.66,
+    "stage": 2.81,
+    "stage_wet": 2.81,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-03",
+    "q": 91.47,
+    "p75": 91.47,
+    "max": 91.47,
+    "stage": 3.0,
+    "stage_wet": 3.0,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-04",
+    "q": 99.23,
+    "p75": 99.23,
+    "max": 99.23,
+    "stage": 3.12,
+    "stage_wet": 3.12,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-05",
+    "q": 99.93,
+    "p75": 99.93,
+    "max": 99.93,
+    "stage": 3.14,
+    "stage_wet": 3.14,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-06",
+    "q": 96.05,
+    "p75": 96.05,
+    "max": 96.05,
+    "stage": 3.07,
+    "stage_wet": 3.07,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-07",
+    "q": 92.33,
+    "p75": 92.33,
+    "max": 92.33,
+    "stage": 3.01,
+    "stage_wet": 3.01,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-08",
+    "q": 92.97,
+    "p75": 92.97,
+    "max": 92.97,
+    "stage": 3.02,
+    "stage_wet": 3.02,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-09",
+    "q": 86.9,
+    "p75": 86.9,
+    "max": 86.9,
+    "stage": 2.92,
+    "stage_wet": 2.92,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-10",
+    "q": 91.47,
+    "p75": 91.47,
+    "max": 91.47,
+    "stage": 3.0,
+    "stage_wet": 3.0,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-11",
+    "q": 98.54,
+    "p75": 98.77,
+    "max": 99.23,
+    "stage": 3.11,
+    "stage_wet": 3.12,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-12",
+    "q": 104.93,
+    "p75": 105.17,
+    "max": 108.14,
+    "stage": 3.21,
+    "stage_wet": 3.26,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-13",
+    "q": 108.4,
+    "p75": 108.9,
+    "max": 109.92,
+    "stage": 3.27,
+    "stage_wet": 3.29,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-14",
+    "q": 113.02,
+    "p75": 113.82,
+    "max": 119.5,
+    "stage": 3.34,
+    "stage_wet": 3.43,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-15",
+    "q": 122.59,
+    "p75": 122.74,
+    "max": 123.74,
+    "stage": 3.48,
+    "stage_wet": 3.49,
+    "forecast": false
+   },
+   {
+    "date": "2026-11-16",
+    "q": 135.14,
+    "p75": 135.77,
+    "max": 137.04,
+    "stage": 3.65,
+    "stage_wet": 3.68,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-17",
+    "q": 145.89,
+    "p75": 146.23,
+    "max": 152.11,
+    "stage": 3.8,
+    "stage_wet": 3.88,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-18",
+    "q": 153.53,
+    "p75": 156.22,
+    "max": 168.82,
+    "stage": 3.9,
+    "stage_wet": 4.09,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-19",
+    "q": 161.18,
+    "p75": 167.66,
+    "max": 214.28,
+    "stage": 4.0,
+    "stage_wet": 4.62,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-20",
+    "q": 167.27,
+    "p75": 178.89,
+    "max": 248.46,
+    "stage": 4.07,
+    "stage_wet": 4.92,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-21",
+    "q": 170.0,
+    "p75": 186.5,
+    "max": 257.23,
+    "stage": 4.1,
+    "stage_wet": 4.97,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-22",
+    "q": 170.0,
+    "p75": 191.76,
+    "max": 256.63,
+    "stage": 4.1,
+    "stage_wet": 4.96,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-23",
+    "q": 167.27,
+    "p75": 191.53,
+    "max": 254.27,
+    "stage": 4.07,
+    "stage_wet": 4.95,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-24",
+    "q": 166.88,
+    "p75": 189.77,
+    "max": 253.68,
+    "stage": 4.07,
+    "stage_wet": 4.95,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-25",
+    "q": 171.58,
+    "p75": 188.67,
+    "max": 265.69,
+    "stage": 4.12,
+    "stage_wet": 5.02,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-26",
+    "q": 177.65,
+    "p75": 190.43,
+    "max": 274.42,
+    "stage": 4.2,
+    "stage_wet": 5.06,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-27",
+    "q": 183.5,
+    "p75": 199.24,
+    "max": 294.12,
+    "stage": 4.27,
+    "stage_wet": 5.17,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-28",
+    "q": 185.21,
+    "p75": 196.93,
+    "max": 344.14,
+    "stage": 4.29,
+    "stage_wet": 5.42,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-29",
+    "q": 184.35,
+    "p75": 195.11,
+    "max": 391.65,
+    "stage": 4.28,
+    "stage_wet": 5.63,
+    "forecast": true
+   },
+   {
+    "date": "2026-11-30",
+    "q": 183.5,
+    "p75": 198.99,
+    "max": 417.79,
+    "stage": 4.27,
+    "stage_wet": 5.75,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-01",
+    "q": 180.97,
+    "p75": 200.84,
+    "max": 414.91,
+    "stage": 4.24,
+    "stage_wet": 5.73,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-02",
+    "q": 173.98,
+    "p75": 200.6,
+    "max": 398.02,
+    "stage": 4.15,
+    "stage_wet": 5.66,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-03",
+    "q": 163.06,
+    "p75": 197.84,
+    "max": 369.68,
+    "stage": 4.02,
+    "stage_wet": 5.54,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-04",
+    "q": 150.71,
+    "p75": 193.78,
+    "max": 331.66,
+    "stage": 3.86,
+    "stage_wet": 5.36,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-05",
+    "q": 140.58,
+    "p75": 188.25,
+    "max": 299.61,
+    "stage": 3.73,
+    "stage_wet": 5.2,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-06",
+    "q": 134.52,
+    "p75": 189.33,
+    "max": 273.79,
+    "stage": 3.65,
+    "stage_wet": 5.06,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-07",
+    "q": 130.83,
+    "p75": 189.55,
+    "max": 253.1,
+    "stage": 3.59,
+    "stage_wet": 4.94,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-08",
+    "q": 126.64,
+    "p75": 185.64,
+    "max": 242.22,
+    "stage": 3.54,
+    "stage_wet": 4.88,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-09",
+    "q": 122.03,
+    "p75": 181.93,
+    "max": 244.47,
+    "stage": 3.47,
+    "stage_wet": 4.89,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-10",
+    "q": 117.03,
+    "p75": 179.93,
+    "max": 250.19,
+    "stage": 3.4,
+    "stage_wet": 4.93,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-11",
+    "q": 118.67,
+    "p75": 174.21,
+    "max": 263.85,
+    "stage": 3.42,
+    "stage_wet": 5.01,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-12",
+    "q": 128.72,
+    "p75": 173.79,
+    "max": 274.42,
+    "stage": 3.56,
+    "stage_wet": 5.06,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-13",
+    "q": 134.83,
+    "p75": 180.59,
+    "max": 282.79,
+    "stage": 3.65,
+    "stage_wet": 5.11,
+    "forecast": true
+   },
+   {
+    "date": "2026-12-14",
+    "q": 136.4,
+    "p75": 181.87,
+    "max": 287.4,
+    "stage": 3.67,
+    "stage_wet": 5.14,
+    "forecast": true
+   }
+  ]
+ },
+ "satellite": {
+  "product": "NASA LANCE MODIS Combined Flood (3-day) via GIBS",
+  "days": [
+   {
+    "date": "2026-10-05",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 76,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-10-15",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 63,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-10-25",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 27,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-11-01",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 61,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-11-05",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 51,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-11-08",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 85,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-11-10",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 68,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-11-11",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 87,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-11-12",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 81,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-11-13",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 98,
+    "county_km2": 45324
+   },
+   {
+    "date": "2026-11-14",
+    "available": true,
+    "water_km2": 0,
+    "recurring_km2": 0,
+    "flood_km2": 0,
+    "cloud_pct": 83,
+    "county_km2": 45324
+   }
+  ],
+  "latest": {
+   "date": "2026-11-14",
+   "available": true,
+   "water_km2": 0,
+   "recurring_km2": 0,
+   "flood_km2": 0,
+   "cloud_pct": 83,
+   "county_km2": 45324
+  },
+  "note": "Clouds hide most of the county – optical satellites cannot see the floods; use radar (Sentinel-1) via Copernicus EMS / UNOSAT for flood extents."
+ },
+ "verification": [
+  {
+   "claim": "El Nino rains would start on Mt Kenya 5-11 Oct and peak 12-18 Oct",
+   "result": "missed",
+   "evidence": "Onset was delayed: FEWS NET (13 Nov) reports a drier- and hotter-than-average September-October; widespread rain came from the second week of November."
+  },
+  {
+   "claim": "Rain reaches the mountains first and the River Tana at Garissa rises later",
+   "result": "right",
+   "evidence": "GloFAS shows the Tana at Garissa rising from late October and tripling by mid-November, after rain over the Seven Forks catchment."
+  },
+  {
+   "claim": "The first danger in Garissa town is flash flooding from local storms, before the river floods",
+   "result": "right",
+   "evidence": "Heavy rain on the night of Thursday 12 Nov flooded parts of Garissa (CSG field reports; ~30 mm at Garissa and Dadaab on 13 Nov in Open-Meteo analysis) while the Tana was still below alert."
+  },
+  {
+   "claim": "If heavy rain persists, the Tana flood season at Garissa runs from November, near 4 m",
+   "result": "on track",
+   "evidence": "GloFAS forecasts continued rise to late November; bias-corrected it passes 4 m (ALERT) in the median run and approaches 6 m in the wettest member."
+  },
+  {
+   "claim": "Garissa, Tana River and the Somalia-border areas are high-risk this season",
+   "result": "right",
+   "evidence": "NDOC lists Garissa among high-risk counties; Kenya Met forecast rain over Garissa, Wajir, Mandera and Tana River 3-16 Nov."
+  }
+ ],
+ "sources": [
+  {
+   "name": "Open-Meteo forecast API (ECMWF/ICON/GFS best match)",
+   "url": "https://open-meteo.com/en/docs"
+  },
+  {
+   "name": "GloFAS v4 river discharge via Open-Meteo Flood API (Copernicus EMS)",
+   "url": "https://open-meteo.com/en/docs/flood-api"
+  },
+  {
+   "name": "NASA LANCE MODIS flood product via NASA GIBS / Worldview",
+   "url": "https://worldview.earthdata.nasa.gov/"
+  },
+  {
+   "name": "Kenya Meteorological Service Authority",
+   "url": "https://meteo.go.ke"
+  },
+  {
+   "name": "Kenya Red Cross Society",
+   "url": "https://www.redcross.or.ke"
+  },
+  {
+   "name": "National Drought Management Authority",
+   "url": "https://www.ndma.go.ke"
+  },
+  {
+   "name": "FEWS NET East Africa seasonal monitor",
+   "url": "https://fews.net/east-africa"
+  }
+ ],
+ "events": [
+  {
+   "date": "2026-11-15",
+   "kind": "analysis",
+   "title": "GloFAS: River Tana flow at Garissa ~3× early October and still rising",
+   "detail": "Median forecast peaks around 28 Nov; wettest ensemble members more than double that. CSG starts daily River Tana monitoring.",
+   "source": "Copernicus GloFAS via Open-Meteo",
+   "url": "https://open-meteo.com/en/docs/flood-api"
+  },
+  {
+   "date": "2026-11-13",
+   "kind": "warning",
+   "title": "NDOC: 1.5 million people at risk; residents of flood-prone areas urged to move to higher ground",
+   "detail": "Kenya Met expects November to be the peak of an above-normal October–December season.",
+   "source": "AP / ABC News",
+   "url": "https://abcnews.com/International/wireStory/kenyans-brace-heavy-el-nio-rains-flood-survivors-138101712"
+  },
+  {
+   "date": "2026-11-13",
+   "kind": "analysis",
+   "title": "FEWS NET: erratic, delayed start of the short rains; rain from the second week of November",
+   "detail": "Drier and hotter than average September–October across much of Kenya; localised flooding in Tana River county in late October; intense November rain raises flood and waterlogging risk.",
+   "source": "FEWS NET",
+   "url": "https://fews.net/east-africa/seasonal-monitor/november-2026"
+  },
+  {
+   "date": "2026-11-12",
+   "kind": "forecast",
+   "title": "Kenya Met 24-hour advisory: localised falls above 50 mm, flood risk",
+   "detail": "Heavier rain over the Lake Basin, western, Rift Valley, central (incl. Nairobi) and northern parts, 12–13 Nov; isolated thunderstorms.",
+   "source": "The Star",
+   "url": "https://www.the-star.co.ke/news/2026-11-12-heavy-rains-forecast-in-nairobi-several-parts-of-kenya"
+  },
+  {
+   "date": "2026-11-12",
+   "kind": "event",
+   "title": "Heavy rain on Thursday night floods parts of Garissa",
+   "detail": "Storm overnight 12–13 Nov flooded parts of Garissa. Open-Meteo analysis: ~30 mm at Garissa and Dadaab and 23 mm at Bura on 13 Nov; about 60 mm at Garissa over 9–15 Nov.",
+   "source": "CSG field reports; Open-Meteo",
+   "url": ""
+  },
+  {
+   "date": "2026-11-11",
+   "kind": "forecast",
+   "title": "Kenya Met weekly forecast 10–16 Nov: rain in parts of all 47 counties",
+   "detail": "Garissa: sunny mornings, afternoon showers, maximum above 35 °C. Night showers in Tana River, Wajir, Mandera and the Mt Kenya counties.",
+   "source": "The Star",
+   "url": "https://www.the-star.co.ke/news/2026-11-11-met-forecasts-widespread-rains-as-el-nino-fears-heighten"
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "forecast",
+   "title": "Kenya Met: above-average rain for November–December; October already above usual at Garissa stations",
+   "detail": "Acting director Edward Muriuki warned of flooding, damaged roads and malaria, cholera and typhoid risk. Rain forecast for 46 counties incl. Garissa, 3–10 Nov.",
+   "source": "The Star",
+   "url": "https://www.the-star.co.ke/news/2026-11-04-met-warns-of-heavy-rains-flood-risk-in-several-counties"
+  },
+  {
+   "date": "2026-10-04",
+   "kind": "csg",
+   "title": "CSG El Niño Watch issued",
+   "detail": "Forecast rain on Mt Kenya first, the Tana rising later, flash floods in Garissa laghas as the first danger, and a Tana flood season at Garissa from early November if heavy rain persists.",
+   "source": "Garissa CSG portal",
+   "url": "https://jmsmuigai.github.io/Garissa-County-Steering-Group-Portal/#/elnino"
+  },
+  {
+   "date": "2026-09-15",
+   "kind": "warning",
+   "title": "Water CS warns Garissa and Tana River residents to prepare to move to higher ground",
+   "detail": "Masinga, Kamburu, Gitaru, Kindaruma and Kiambere expected to spill if rainfall reaches projected levels; Bura canal can divert ~11,000 L/s if levels become critical.",
+   "source": "Kenyans.co.ke",
+   "url": "https://www.kenyans.co.ke/news/127063-cs-mugaa-warns-garissa-tana-river-residents-move-higher-ground-ahead-el-nino"
+  },
+  {
+   "date": "2026-09-05",
+   "kind": "warning",
+   "title": "Kenya Red Cross: over 2 million people in 46 counties could be affected by El Niño rains",
+   "detail": "Garissa and Tana River named at risk. Governor Nathif Jama convened a flood-preparedness meeting on the Tana; awareness campaign to move residents away from the riverline. Red Cross readiness 70–75%, 50+ boats ready.",
+   "source": "Citizen Digital",
+   "url": "https://citizen.digital/article/kenya-red-cross-warns-2-million-people-could-be-affected-by-el-nino-rains-n389646"
+  }
+ ],
+ "gauge_readings": [],
+ "snapshot_note": "Seed snapshot built from data fetched on 15 Nov 2026 06:00 EAT; refreshed automatically by the GitHub Action every 3 hours."
+}

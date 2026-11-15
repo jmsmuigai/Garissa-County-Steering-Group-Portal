@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ResponsiveContainer, ComposedChart, Line, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ReferenceLine, Area } from 'recharts'
 import { CloudRain, CloudSun, Waves, Siren, Mountain, Wind, Copy, Check, ExternalLink, KeyRound, Tractor, School, Hospital, Droplets, Home as HomeIcon, X, Radio, MapPinned } from 'lucide-react'
 import { Section, Pill } from '../components/ui'
@@ -191,6 +192,15 @@ export default function Watch() {
           </div>
         </div>
       </section>
+
+      {/* ---------------------------------------------------------- verification banner (15 Nov) */}
+      <div className="bg-[#fff4e5]">
+        <div className="mx-auto flex max-w-[1500px] flex-wrap items-center gap-3 px-5 py-3 text-[14px]">
+          <Siren size={18} className="shrink-0 text-crest" />
+          <span><b>Update 15 November 2026:</b> the El Niño rains started about four weeks later than this 4 October forecast. Heavy rain on the night of Thursday 12 November flooded parts of Garissa and the River Tana is now rising – the flood sequence described below is what is unfolding.</span>
+          <Link to="/situation" className="ml-auto shrink-0 rounded-lg bg-crest px-3 py-1.5 font-semibold text-white">Live Flood Situation Room</Link>
+        </div>
+      </div>
 
       {/* ---------------------------------------------------------- this week */}
       <Section title="This week on the weather" lead="Kenya weekly forecast for 5–11 October 2026 and the week-2 extension, from the Kenya Weather Patterns Dynamics agrometeorology bulletin (ICON, GFS, ECMWF), checked against the charts below.">
