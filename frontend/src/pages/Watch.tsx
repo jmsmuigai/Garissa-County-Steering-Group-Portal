@@ -8,11 +8,26 @@ import ElNino from './ElNino'
 import { backendAvailable, DATA } from '../lib/api'
 import { LEVEL_COLORS, levelFor, mapBus, useApp } from '../lib/store'
 import { getOwmKey, setOwmKey, siteConfigReady } from '../lib/gemini'
+import { loadSituation } from '../lib/live'
 
 // ------------------------------------------------------------------ helpers
 const LAGHA = { dry: ['Dry', '#9e9e9e'], wet: ['Wet ground', '#64b5f6'], flowing: ['Laghas flowing', '#ff9800'], flash: ['Flash flood', '#d50000'], flood: ['Flooding', '#d50000'] } as Record<string, [string, string]>
 const fmt = (iso: string, o: Intl.DateTimeFormatOptions = { weekday: 'short', day: 'numeric', month: 'short' }) => new Date(iso + 'T12:00:00').toLocaleDateString('en-GB', o)
-const BURST = new Date('2026-10-12T00:00:00+03:00')
+// The rains did NOT come in October. Observed onset in Garissa: night of Thursday 12 November 2026.
+const ONSET = '2026-11-12'
+const UPDATED = '15 November 2026'
+// what actually happened to each milestone of the 4 October forecast
+function actual(m: any, sit: any): { ok: boolean; text: string } {
+  const t = (m.title || '').toLowerCase(), r = sit?.river
+  if (t.includes('mt kenya')) return { ok: false, text: 'Did not happen in October – there was no rain. The rains came in the second week of November.' }
+  if (t.includes('first real rains')) return { ok: false, text: 'Came four weeks late: the first real rain fell on the night of Thursday 12 November.' }
+  if (t.includes('somalia border')) return { ok: false, text: 'Not in October. Heavy rain reached Dadaab and the border with the 12–13 November storm.' }
+  if (t.includes('laghas')) return { ok: false, text: 'Not in October. Laghas flowed and parts of Garissa town flooded on the night of 12 November.' }
+  if (t.includes('lagh dera')) return { ok: false, text: 'Did not happen in October – no rain fell on the Ewaso Ng\'iro.' }
+  if (t.includes('masinga')) return { ok: false, text: 'Did not happen in October – with no rain the dams did not fill or spill. Watch KenGen releases in November.' }
+  if (t.includes('peak')) return { ok: false, text: r ? `Not on ${fmt(m.date, { day: 'numeric', month: 'long' })}. The Tana is rising now: about ${r.indicative_stage_now} m today, ALERT (4 m) expected around ${r.first_alert_median ? fmt(r.first_alert_median, { day: 'numeric', month: 'long' }) : 'late November'}, peak ~${r.peak_median?.stage} m near ${fmt(r.peak_median?.date, { day: 'numeric', month: 'long' })}.` : 'Did not happen in October. The Tana started rising after the November rains – see the Flood Situation Room.' }
+  return { ok: false, text: 'Did not happen in October – there was no rain until 12 November.' }
+}
 const MODEL_LIVE: [string, string, string][] = [
   ['ecmwf_ifs025', 'ECMWF', '#d32f2f'], ['ecmwf_aifs025_single', 'ECMWF-AIFS', '#00897b'], ['gfs_seamless', 'GFS', '#1e88e5'], ['icon_seamless', 'ICON', '#f9a825'],
 ]
@@ -54,6 +69,8 @@ export default function Watch() {
   const [msgLang, setMsgLang] = useState<'en' | 'sw' | 'so'>(lang)
   const [copied, setCopied] = useState(false)
   const [zoomImg, setZoomImg] = useState<any>(null)
+  const [sit, setSit] = useState<any>(null)
+  useEffect(() => { loadSituation().then((x) => setSit(x.s)).catch(() => {}) }, [])
 
   // python simulation (live server, else static snapshot)
   useEffect(() => {
@@ -98,7 +115,6 @@ export default function Watch() {
   }
   useEffect(() => { loadOwm().catch(() => {}) }, [])
 
-  const daysToBurst = Math.ceil((BURST.getTime() - Date.now()) / 86400000)
 
   // daily calendar rows
   const cal = useMemo(() => {
@@ -154,7 +170,7 @@ export default function Watch() {
   }
   const impact = (s: number) => (w?.farm_impact || []).filter((f: any) => f.stage_m <= s).slice(-1)[0] || w?.farm_impact?.[0]
 
-  const msgText = w ? `*El Niño Watch – Garissa County Steering Group* (${fmt(w.issued, { day: 'numeric', month: 'long', year: 'numeric' })})\n` + w.community[msgLang].map((x: string) => `• ${x}`).join('\n') + `\nMore: https://jmsmuigai.github.io/Garissa-County-Steering-Group-Portal/#/elnino` : ''
+  const msgText = w ? `*El Niño Watch – Garissa County Steering Group* (${UPDATED})\n` + w.community[msgLang].map((x: string) => `• ${x}`).join('\n') + `\nMore: https://jmsmuigai.github.io/Garissa-County-Steering-Group-Portal/#/elnino` : ''
   const copyMsg = async () => { try { await navigator.clipboard.writeText(msgText); setCopied(true); setTimeout(() => setCopied(false), 2500) } catch { /* clipboard blocked */ } }
 
   const setStageMap = (s: number) => { setStage(s); mapBus.emit({ type: 'flood_stage', stage: s }) }
@@ -171,24 +187,25 @@ export default function Watch() {
         <div className="relative mx-auto grid max-w-[1500px] gap-8 px-5 py-10 lg:grid-cols-[1.3fr_1fr] lg:py-14">
           <div>
             <div className="flex flex-wrap items-center gap-2 text-[13px]">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emergency px-3 py-1 font-semibold"><Radio size={14} className="animate-pulse" /> El Niño Watch · active</span>
-              <span className="rounded-full bg-white/10 px-3 py-1">Issued {w ? fmt(w.issued, { day: 'numeric', month: 'long', year: 'numeric' }) : '4 October 2026'} · model runs of 3–4 Oct</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emergency px-3 py-1 font-semibold"><Radio size={14} className="animate-pulse" /> Floods under way · {sit?.level || 'ALERT'}</span>
+              <span className="rounded-full bg-white/10 px-3 py-1">Updated {UPDATED}</span>
             </div>
             <h1 className="mt-4 text-4xl font-extrabold leading-tight md:text-5xl">El Niño Watch</h1>
             <p className="mt-3 max-w-2xl text-lg text-white/85">
-              Rains start on Mt Kenya and the Seven Forks catchment <b className="text-sand">this week</b>. The main El Niño burst arrives <b className="text-sand">12–18 October</b>. Here is when the first rains and first floods are likely in Garissa, from five forecast models and the CSG's own Python flood simulation.
+              There was no rain in October. The El Niño rains reached Garissa on <b className="text-sand">the night of Thursday 12 November</b> and flooded parts of the town. The River Tana is <b className="text-sand">rising now</b> and November is the main flood month. Further down, the 4 October forecast is kept as a record next to what really happened.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <a href="#calendar" className="rounded-lg bg-sand px-4 py-2 font-semibold text-night">16-day flood calendar</a>
+              <Link to="/situation" className="rounded-lg bg-sand px-4 py-2 font-semibold text-night">Live Flood Situation Room</Link>
+              <a href="#record" className="rounded-lg bg-white/12 px-4 py-2 font-semibold hover:bg-white/20">Forecast vs what happened</a>
               <a href="#live" className="rounded-lg bg-white/12 px-4 py-2 font-semibold hover:bg-white/20">Live maps</a>
               <a href="#farms" className="rounded-lg bg-white/12 px-4 py-2 font-semibold hover:bg-white/20">What it means for farms</a>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3 self-center">
-            <Big n={daysToBurst > 0 ? `${daysToBurst} days` : 'Now'} l={daysToBurst > 0 ? 'until the main burst (12 Oct)' : 'main El Niño burst under way'} c="#e8c07d" />
-            <Big n="200–300 mm" l="ECMWF, Mt Kenya & Seven Forks catchment (15 days)" c="#ff8a65" />
-            <Big n="60–80 mm" l="ECMWF at Garissa; GFS only 5–15 mm" c="#4fc3f7" />
-            <Big n={w ? `${w.tana.ecmwf.masinga_fill_pct[15].toFixed(0)}%` : '…'} l="Masinga full by 19 Oct (ECMWF simulation)" c="#81c784" />
+            <Big n="12 Nov" l="Rains reached Garissa (Thursday night) – no rain fell in October" c="#e8c07d" />
+            <Big n={sit ? `${sit.rain?.places?.garissa?.last72 ?? 42} mm` : '42 mm'} l="Rain on Garissa in the last 3 days" c="#4fc3f7" />
+            <Big n={sit?.river ? `${sit.river.indicative_stage_now} m` : '…'} l={sit?.river ? `River Tana at Garissa (indicative), ${sit.river.trend}` : 'River Tana at Garissa'} c="#ff8a65" />
+            <Big n={sit?.river?.first_alert_median ? fmt(sit.river.first_alert_median, { day: 'numeric', month: 'short' }) : '…'} l={sit?.river ? `ALERT 4 m expected; peak ~${sit.river.peak_median?.stage} m near ${fmt(sit.river.peak_median?.date, { day: 'numeric', month: 'short' })}` : 'ALERT 4 m expected'} c="#81c784" />
           </div>
         </div>
       </section>
@@ -197,33 +214,35 @@ export default function Watch() {
       <div className="bg-[#fff4e5]">
         <div className="mx-auto flex max-w-[1500px] flex-wrap items-center gap-3 px-5 py-3 text-[14px]">
           <Siren size={18} className="shrink-0 text-crest" />
-          <span><b>Update 15 November 2026:</b> the El Niño rains started about four weeks later than this 4 October forecast. Heavy rain on the night of Thursday 12 November flooded parts of Garissa and the River Tana is now rising – the flood sequence described below is what is unfolding.</span>
+          <span><b>Read this first:</b> the weekly outlook, 16-day calendar and timeline below are the forecast issued on 4 October 2026. It said the rains would start in October. They did not – no rain fell in October, and the rains reached Garissa only on the night of Thursday 12 November. Each forecast date below is marked with what really happened.</span>
           <Link to="/situation" className="ml-auto shrink-0 rounded-lg bg-crest px-3 py-1.5 font-semibold text-white">Live Flood Situation Room</Link>
         </div>
       </div>
 
       {/* ---------------------------------------------------------- this week */}
-      <Section title="This week on the weather" lead="Kenya weekly forecast for 5–11 October 2026 and the week-2 extension, from the Kenya Weather Patterns Dynamics agrometeorology bulletin (ICON, GFS, ECMWF), checked against the charts below.">
+      <Section id="record" title="What the 4 October forecast said – and what happened" lead="Kept as a record so the CSG can learn from it. The forecast came from the Kenya Weather Patterns Dynamics agrometeorology bulletin (ICON, GFS, ECMWF) of 5 October 2026.">
         <div className="grid gap-5 lg:grid-cols-2">
           <article className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
-            <div className="flex items-center gap-2"><Pill color="#f9a825">Week 1</Pill><span className="font-semibold">5–11 October · onset</span></div>
-            <p className="mt-3 text-[15px]">El Niño-enhanced rain starts this week. <b>Moderate to heavy</b> rain over western Kenya, the central highlands (Kiambu, Murang'a, Nyeri, Kirinyaga, <b>Embu, Tharaka Nithi, Meru</b>) and the coast; moderate to heavy in Mandera, northern Wajir and eastern Marsabit; isolated showers in Tana River and Kitui.</p>
+            <div className="flex items-center gap-2"><Pill color="#f9a825">Week 1</Pill><span className="font-semibold">Forecast for 5–11 October · onset</span><Pill color="#555">did not happen</Pill></div>
+            <p className="mt-3 text-[15px]">Forecast: El Niño-enhanced rain would start this week. <b>Moderate to heavy</b> rain over western Kenya, the central highlands (Kiambu, Murang'a, Nyeri, Kirinyaga, <b>Embu, Tharaka Nithi, Meru</b>) and the coast; moderate to heavy in Mandera, northern Wajir and eastern Marsabit; isolated showers in Tana River and Kitui.</p>
             <p className="mt-2 rounded-lg bg-sand-light p-3 text-[14px]"><b>Garissa:</b> mostly sunny, hot and dry (max 28–41 °C). But the Seven Forks catchment starts wetting up – the river begins to rise slowly.</p>
+            <p className="mt-2 rounded-lg bg-[#fde0dc] p-3 text-[14px]"><b>What happened:</b> no rain in Garissa or on the catchment that week. October stayed dry and hot (FEWS NET).</p>
           </article>
           <article className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5" style={{ borderTop: '5px solid #c81d25' }}>
-            <div className="flex items-center gap-2"><Pill color="#c81d25">Week 2</Pill><span className="font-semibold">12–18 October · main burst</span></div>
+            <div className="flex items-center gap-2"><Pill color="#c81d25">Week 2</Pill><span className="font-semibold">Forecast for 12–18 October · main burst</span><Pill color="#555">did not happen</Pill></div>
             <p className="mt-3 text-[15px]">GFS and ECMWF agree the <b>El Niño burst arrives</b>: heavy to very heavy rain spreading Coast → Eastern → Central → Western. <b>50–150 mm</b> in many areas, <b>200–300 mm</b> on the coast and the Somalia border. Flooded farms, washed-away roads and bridges, and landslides on Mt Kenya are likely where totals pass 400 mm.</p>
             <p className="mt-2 rounded-lg bg-crest-light p-3 text-[14px]"><b>Garissa:</b> first real storms around 13–16 Oct; laghas can flow. AI models bring a tropical low into southern Somalia – watch Dadaab, Hulugho, Liboi and Ijara.</p>
+            <p className="mt-2 rounded-lg bg-[#fde0dc] p-3 text-[14px]"><b>What happened:</b> the burst did not come in October. The first real storm hit Garissa four weeks later, on the night of Thursday 12 November, flooding parts of the town.</p>
           </article>
         </div>
       </Section>
 
       {/* ---------------------------------------------------------- calendar */}
-      <Section id="calendar" title="16-day flood calendar for Garissa" lead="Each day shows rain on the Seven Forks catchment (what makes the Tana rise), rain in Garissa (what makes laghas run), the lagha state and the simulated River Tana level at the Garissa gauge.">
+      <Section id="calendar" title="16-day flood calendar issued 4 October (did not happen)" lead="This is the October forecast, kept for the record – no rain fell on these days. Each day shows rain on the Seven Forks catchment (what makes the Tana rise), rain in Garissa (what makes laghas run), the lagha state and the simulated River Tana level at the Garissa gauge.">
         {!w && <p className="text-muted">Loading the simulation…</p>}
         <div className="scroll-thin -mx-1 flex gap-2 overflow-x-auto px-1 pb-2">
           {cal.map((c: any) => {
-            const today = new Date().toISOString().slice(0, 10) === c.d
+            const today = false
             const heavy = c.catch >= 15 || c.garHi >= 15
             const bg = c.lagha === 'flash' ? '#fde0dc' : heavy ? '#fff1e0' : c.catch >= 5 ? '#e3f2fd' : '#f6f8f7'
             return (
@@ -242,29 +261,37 @@ export default function Watch() {
       </Section>
 
       {/* ---------------------------------------------------------- milestones */}
-      <Section title="When to expect the first rains and the first floods">
+      <Section title="Forecast first rains and floods vs what happened" lead={`Grey dates are what the 4 October forecast expected. Underneath each one is what really happened. The rains reached Garissa on the night of Thursday ${fmt(ONSET, { day: 'numeric', month: 'long' })}.`}>
         <ol className="relative m-0 list-none border-l-4 border-sand/60 p-0 pl-6">
+          <li className="relative mb-6">
+            <span className="absolute -left-[35px] top-1 flex h-6 w-6 items-center justify-center rounded-full bg-emergency text-white ring-4 ring-paper"><Siren size={13} /></span>
+            <div className="font-display text-xl font-bold">{fmt(ONSET, { weekday: 'short', day: 'numeric', month: 'long' })} (night) <span className="ml-2 rounded bg-emergency px-1.5 align-middle text-[11px] font-semibold text-white">observed</span></div>
+            <div className="text-[16px] font-semibold">The El Niño rains actually reach Garissa – flash floods in parts of the town</div>
+            <div className="text-[14px] text-muted">CSG field reports; about 30 mm at Garissa and Dadaab in that storm. <Link to="/situation" className="font-semibold text-tana-deep underline">Live situation</Link></div>
+          </li>
           {(w?.milestones || []).map((m: any, i: number) => (
             <li key={i} className="relative mb-5">
               <span className="absolute -left-[35px] top-1 flex h-6 w-6 items-center justify-center rounded-full text-white ring-4 ring-paper" style={{ background: m.scenario === 'continues' ? '#c81d25' : m.scenario === 'wet' ? '#f28c28' : '#0e7c86' }}>
                 {m.icon === 'river' || m.icon === 'peak' ? <Waves size={13} /> : m.icon === 'dam' ? <Droplets size={13} /> : m.icon === 'lagha' || m.icon === 'flash' ? <Siren size={13} /> : <CloudRain size={13} />}
               </span>
               <div className="flex flex-wrap items-baseline gap-x-3">
-                <span className="font-display text-xl font-bold">{fmt(m.date, { weekday: 'short', day: 'numeric', month: 'long' })}</span>
+                <span className="font-display text-xl font-bold text-muted line-through decoration-2">{fmt(m.date, { weekday: 'short', day: 'numeric', month: 'long' })}</span>
+                <span className="rounded bg-[#555] px-1.5 text-[11px] font-semibold text-white">forecast 4 Oct</span>
                 <span className="rounded px-1.5 text-[11px] font-semibold text-white" style={{ background: m.scenario === 'continues' ? '#c81d25' : m.scenario === 'wet' ? '#f28c28' : '#0e7c86' }}>{m.scenario === 'continues' ? 'if the burst continues' : m.scenario === 'wet' ? 'wettest model (ECMWF)' : 'all models'}</span>
               </div>
               <div className="text-[16px] font-semibold">{m.title}</div>
               <div className="text-[14px] text-muted">{m.who}</div>
+              <div className="mt-1 rounded-lg bg-[#fde0dc] px-3 py-1.5 text-[14px]"><b>What happened:</b> {actual(m, sit).text}</div>
             </li>
           ))}
         </ol>
         <div className="mt-2 rounded-2xl bg-night p-5 text-white">
-          <b className="text-sand">The short story.</b> The rain comes first to the mountains, the floods come to Garissa later. Over the next two weeks the Seven Forks dams soak up most of the first burst, so the River Tana at Garissa rises but should stay inside its banks. The danger in Garissa itself is <b>flash floods in laghas</b> during the storms of 13–16 October and on the <b>Somalia border</b> if the tropical low comes inland. If the heavy pattern keeps going after 18 October – as in 1997 and 2023 – Masinga spills and the Tana flood season at Garissa follows from early November.
+          <b className="text-sand">What the 4 October forecast said:</b> the rain comes first to the mountains, the floods come to Garissa later. Over the next two weeks the Seven Forks dams soak up most of the first burst, so the River Tana at Garissa rises but should stay inside its banks. The danger in Garissa itself is <b>flash floods in laghas</b> during the storms of 13–16 October and on the <b>Somalia border</b> if the tropical low comes inland. If the heavy pattern keeps going after 18 October – as in 1997 and 2023 – Masinga spills and the Tana flood season at Garissa follows from early November. <span className="mt-2 block text-white/90"><b className="text-sand">What happened:</b> October was dry, so none of the October dates happened. The rains arrived on the night of 12 November. The order of events – local flash floods first, then the river rising – is now playing out about four weeks later than forecast.</span>
         </div>
       </Section>
 
       {/* ---------------------------------------------------------- simulation */}
-      <Section title="The simulation" lead="Python model on the CSG server: chart rainfall → SCS runoff on the catchment → Masinga storage and spill → tributaries below the dams → 40-hour routing → Garissa rating curve. Calibrated so that the Oct–Nov 2023 rains reproduce a 6–7 m Garissa flood.">
+      <Section title="The simulation" lead="Python model on the CSG server: chart rainfall → SCS runoff on the catchment → Masinga storage and spill → tributaries below the dams → 40-hour routing → Garissa rating curve. Calibrated so that the Oct–Nov 2023 rains reproduce a 6–7 m Garissa flood. The dates on these charts are from the October run, when no rain came – use it as a what-if tool for the November rains. For today's river level use the Flood Situation Room.">
         <div className="grid gap-5 xl:grid-cols-2">
           <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
             <div className="mb-2 flex flex-wrap items-center gap-1.5">
@@ -429,7 +456,7 @@ export default function Watch() {
       </Section>
 
       {/* ---------------------------------------------------------- charts gallery */}
-      <Section title="What each model says" lead="The original charts circulated on 3–4 October 2026, with what they mean for Garissa and the Seven Forks catchment. Tap a chart to enlarge it.">
+      <Section title="What each model said on 3–4 October" lead="The original charts circulated on 3–4 October 2026. All of them expected October rain that did not come. Kept for the record. Tap a chart to enlarge it.">
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {(w?.models || []).map((m: any) => (
             <article key={m.key} className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5" style={{ borderTop: `5px solid ${m.color}` }}>
@@ -449,7 +476,7 @@ export default function Watch() {
           {[['ai_gfs_region.jpg', 'AI-GFS (region)', 'Tropical low moving from the Indian Ocean into southern Somalia, south Ethiopia and eastern Kenya over two weeks.'],
             ['ecmwf_aifs_region.jpg', 'ECMWF-AIFS (region)', 'Same tropical-low landfall signal: heavy rain belt along the equator into Somalia and eastern Kenya.'],
             ['noaa_gfs_week2.jpg', 'NOAA GFS week 2 (12–18 Oct)', 'Heavy rain along the Kenya–Somalia coast (200–500 mm offshore near Lamu/Kismayo), 30–90 mm across Kenya.'],
-            ['aicon_7d.jpg', 'AI-enhanced ICON (7 days)', 'Moderate to heavy thunderstorms on the central highlands and Lake Victoria basin this week.']].map(([f, l, d]) => (
+            ['aicon_7d.jpg', 'AI-enhanced ICON (7 days)', 'Forecast moderate to heavy thunderstorms on the central highlands in the week of 5 October (did not happen).']].map(([f, l, d]) => (
             <article key={f} className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
               <button onClick={() => setZoomImg({ src: `./img/watch/${f}`, t: l })} className="block"><img src={`./img/watch/${f}`} alt={`${l} chart`} className="aspect-[4/3] w-full object-cover object-top" loading="lazy" /></button>
               <div className="p-4"><div className="font-display text-lg font-bold">{l}</div><p className="mt-1 text-[14px]">{d}</p></div>
@@ -464,7 +491,7 @@ export default function Watch() {
       </Section>
 
       {/* ---------------------------------------------------------- community */}
-      <Section title="Messages for the community" lead="Short, plain messages for chiefs, ward administrators, radio and WhatsApp groups.">
+      <Section title="Messages for the community" lead={`Updated ${UPDATED}. Short, plain messages for chiefs, ward administrators, radio and WhatsApp groups.`}>
         <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             {(['en', 'sw', 'so'] as const).map((l) => <button key={l} onClick={() => setMsgLang(l)} className={`rounded-md px-3 py-1 text-[13px] font-semibold ${msgLang === l ? 'bg-night text-white' : 'bg-paper ring-1 ring-black/10'}`}>{l === 'en' ? 'English' : l === 'sw' ? 'Kiswahili' : 'Af-Soomaali'}</button>)}
@@ -519,7 +546,7 @@ export default function Watch() {
 
       {/* ---------------------------------------------------------- deeper analysis (1 Oct issue) */}
       <div className="border-t-4 border-sand/60 bg-white/40">
-        <Section title="Deeper analysis" lead="Seasonal background, the 1 October model showdown, Python ensemble odds, live model runs and the three-month outlook."><span /></Section>
+        <Section title="Deeper analysis (October issue)" lead="Seasonal background, the 1 October model showdown, Python ensemble odds, live model runs and the three-month outlook. Written before the season: the October onset it expected did not happen – the rains came on 12 November."><span /></Section>
         <ElNino embedded />
       </div>
 

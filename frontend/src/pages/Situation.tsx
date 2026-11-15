@@ -51,9 +51,9 @@ export default function Situation() {
 
   const headline = useMemo(() => {
     if (!g || !river) return s?.headline?.[lang] || ''
-    const d = { en: `${level}: ${g.last72.toFixed(0)} mm fell on Garissa in the last 3 days (${g.max_day[0].toFixed(0)} mm on ${fmt(g.max_day[1])}). The River Tana is ${river.trend} – flow is ${river.ratio_to_baseline}× early October. Indicative Garissa gauge ~${river.indicative_stage_now} m now, ~${river.peak_median.stage} m by ${fmt(river.peak_median.date)} (wettest run ${river.peak_wettest.stage} m).`,
-      sw: `${level}: Mvua ya mm ${g.last72.toFixed(0)} imenyesha Garissa siku 3 zilizopita. Mto Tana ${river.trend === 'rising' ? 'unazidi kupanda' : 'umetulia'} – kipimo cha Garissa kinakadiriwa mita ${river.indicative_stage_now} sasa na mita ${river.peak_median.stage} kufikia ${fmt(river.peak_median.date)}.`,
-      so: `${level}: ${g.last72.toFixed(0)} mm roob ah ayaa ka da'ay Garissa 3dii maalmood ee la soo dhaafay. Webiga Tana ${river.trend === 'rising' ? 'wuu sii kacayaa' : 'wuu degan yahay'} – cabbirka Garissa qiyaastii ${river.indicative_stage_now} m hadda, ${river.peak_median.stage} m ilaa ${fmt(river.peak_median.date)}.` }
+    const d = { en: `${level}: The rains reached Garissa on the night of Thursday 12 November. ${g.last72.toFixed(0)} mm fell on Garissa in the last 3 days (${g.max_day[0].toFixed(0)} mm on ${fmt(g.max_day[1])}). The River Tana is ${river.trend} – flow is ${river.ratio_to_baseline}× its dry early-October level. Indicative Garissa gauge ~${river.indicative_stage_now} m now, ~${river.peak_median.stage} m by ${fmt(river.peak_median.date)} (wettest run ${river.peak_wettest.stage} m).`,
+      sw: `${level}: Mvua zilifika Garissa usiku wa Alhamisi 12 Novemba. Mvua ya mm ${g.last72.toFixed(0)} imenyesha Garissa siku 3 zilizopita. Mto Tana ${river.trend === 'rising' ? 'unazidi kupanda' : 'umetulia'} – kipimo cha Garissa kinakadiriwa mita ${river.indicative_stage_now} sasa na mita ${river.peak_median.stage} kufikia ${fmt(river.peak_median.date)}.`,
+      so: `${level}: Roobabku waxay gaareen Garissa habeenkii Khamiista 12 Nofeembar. ${g.last72.toFixed(0)} mm roob ah ayaa ka da'ay Garissa 3dii maalmood ee la soo dhaafay. Webiga Tana ${river.trend === 'rising' ? 'wuu sii kacayaa' : 'wuu degan yahay'} – cabbirka Garissa qiyaastii ${river.indicative_stage_now} m hadda, ${river.peak_median.stage} m ilaa ${fmt(river.peak_median.date)}.` }
     return d[lang]
   }, [g, river, level, lang, s])
 
@@ -242,7 +242,7 @@ export default function Situation() {
             </article>
           ))}
         </div>
-        <p className="mt-3 text-[14px]"><b>In short:</b> the timing of the onset was about four weeks early, but the way the floods would unfold – mountains first, flash floods in Garissa before the river, and a River Tana flood season from November – is what is happening now. <Link to="/elnino" className="font-semibold text-tana-deep underline">See the original El Niño Watch</Link>.</p>
+        <p className="mt-3 text-[14px]"><b>In short:</b> the forecast expected the rains in October, but they only reached Garissa on the night of Thursday 12 November – about four weeks late. The timing was wrong;  the way the floods would unfold – mountains first, flash floods in Garissa before the river, and a River Tana flood season from November – is what is happening now. <Link to="/elnino" className="font-semibold text-tana-deep underline">See the original El Niño Watch</Link>.</p>
       </Section>
 
       {/* ---------------------------------------------------------- event log */}

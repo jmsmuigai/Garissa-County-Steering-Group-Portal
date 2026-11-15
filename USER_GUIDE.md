@@ -67,13 +67,15 @@ The verdict is a screening tool based on past floods and models – always follo
 
 ## 4. El Niño Watch
 
-* **This week on the weather** – week-1 onset (5–11 Oct) and week-2 main burst (12–18 Oct).
-* **16-day flood calendar** – per day: rain on the Seven Forks catchment, rain in Garissa, lagha state (dry / wet / flowing / flash flood) and the simulated River Tana level at Garissa.
+There was no rain in October. The El Niño rains reached Garissa on the night of Thursday 12 November 2026. The top of the page shows the current situation (rain, River Tana level, expected ALERT date). Everything from the 4 October forecast is kept as a record and marked **what happened**.
+
+* **Forecast vs what happened** – the 4 October weekly outlook (5–11 Oct onset, 12–18 Oct burst), each marked *did not happen*.
+* **16-day flood calendar (archived)** – the October calendar, kept for the record; per day: rain on the Seven Forks catchment, rain in Garissa, lagha state (dry / wet / flowing / flash flood) and the simulated River Tana level at Garissa.
 * **When to expect the first rains and floods** – dated milestones, tagged *all models*, *wettest model* or *if the burst continues*.
 * **The simulation** – daily rain by zone, River Tana level with Masinga fill (choose 80 / 90 / 95 % start), and three scenario cards with farms, schools, clinics, boreholes and houses at risk.
 * **Flood zones map** – focus buttons (Seven Forks catchment, Garissa riverine farms, Ewaso Ng'iro → Lagh Dera, Somalia border) and a river-level slider.
 * **Live maps** – Windy (ECMWF / GFS / ICON: rain total, rain & thunder, extreme-rain index, clouds, satellite), live Open-Meteo 16-day totals per place, NOAA CPC week-1/2 charts.
-* **Messages for the community** – English, Kiswahili, Somali; *Copy WhatsApp message*.
+* **Messages for the community** – updated 15 November; English, Kiswahili, Somali; *Copy WhatsApp message*.
 * **Switch on more live data** – OpenWeather and Gemini key steps with direct links.
 
 ## 4b. El Niño analysis (bottom of the Watch page)

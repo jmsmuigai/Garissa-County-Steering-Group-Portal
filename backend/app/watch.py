@@ -100,21 +100,27 @@ FARM_IMPACT = [
 ]
 
 COMMUNITY = {
-    "en": ["Rains start on Mt Kenya this week; the River Tana rises 2-4 days later at Garissa.",
-           "Main El Nino rains: 12-18 October. Do not cross flowing laghas – 30 cm of water can carry away a car.",
-           "Riverine farmers: harvest ready crops and lift pumps before 15 October.",
-           "Boil or treat drinking water; sleep under a mosquito net.",
-           "Emergency: Kenya Red Cross 1199 · emergency@garissa.go.ke"],
-    "sw": ["Mvua inaanza Mlima Kenya wiki hii; Mto Tana utapanda Garissa baada ya siku 2-4.",
-           "Mvua kubwa za El Nino: 12-18 Oktoba. Usivuke lagha inayotiririka – maji ya sm 30 yanaweza kusomba gari.",
-           "Wakulima wa kando ya mto: vuneni mazao yaliyo tayari na hamisheni pampu kabla ya 15 Oktoba.",
-           "Chemsha au tibu maji ya kunywa; lala ndani ya chandarua.",
-           "Dharura: Kenya Red Cross 1199 · emergency@garissa.go.ke"],
-    "so": ["Roobku wuxuu ka bilaabanayaa Buur Kenya toddobaadkan; Webiga Tana wuxuu kor u kacayaa Garissa 2-4 maalmood kadib.",
-           "Roobabka waaweyn ee El Nino: 12-18 Oktoobar. Ha ka gudbin togga socda – 30 sm oo biyo ah waxay qaadi karaan gaari.",
-           "Beeraleyda webiga agtiisa: goosta dalagga diyaarka ah oo matoorada kor u qaada ka hor 15 Oktoobar.",
-           "Karkari ama nadiifi biyaha la cabbo; ku seexo maro kaneeco.",
-           "Xaalad degdeg: Laanqeyrta Cas 1199 · emergency@garissa.go.ke"],
+    "en": [
+        "The El Niño rains reached Garissa on the night of Thursday 12 November and flooded parts of town. More heavy rain is expected this month.",
+        "The River Tana at Garissa is rising and may reach ALERT (4 m) around 19 November. Riverine farmers: move pumps, generators and livestock to higher ground now.",
+        "Do not walk or drive through flowing laghas or flooded roads – 30 cm of moving water can carry away a car.",
+        "Boil or treat drinking water; sleep under a mosquito net; clear stagnant water around homes.",
+        "Emergency: Kenya Red Cross 1199 · emergency@garissa.go.ke"
+    ],
+    "sw": [
+        "Mvua za El Niño zilifika Garissa usiku wa Alhamisi 12 Novemba na kufurika sehemu za mji. Mvua kubwa zaidi zinatarajiwa mwezi huu.",
+        "Mto Tana Garissa unapanda na huenda ukafika kiwango cha ALERT (mita 4) karibu tarehe 19 Novemba. Wakulima wa kando ya mto: hamisheni pampu, jenereta na mifugo hadi sehemu za juu sasa.",
+        "Usitembee wala kuendesha gari kupitia lagha zinazotiririka au barabara zilizofurika – maji ya sm 30 yanaweza kusomba gari.",
+        "Chemsha au tibu maji ya kunywa; lala ndani ya chandarua; ondoa maji yaliyotuama karibu na nyumba.",
+        "Dharura: Kenya Red Cross 1199 · emergency@garissa.go.ke"
+    ],
+    "so": [
+        "Roobabka El Niño waxay gaareen Garissa habeenkii Khamiista 12 Nofeembar waxayna fatahaad ku sameeyeen qaybo magaalada ka mid ah. Roob kale oo culus ayaa la filayaa bishan.",
+        "Webiga Tana ee Garissa wuu kacayaa wuxuuna gaari karaa heerka ALERT (4 m) qiyaastii 19 Nofeembar. Beeraleyda webiga: matoorada, koronto-dhaliyeyaasha iyo xoolaha u guuri meel sare hadda.",
+        "Ha ku socon hana ku wadin gaari togag socda ama waddooyin fatahaaday – 30 sm oo biyo socda ah waxay qaadi karaan gaari.",
+        "Karkari ama nadiifi biyaha la cabbo; ku seexo maro kaneeco; ka saar biyaha fadhiya guryaha agtooda.",
+        "Xaalad degdeg: Laanqeyrta Cas 1199 · emergency@garissa.go.ke"
+    ]
 }
 
 

@@ -60,7 +60,7 @@ export default function ElNino({ embedded = false }: { embedded?: boolean }) {
             <div className="grid gap-4 sm:grid-cols-2">
               <Figure src="./img/elnino_mechanism.jpg" caption="How El Niño shifts rainfall over East Africa" credit="CSG illustration" />
               <Figure src="./img/iod_infographic.jpg" caption="Positive vs negative Indian Ocean Dipole" credit="CSG illustration" />
-              <div className="sm:col-span-2"><Figure src="./img/kmd_october_2026_map.jpg" caption="KMD October 2026 rainfall forecast – above average for Garissa and the coast" credit="Kenya Meteorological Department" /></div>
+              <div className="sm:col-span-2"><Figure src="./img/kmd_october_2026_map.jpg" caption="KMD October 2026 rainfall forecast – above average for Garissa and the coast (forecast only: October turned out dry; the rains came on 12 November)" credit="Kenya Meteorological Department" /></div>
             </div>
           </div>
         </Section>
@@ -180,7 +180,7 @@ export default function ElNino({ embedded = false }: { embedded?: boolean }) {
           </div>
         </Section>
 
-        <Section title="The next three months for Garissa" lead="Stochastic daily-rainfall model (500 runs per scenario) scaled to Garissa Met Station climatology: normal October–December totals are about 180 mm.">
+        <Section title="The next three months for Garissa" lead="Stochastic daily-rainfall model (500 runs per scenario) scaled to Garissa Met Station climatology: normal October–December totals are about 180 mm. Run on 1 October assuming an October start; with no October rain, read the curves from 12 November.">
           <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
             <ChartCard title="Cumulative rain at Garissa, Oct–Dec 2026 (median and 10–90% range, mm)" icon={<CloudRain />} tall>
               <ResponsiveContainer>
@@ -207,7 +207,7 @@ export default function ElNino({ embedded = false }: { embedded?: boolean }) {
                     <td className="tabular">{s.monthly_median['10']}</td><td className="tabular">{s.monthly_median['11']}</td><td className="tabular">{s.monthly_median['12']}</td><td className="tabular">{s.prob_gt_300}%</td></tr>
                 ))}</tbody>
               </table>
-              <p className="mt-4 text-sm text-muted">KMD expects onset in the 1st–2nd week of October and cessation in the 1st–2nd week of December, with warmer-than-average temperatures (max 23–39 °C).</p>
+              <p className="mt-4 text-sm text-muted">KMD expects onset in the 1st–2nd week of October and cessation in the 1st–2nd week of December, with warmer-than-average temperatures (max 23–39 °C). <b className="text-crest">In the event the rains came late – they reached Garissa on the night of Thursday 12 November.</b></p>
             </div>
           </div>
         </Section>

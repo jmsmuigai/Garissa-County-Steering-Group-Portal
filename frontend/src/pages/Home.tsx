@@ -122,22 +122,26 @@ export default function Home() {
       </section>
 
       {/* bulletins */}
-      <Section title="Latest bulletins" lead="Official KMD products received by the CSG, and the portal's automatic situation bulletin generated from today's model runs.">
+      <Section title="Latest bulletins" lead="The latest Kenya Met products and the CSG situation bulletin, updated automatically every 3 hours. The rains reached Garissa on the night of Thursday 12 November – there was no rain in October.">
         <div className="grid gap-5 lg:grid-cols-3">
-          <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 lg:col-span-1">
-            <div className="flex items-center gap-2 text-sm text-muted"><FileText size={16} /> KMD Garissa · issued 28 Sep 2026</div>
-            <h3 className="mt-2 text-xl font-bold">Weekly forecast 29 Sep – 5 Oct</h3>
-            <p className="mt-2 text-[15px]">Light morning rain in a few places in Garissa Township and Dadaab; afternoon showers likely in Ijara, Hulugho, Fafi, Masalani, Bura and Dadaab. Max 33–35 °C, min 21–24 °C, moderate to strong south-easterly winds.</p>
-          </article>
-          <article className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-            <div className="flex items-center gap-2 text-sm text-muted"><FileText size={16} /> KMD national · issued 30 Sep 2026</div>
-            <h3 className="mt-2 text-xl font-bold">October 2026 and OND outlook</h3>
-            <p className="mt-2 text-[15px]">Above-average rainfall with higher probabilities over parts of Garissa, Tana River and the coast in October; above-average OND rain for Garissa and the whole Upper Tana. Onset 1st–2nd week of October, cessation early December. Warmer than average.</p>
-          </article>
+          {(sit?.events || []).filter((e: any) => e.kind === 'forecast').slice(-2).reverse().map((e: any) => (
+            <article key={e.title} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+              <div className="flex items-center gap-2 text-sm text-muted"><FileText size={16} /> {e.source} · {new Date(e.date + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+              <h3 className="mt-2 text-xl font-bold">{e.title}</h3>
+              {e.detail && <p className="mt-2 text-[15px]">{e.detail}</p>}
+              {e.url && <a className="mt-2 inline-block text-[13px] font-semibold text-tana-deep underline" href={e.url} target="_blank" rel="noreferrer">Read the source</a>}
+            </article>
+          ))}
           <article className="rounded-2xl bg-sand-light p-6 shadow-sm ring-1 ring-black/5">
-            <div className="flex items-center gap-2 text-sm text-muted"><Droplets size={16} /> CSG portal · auto-generated {bulletin?.engine && bulletin.engine !== 'template' ? `by ${bulletin.engine}` : ''}</div>
-            <h3 className="mt-2 text-xl font-bold">Situation bulletin</h3>
-            <pre className="mt-2 whitespace-pre-wrap font-body text-[15px]">{bulletin?.text || 'Loading…'}</pre>
+            <div className="flex items-center gap-2 text-sm text-muted"><Droplets size={16} /> CSG portal · {sit ? `issued ${new Date(sit.issued).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}` : 'auto-generated'}</div>
+            <h3 className="mt-2 text-xl font-bold">Situation bulletin{sit ? ` – ${sit.level}` : ''}</h3>
+            {sit ? (
+              <div className="mt-2 text-[15px]">
+                <p className="m-0">{sit.headline?.en?.replace(/^[A-Z]+: /, '')}</p>
+                <ul className="mt-2 list-disc space-y-1 pl-5">{(sit.actions || []).map((a: string) => <li key={a}>{a}</li>)}</ul>
+                <Link to="/situation" className="mt-2 inline-block font-semibold text-tana-deep underline">Open the Flood Situation Room</Link>
+              </div>
+            ) : <pre className="mt-2 whitespace-pre-wrap font-body text-[15px]">{bulletin?.text || 'Loading…'}</pre>}
           </article>
         </div>
       </Section>

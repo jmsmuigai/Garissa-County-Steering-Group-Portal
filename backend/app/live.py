@@ -58,6 +58,19 @@ GIBS_FLOOD = "MODIS_Combined_Flood_3-Day"
 LEVELS = ["NORMAL", "WATCH", "ALERT", "ALARM", "EMERGENCY"]
 
 
+# Observed onset of the 2026 El Nino short rains in Garissa (CSG field reports, 15 Nov 2026).
+ONSET_DATE = "2026-11-12"
+ONSET = {"en": "The rains reached Garissa on the night of Thursday 12 November.", "sw": "Mvua zilifika Garissa usiku wa Alhamisi 12 Novemba.", "so": "Roobabku waxay gaareen Garissa habeenkii Khamiista 12 Nofeembar."}
+
+
+def _d(iso: str) -> str:
+    """'2026-11-13' -> '13 Nov'."""
+    try:
+        d = dt.date.fromisoformat(str(iso)[:10]); return f"{d.day} {d:%b}"
+    except ValueError:
+        return str(iso)
+
+
 def now_eat() -> dt.datetime:
     return dt.datetime.now(TZ)
 
@@ -266,13 +279,13 @@ def analyse(rain: dict, river: dict, sat: list[dict], gauges: list[dict], issued
     cloudy = sat_latest and sat_latest["cloud_pct"] >= 60
 
     headline = {
-        "en": f"{level}: {g['last72']:.0f} mm fell on Garissa in the last 3 days ({g['max_day'][0]:.0f} mm on {g['max_day'][1]}). "
-              f"The River Tana is {trend} – flow is {river_out['ratio_to_baseline']}× early October. "
-              f"Indicative Garissa gauge ~{st_now} m now, ~{st_peak} m by {peak_med[0]} (wettest run {st_wet} m).",
-        "sw": f"{level}: Mvua ya mm {g['last72']:.0f} imenyesha Garissa siku 3 zilizopita. Mto Tana unazidi kupanda – "
-              f"kiwango cha kipimo cha Garissa kinakadiriwa mita {st_now} sasa na mita {st_peak} kufikia {peak_med[0]}.",
-        "so": f"{level}: {g['last72']:.0f} mm roob ah ayaa ka da'ay Garissa 3dii maalmood ee la soo dhaafay. Webiga Tana wuu sii kacayaa – "
-              f"cabbirka Garissa qiyaastii {st_now} m hadda, {st_peak} m ilaa {peak_med[0]}.",
+        "en": f"{level}: {ONSET['en']} {g['last72']:.0f} mm fell on Garissa in the last 3 days ({g['max_day'][0]:.0f} mm on {_d(g['max_day'][1])}). "
+              f"The River Tana is {trend} – flow is {river_out['ratio_to_baseline']}× its dry early-October level. "
+              f"Indicative Garissa gauge ~{st_now} m now, ~{st_peak} m by {_d(peak_med[0])} (wettest run {st_wet} m).",
+        "sw": f"{level}: {ONSET['sw']} Mvua ya mm {g['last72']:.0f} imenyesha Garissa siku 3 zilizopita. Mto Tana unazidi kupanda – "
+              f"kiwango cha kipimo cha Garissa kinakadiriwa mita {st_now} sasa na mita {st_peak} kufikia {_d(peak_med[0])}.",
+        "so": f"{level}: {ONSET['so']} {g['last72']:.0f} mm roob ah ayaa ka da'ay Garissa 3dii maalmood ee la soo dhaafay. Webiga Tana wuu sii kacayaa – "
+              f"cabbirka Garissa qiyaastii {st_now} m hadda, {st_peak} m ilaa {_d(peak_med[0])}.",
     }
     actions = [
         "Riverine farmers: move pumps, generators and livestock off the floodplain now – do not wait for the river to reach 4 m.",
@@ -311,9 +324,9 @@ def verification() -> list[dict]:
     """How the 4 Oct 2026 El Nino Watch forecast compares with what happened (honest scorecard)."""
     return [
         {"claim": "El Nino rains would start on Mt Kenya 5-11 Oct and peak 12-18 Oct", "result": "missed",
-         "evidence": "Onset was delayed: FEWS NET (13 Nov) reports a drier- and hotter-than-average September-October; widespread rain came from the second week of November."},
+         "evidence": "Onset was delayed: FEWS NET (13 Nov) reports a drier- and hotter-than-average September-October; the rains only reached Garissa on the night of Thursday 12 November – about four weeks after the forecast onset."},
         {"claim": "Rain reaches the mountains first and the River Tana at Garissa rises later", "result": "right",
-         "evidence": "GloFAS shows the Tana at Garissa rising from late October and tripling by mid-November, after rain over the Seven Forks catchment."},
+         "evidence": "GloFAS shows the Tana at Garissa well above its dry early-October flow by mid-November and still rising after the Garissa storms – the river follows the rain, it does not lead it."},
         {"claim": "The first danger in Garissa town is flash flooding from local storms, before the river floods", "result": "right",
          "evidence": "Heavy rain on the night of Thursday 12 Nov flooded parts of Garissa (CSG field reports; ~30 mm at Garissa and Dadaab on 13 Nov in Open-Meteo analysis) while the Tana was still below alert."},
         {"claim": "If heavy rain persists, the Tana flood season at Garissa runs from November, near 4 m", "result": "on track",

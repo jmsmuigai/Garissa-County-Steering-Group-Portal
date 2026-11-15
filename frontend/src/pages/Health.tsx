@@ -53,7 +53,7 @@ export default function Health() {
           </div>
         </Section>
 
-        <Section id="risk" title="Disease risk calendar, Oct – Dec 2026" lead="Python lag-kernel model: each disease responds to rainfall after its own documented delay (2–7 days for diarrhoea, 3–6 weeks for malaria and RVF). Risk is a 0–100 index, not a case count.">
+        <Section id="risk" title="Disease risk calendar, Nov 2026 – Jan 2027" lead="Modelled in October for an October start; the rains actually began on 12 November, so add about four weeks to every date: diarrhoea and cholera risk from mid-November, malaria and RVF from mid-December. Python lag-kernel model: each disease responds to rainfall after its own documented delay (2–7 days for diarrhoea, 3–6 weeks for malaria and RVF). Risk is a 0–100 index, not a case count.">
           <div className="mb-4 flex flex-wrap gap-2">
             {SCEN.map((s) => (
               <button key={s.k} onClick={() => setScn(s.k)} className={`rounded-xl px-4 py-2 font-semibold ${scn === s.k ? 'bg-crest text-white' : 'bg-white ring-1 ring-black/10'}`}>{s.label}</button>

@@ -129,7 +129,7 @@ export default function Tana() {
         </div>
       </Section>
 
-      <Section id="forecast" title="River Tana gauge forecast at Garissa" lead="Python hydrology chain: model rainfall → SCS-CN runoff on the 7,300 km² Masinga catchment → reservoir routing → Muskingum routing (K 30 h) → Garissa rating curve.">
+      <Section id="forecast" title="River Tana gauge forecast at Garissa" lead="Python hydrology chain: model rainfall → SCS-CN runoff on the 7,300 km² Masinga catchment → reservoir routing → Muskingum routing (K 30 h) → Garissa rating curve. These runs were made on 1 October for rain that did not come in October; the rains started on 12 November. For the current river level and forecast use the Flood Situation Room.">
         <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
           <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
             <div className="h-[380px]">
