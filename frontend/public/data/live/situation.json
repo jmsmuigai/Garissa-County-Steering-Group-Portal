@@ -1,8 +1,8 @@
 {
- "issued": "2026-11-25T02:53+03:00",
+ "issued": "2026-11-25T11:32+03:00",
  "level": "ALERT",
  "headline": {
-  "en": "ALERT: The rains reached Garissa on the night of Thursday 12 November. 6 mm fell on Garissa in the last 3 days (30 mm on 13 Nov). The River Tana is rising – flow is 4.3× its dry early-October level. Indicative Garissa gauge ~4.36 m now, ~4.41 m by 26 Nov (wettest run 5.25 m).",
+  "en": "ALERT: The rains reached Garissa on the night of Thursday 12 November. 6 mm fell on Garissa in the last 3 days (30 mm on 13 Nov). The River Tana is rising – flow is 4.4× its dry early-October level. Indicative Garissa gauge ~4.36 m now, ~4.41 m by 26 Nov (wettest run 5.25 m).",
   "sw": "ALERT: Mvua zilifika Garissa usiku wa Alhamisi 12 Novemba. Mvua ya mm 6 imenyesha Garissa siku 3 zilizopita. Mto Tana unazidi kupanda – kiwango cha kipimo cha Garissa kinakadiriwa mita 4.36 sasa na mita 4.41 kufikia 26 Nov.",
   "so": "ALERT: Roobabku waxay gaareen Garissa habeenkii Khamiista 12 Nofeembar. 6 mm roob ah ayaa ka da'ay Garissa 3dii maalmood ee la soo dhaafay. Webiga Tana wuu sii kacayaa – cabbirka Garissa qiyaastii 4.36 m hadda, 4.41 m ilaa 26 Nov."
  },
@@ -70,16 +70,16 @@
     0.7,
     3.8,
     1.3,
-    1.3,
-    2.9,
     0.4,
-    0.3,
+    0.6,
+    0.5,
+    0.1,
     0.0,
-    1.5,
-    2.4,
-    1.2,
+    0.6,
     0.0,
-    1.2
+    1.8,
+    0.2,
+    1.0
    ],
    "dadaab": [
     0.7,
@@ -103,16 +103,16 @@
     1.1,
     3.2,
     1.0,
+    1.2,
+    3.8,
+    0.9,
     0.2,
-    4.5,
-    1.0,
     0.0,
+    1.5,
     0.0,
-    3.9,
-    8.4,
-    3.0,
-    0.0,
-    1.8
+    2.4,
+    1.6,
+    12.2
    ],
    "hulugho": [
     2.5,
@@ -136,16 +136,16 @@
     1.3,
     4.0,
     3.9,
-    1.8,
-    3.4,
-    2.0,
-    1.2,
-    0.3,
-    3.3,
-    1.8,
+    0.8,
+    1.7,
+    2.8,
+    0.7,
     0.0,
+    1.5,
+    0.6,
     0.0,
-    3.6
+    0.6,
+    6.6
    ],
    "masalani": [
     0.0,
@@ -169,16 +169,16 @@
     7.3,
     2.7,
     0.3,
-    0.9,
-    0.9,
-    1.2,
     0.3,
-    0.0,
-    2.7,
-    0.0,
+    0.6,
+    0.9,
+    0.1,
     0.0,
     1.2,
-    0.6
+    1.8,
+    0.0,
+    2.4,
+    1.2
    ],
    "bura": [
     0.2,
@@ -202,16 +202,16 @@
     1.9,
     2.5,
     1.7,
-    0.3,
-    2.9,
-    1.5,
+    0.1,
+    0.4,
+    1.3,
+    0.1,
     0.0,
-    0.0,
-    2.1,
     1.2,
     0.6,
-    0.0,
-    1.2
+    0.6,
+    0.6,
+    0.6
    ],
    "modogashe": [
     0.0,
@@ -235,16 +235,16 @@
     3.0,
     1.8,
     0.7,
-    0.2,
+    0.5,
     0.8,
-    0.6,
+    0.3,
+    0.1,
     0.0,
     0.0,
-    0.6,
-    4.2,
-    6.6,
-    0.0,
-    1.2
+    1.8,
+    9.8,
+    3.0,
+    7.6
    ],
    "embu": [
     0.7,
@@ -268,16 +268,16 @@
     3.8,
     1.0,
     2.6,
-    3.5,
-    4.2,
-    4.6,
-    3.1,
-    0.0,
-    1.5,
-    3.0,
-    2.4,
-    0.6,
-    0.0
+    2.3,
+    4.7,
+    1.9,
+    2.0,
+    0.3,
+    2.1,
+    1.2,
+    2.0,
+    2.8,
+    1.8
    ],
    "meru": [
     2.2,
@@ -301,16 +301,16 @@
     7.9,
     5.9,
     3.5,
-    4.5,
-    3.1,
-    4.0,
-    3.4,
+    5.5,
+    3.5,
+    2.8,
+    2.8,
     2.7,
-    4.3,
-    14.0,
-    9.0,
-    1.2,
-    1.0
+    3.6,
+    8.2,
+    8.2,
+    2.2,
+    3.6
    ],
    "nyeri": [
     0.9,
@@ -334,16 +334,16 @@
     6.9,
     2.5,
     4.3,
-    6.7,
-    7.3,
-    6.4,
-    4.3,
-    2.1,
-    1.6,
-    15.2,
-    3.0,
-    1.8,
-    2.4
+    4.6,
+    5.7,
+    9.3,
+    4.6,
+    1.5,
+    1.5,
+    11.7,
+    5.0,
+    2.2,
+    1.2
    ],
    "masinga": [
     4.6,
@@ -367,16 +367,16 @@
     3.5,
     6.3,
     1.7,
+    6.7,
+    6.0,
+    4.7,
     3.4,
-    4.5,
-    5.5,
-    4.2,
-    0.4,
-    0.4,
-    4.4,
-    3.6,
     0.6,
-    0.2
+    2.4,
+    0.8,
+    5.4,
+    1.6,
+    0.8
    ],
    "nanyuki": [
     0.2,
@@ -400,16 +400,16 @@
     2.4,
     2.0,
     2.7,
-    2.1,
+    1.7,
+    3.3,
+    1.4,
     3.2,
-    1.6,
     2.4,
-    1.5,
-    1.5,
+    3.0,
+    1.8,
     1.8,
     1.2,
-    0.6,
-    0.6
+    0.8
    ]
   },
   "places": {
@@ -422,8 +422,8 @@
     "last72": 5.8,
     "last7d": 13.4,
     "last21d": 82.5,
-    "next3d": 4.6,
-    "next10d": 11.2,
+    "next3d": 1.5,
+    "next10d": 5.2,
     "max_day": [
      29.7,
      "2026-11-13"
@@ -438,8 +438,8 @@
     "last72": 5.3,
     "last7d": 12.4,
     "last21d": 79.1,
-    "next3d": 5.7,
-    "next10d": 22.8,
+    "next3d": 5.9,
+    "next10d": 23.8,
     "max_day": [
      29.4,
      "2026-11-13"
@@ -454,8 +454,8 @@
     "last72": 9.2,
     "last7d": 22.7,
     "last21d": 93.0,
-    "next3d": 7.2,
-    "next10d": 17.4,
+    "next3d": 5.3,
+    "next10d": 15.3,
     "max_day": [
      8.5,
      "2026-11-13"
@@ -470,8 +470,8 @@
     "last72": 10.3,
     "last7d": 32.5,
     "last21d": 87.9,
-    "next3d": 3.0,
-    "next10d": 7.8,
+    "next3d": 1.8,
+    "next10d": 8.5,
     "max_day": [
      11.7,
      "2026-11-14"
@@ -486,8 +486,8 @@
     "last72": 6.1,
     "last7d": 20.1,
     "last21d": 103.1,
-    "next3d": 4.7,
-    "next10d": 9.8,
+    "next3d": 1.8,
+    "next10d": 5.5,
     "max_day": [
      23.4,
      "2026-11-13"
@@ -503,7 +503,7 @@
     "last7d": 11.0,
     "last21d": 43.9,
     "next3d": 1.6,
-    "next10d": 14.2,
+    "next10d": 23.9,
     "max_day": [
      7.1,
      "2026-11-09"
@@ -518,8 +518,8 @@
     "last72": 7.4,
     "last7d": 19.8,
     "last21d": 88.5,
-    "next3d": 12.3,
-    "next10d": 22.9,
+    "next3d": 8.9,
+    "next10d": 21.1,
     "max_day": [
      14.2,
      "2026-11-13"
@@ -534,8 +534,8 @@
     "last72": 17.3,
     "last7d": 45.2,
     "last21d": 142.0,
-    "next3d": 11.6,
-    "next10d": 47.2,
+    "next3d": 11.8,
+    "next10d": 43.1,
     "max_day": [
      18.1,
      "2026-11-13"
@@ -550,8 +550,8 @@
     "last72": 13.7,
     "last7d": 50.2,
     "last21d": 152.3,
-    "next3d": 20.4,
-    "next10d": 50.8,
+    "next3d": 19.6,
+    "next10d": 47.3,
     "max_day": [
      25.4,
      "2026-11-17"
@@ -566,8 +566,8 @@
     "last72": 11.5,
     "last7d": 31.4,
     "last21d": 136.8,
-    "next3d": 13.4,
-    "next10d": 27.2,
+    "next3d": 17.4,
+    "next10d": 32.4,
     "max_day": [
      15.8,
      "2026-11-05"
@@ -582,8 +582,8 @@
     "last72": 7.1,
     "last7d": 17.6,
     "last21d": 67.4,
-    "next3d": 6.9,
-    "next10d": 16.5,
+    "next3d": 6.4,
+    "next10d": 20.6,
     "max_day": [
      8.6,
      "2026-11-10"
@@ -591,7 +591,7 @@
    }
   },
   "catchment_last7d": 36.6,
-  "catchment_next10d": 37.0,
+  "catchment_next10d": 36.0,
   "garissa_state": "DRY"
  },
  "river": {
@@ -601,8 +601,8 @@
   ],
   "q_now": 191.8,
   "q_7days_ago": 175.6,
-  "q_baseline_early_oct": 44.3,
-  "ratio_to_baseline": 4.3,
+  "q_baseline_early_oct": 43.2,
+  "ratio_to_baseline": 4.4,
   "trend": "rising",
   "pct_change_7d": 9,
   "indicative_stage_now": 4.36,
@@ -623,15 +623,6 @@
   "first_alert_wettest": "2026-11-25",
   "official_latest": null,
   "series": [
-   {
-    "date": "2026-09-25",
-    "q": 48.55,
-    "p75": 48.6,
-    "max": 48.66,
-    "stage": 2.17,
-    "stage_wet": 2.18,
-    "forecast": false
-   },
    {
     "date": "2026-09-26",
     "q": 49.12,
@@ -1432,6 +1423,15 @@
     "stage": 3.65,
     "stage_wet": 5.19,
     "forecast": true
+   },
+   {
+    "date": "2026-12-24",
+    "q": 130.52,
+    "p75": 148.65,
+    "max": 306.61,
+    "stage": 3.59,
+    "stage_wet": 5.24,
+    "forecast": true
    }
   ]
  },
@@ -1654,7 +1654,7 @@
  ],
  "gauge_readings": [],
  "health": {
-  "checked": "2026-11-25T02:53+03:00",
+  "checked": "2026-11-25T11:32+03:00",
   "open_meteo_rain": "ok",
   "glofas_river": "ok",
   "nasa_gibs_modis_flood": "ok"
