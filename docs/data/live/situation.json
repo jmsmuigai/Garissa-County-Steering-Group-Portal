@@ -1,8 +1,8 @@
 {
- "issued": "2026-11-28T02:27+03:00",
+ "issued": "2026-11-28T10:47+03:00",
  "level": "ALERT",
  "headline": {
-  "en": "ALERT: The rains reached Garissa on the night of Thursday 12 November. 2 mm fell on Garissa in the last 3 days (30 mm on 13 Nov). The River Tana is steady – flow is 4.5× its dry early-October level. Indicative Garissa gauge ~4.25 m now, ~4.25 m by 28 Nov (wettest run 5.01 m).",
+  "en": "ALERT: The rains reached Garissa on the night of Thursday 12 November. 2 mm fell on Garissa in the last 3 days (30 mm on 13 Nov). The River Tana is steady – flow is 4.6× its dry early-October level. Indicative Garissa gauge ~4.25 m now, ~4.25 m by 28 Nov (wettest run 5.01 m).",
   "sw": "ALERT: Mvua zilifika Garissa usiku wa Alhamisi 12 Novemba. Mvua ya mm 2 imenyesha Garissa siku 3 zilizopita. Mto Tana unazidi kupanda – kiwango cha kipimo cha Garissa kinakadiriwa mita 4.25 sasa na mita 4.25 kufikia 28 Nov.",
   "so": "ALERT: Roobabku waxay gaareen Garissa habeenkii Khamiista 12 Nofeembar. 2 mm roob ah ayaa ka da'ay Garissa 3dii maalmood ee la soo dhaafay. Webiga Tana wuu sii kacayaa – cabbirka Garissa qiyaastii 4.25 m hadda, 4.25 m ilaa 28 Nov."
  },
@@ -601,8 +601,8 @@
   ],
   "q_now": 182.2,
   "q_7days_ago": 194.9,
-  "q_baseline_early_oct": 40.7,
-  "ratio_to_baseline": 4.5,
+  "q_baseline_early_oct": 39.4,
+  "ratio_to_baseline": 4.6,
   "trend": "steady",
   "pct_change_7d": -6,
   "indicative_stage_now": 4.25,
@@ -623,15 +623,6 @@
   "first_alert_wettest": "2026-11-28",
   "official_latest": null,
   "series": [
-   {
-    "date": "2026-09-28",
-    "q": 48.09,
-    "p75": 48.09,
-    "max": 48.09,
-    "stage": 2.16,
-    "stage_wet": 2.16,
-    "forecast": false
-   },
    {
     "date": "2026-09-29",
     "q": 46.53,
@@ -1432,6 +1423,15 @@
     "stage": 3.43,
     "stage_wet": 4.83,
     "forecast": true
+   },
+   {
+    "date": "2026-12-27",
+    "q": 111.46,
+    "p75": 129.77,
+    "max": 219.8,
+    "stage": 3.31,
+    "stage_wet": 4.68,
+    "forecast": true
    }
   ]
  },
@@ -1654,8 +1654,8 @@
  ],
  "gauge_readings": [],
  "health": {
-  "checked": "2026-11-28T02:27+03:00",
-  "open_meteo_rain": "ok",
+  "checked": "2026-11-28T10:47+03:00",
+  "open_meteo_rain": "failed: ConnectTimeout: _ssl.c:994: The handshake operation timed out",
   "glofas_river": "ok",
   "nasa_gibs_modis_flood": "ok"
  }
